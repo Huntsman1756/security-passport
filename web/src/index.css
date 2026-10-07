@@ -1,0 +1,45 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --accent: #4f7cff;
+  --surface: #ffffff;
+  --surface-2: #f4f5f7;
+  --ink: #171a1f;
+  --ink-2: #4c5562;
+  --line: #dde1e7;
+  color-scheme: light;
+}
+
+.dark {
+  --surface: #0d1117;
+  --surface-2: #141a22;
+  --ink: #e3e8ef;
+  --ink-2: #96a1b1;
+  --line: #232b38;
+  color-scheme: dark;
+}
+
+html {
+  font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  font-feature-settings: "cv02", "cv03", "cv04", "tnum";
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.mono, code, .num {
+  font-family: "JetBrains Mono", "Cascadia Mono", ui-monospace,
+    SFMono-Regular, Menlo, Consolas, monospace;
+  font-feature-settings: "zero";
+}
+
+::selection {
+  background: color-mix(in srgb, var(--accent) 28%, transparent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
