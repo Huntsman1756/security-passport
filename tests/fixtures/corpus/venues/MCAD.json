@@ -1,0 +1,29 @@
+{
+ "country": "IT",
+ "market_category": "MLTF",
+ "market_name": "MTS CASH DOMESTIC - MTF",
+ "mic": "MCAD",
+ "operating_mic": "MTSO",
+ "operator": "MTS S.P.A.",
+ "operator_lei": "213800ZMKPUV1VKLCT69",
+ "registry_sha256": "79de0f7704e260bd49b0d2439f3084891cabc93481da8bdbaa716e15a27211ed",
+ "rulebooks": [
+  {
+   "documents": [],
+   "family": "mts-bondvision",
+   "matched_mics": [
+    "BOND",
+    "EBMX",
+    "MCAD",
+    "MSWP",
+    "MTSC",
+    "MTSM",
+    "MTSO",
+    "SSOB"
+   ],
+   "name": "MTS / BondVision",
+   "state": "NOT_IN_CORPUS"
+  }
+ ],
+ "segment_mic": "MCAD"
+}

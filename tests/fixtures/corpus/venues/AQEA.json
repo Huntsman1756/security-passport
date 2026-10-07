@@ -1,0 +1,25 @@
+{
+ "country": "FR",
+ "market_category": "MLTF",
+ "market_name": "AQUIS EXCHANGE EUROPE AUCTION ON DEMAND (AOD)",
+ "mic": "AQEA",
+ "operating_mic": "AQEU",
+ "operator": "AQUIS EXCHANGE EUROPE",
+ "operator_lei": "9695002NSIQWF9A09R56",
+ "registry_sha256": "79de0f7704e260bd49b0d2439f3084891cabc93481da8bdbaa716e15a27211ed",
+ "rulebooks": [
+  {
+   "documents": [],
+   "family": "aquis",
+   "matched_mics": [
+    "AQEA",
+    "AQED",
+    "AQEU",
+    "AVEU"
+   ],
+   "name": "Aquis",
+   "state": "NOT_IN_CORPUS"
+  }
+ ],
+ "segment_mic": "AQEA"
+}

@@ -44,6 +44,27 @@ class QualityFlag(str, Enum):
     SCHEMA_MIGRATION = "schema_migration"
 
 
+class TemporalAnswerState(str, Enum):
+    """What the available evidence can honestly support at a
+    requested date — orthogonal to ``FieldStatus``.
+
+    AVAILABLE          — evidence admissible at T supports the
+                         block's answer.
+    PARTIAL            — part of the block is admissible at T; the
+                         rest is explicitly marked.
+    OUTSIDE_COVERAGE   — T precedes (or follows) the coverage we
+                         can defend; no current value is
+                         substituted.
+    UNAVAILABLE        — the source family has no temporal
+                         semantics we can honour.
+    """
+
+    AVAILABLE = "available"
+    PARTIAL = "partial"
+    OUTSIDE_COVERAGE = "outside_coverage"
+    UNAVAILABLE = "unavailable"
+
+
 class TemporalBasis(str, Enum):
     """How the temporal coverage behind a field was obtained."""
 

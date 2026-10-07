@@ -60,6 +60,7 @@ class Passport:
     warnings: list[str] = field(default_factory=list)
     passport_id: str = ""
     valid_checksum: bool = True
+    as_of: str | None = None
 
     def blocks(self) -> list[PassportBlock]:
         return [self.identity, self.primary_market,
@@ -76,6 +77,8 @@ class Passport:
             "generation": self.generation,
             "openinstrument_generation": self.openinstrument_generation,
             "overall_state": self.overall_state,
+            **({"query": {"as_of": self.as_of}}
+               if self.as_of else {}),
             "identity": self.identity.to_dict(),
             "primary_market": self.primary_market.to_dict(),
             "secondary_market": self.secondary_market.to_dict(),

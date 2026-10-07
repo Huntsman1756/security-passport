@@ -1,0 +1,12 @@
+{
+ "country": "FR",
+ "market_category": "OTFS",
+ "market_name": "ICAP EU - OTF",
+ "mic": "ICOT",
+ "operating_mic": "ICOT",
+ "operator": "ICAP EU - OTF",
+ "operator_lei": "213800R54EFFINMY1P02",
+ "registry_sha256": "79de0f7704e260bd49b0d2439f3084891cabc93481da8bdbaa716e15a27211ed",
+ "rulebooks": [],
+ "segment_mic": "ICOT"
+}

@@ -1,0 +1,12 @@
+{
+ "country": "NL",
+ "market_category": "RMKT",
+ "market_name": "BROKERTEC EU REGULATED MARKET - RFQ TRADING PROTOCOL",
+ "mic": "BTQE",
+ "operating_mic": "BTAM",
+ "operator": "CME AMSTERDAM B.V.",
+ "operator_lei": "2138004TYNQCB7MLTG76",
+ "registry_sha256": "79de0f7704e260bd49b0d2439f3084891cabc93481da8bdbaa716e15a27211ed",
+ "rulebooks": [],
+ "segment_mic": "BTQE"
+}

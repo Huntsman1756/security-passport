@@ -60,6 +60,7 @@ class _State:
         self.settings = settings
         self.provider: InstrumentProvider | None = None
         self.store: PassportStore | None = None
+        self.venue: Any = None
         self.provider_error: str = ""
         self.store_error: str = ""
         self.started = time.time()
@@ -94,6 +95,27 @@ class _State:
         except Exception as e:
             self.store_error = f"{type(e).__name__}: {e}"
             self.store = None
+        # VenueContextProvider — optional OpenVenue wiring;
+        # absent → fixture corpus venues dir → None (degrades
+        # venue context fields to unconfigured).
+        try:
+            import os
+
+            from security_passport.providers.venue_context import (
+                FixtureVenueProvider,
+                OpenVenueProvider,
+            )
+            ov_url = os.environ.get("OPENVENUE_URL", "")
+            if ov_url:
+                self.venue = OpenVenueProvider(ov_url)
+            else:
+                vdir = (s.fixtures_dir / "venues"
+                        if s.provider != "openinstrument_api"
+                        else s.data_root / "read" / "venues")
+                self.venue = (FixtureVenueProvider(vdir.parent)
+                              if vdir.exists() else None)
+        except Exception:
+            self.venue = None
 
 
 def create_app(settings: Settings | None = None) -> FastAPI:
@@ -155,6 +177,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     @app.get("/api/v1/passports/{isin}")
     def passport(isin: str,
+                 as_of: str | None = Query(
+                     None, pattern=r"^\d{4}-\d{2}-\d{2}$"),
                  st: _State = Depends(_deps)) -> JSONResponse:
         isin_n = normalize(isin)
         if not checksum_ok(isin_n):
@@ -168,15 +192,20 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if st.store is None:
             return _err("DATASET_NOT_READY",
                         st.store_error or "no generation", 503)
-        builder = PassportBuilder(st.provider, st.store)
+        builder = PassportBuilder(st.provider, st.store,
+                                      venue=st.venue)
         try:
-            p = builder.build(isin_n, checksum_ok=True)
+            p = builder.build(isin_n, checksum_ok=True,
+                              as_of=as_of)
+        except ValueError:
+            return _err("INVALID_AS_OF",
+                        f"'{as_of}' is not a valid ISO date", 422)
         except ProviderError as e:
             return _err("SOURCE_UNAVAILABLE", str(e), 503)
         body = json.dumps(p.to_dict(), ensure_ascii=False)
         etag = hashlib.sha256(
             f"{p.generation}:{p.openinstrument_generation}:"
-            f"{isin_n}:1".encode()).hexdigest()[:16]
+            f"{isin_n}:{as_of or 'now'}".encode()).hexdigest()[:16]
         resp = JSONResponse(content=json.loads(body))
         resp.headers["ETag"] = f'"{etag}"'
         resp.headers["Cache-Control"] = "public, max-age=60"
@@ -193,7 +222,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if st.provider is None or st.store is None:
             return _err("SOURCE_UNAVAILABLE",
                         st.provider_error or st.store_error, 503)
-        p = PassportBuilder(st.provider, st.store).build(
+        p = PassportBuilder(st.provider, st.store,
+                            venue=st.venue).build(
             isin_n, checksum_ok=True)
         evs = []
         for block in p.blocks():
@@ -217,7 +247,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if st.provider is None or st.store is None:
             return _err("SOURCE_UNAVAILABLE",
                         st.provider_error or st.store_error, 503)
-        p = PassportBuilder(st.provider, st.store).build(
+        p = PassportBuilder(st.provider, st.store,
+                            venue=st.venue).build(
             isin_n, checksum_ok=True)
         return JSONResponse(content={
             "isin": isin_n,

@@ -1,0 +1,50 @@
+{
+ "country": "ES",
+ "market_category": "RMKT",
+ "market_name": "SEND - SISTEMA ELECTRONICO DE NEGOCIACION DE DEUDA",
+ "mic": "SEND",
+ "operating_mic": "BMEX",
+ "operator": "BME - BOLSAS Y MERCADOS ESPANOLES",
+ "operator_lei": "9598003MSLCX8JT38V69",
+ "registry_sha256": "79de0f7704e260bd49b0d2439f3084891cabc93481da8bdbaa716e15a27211ed",
+ "rulebooks": [
+  {
+   "documents": [],
+   "family": "bme-equity",
+   "matched_mics": [
+    "BMEX",
+    "DMAD",
+    "XBAR",
+    "XBIL",
+    "XMAD",
+    "XVAL"
+   ],
+   "name": "BME renta variable",
+   "state": "NOT_IN_CORPUS"
+  },
+  {
+   "documents": [],
+   "family": "bme-fixed-income",
+   "matched_mics": [
+    "MARF",
+    "MERF",
+    "SBAR",
+    "SBIL",
+    "SEND",
+    "XDRF"
+   ],
+   "name": "BME renta fija",
+   "state": "NOT_IN_CORPUS"
+  },
+  {
+   "documents": [],
+   "family": "bme-growth",
+   "matched_mics": [
+    "GROW"
+   ],
+   "name": "BME Growth",
+   "state": "NOT_IN_CORPUS"
+  }
+ ],
+ "segment_mic": "SEND"
+}

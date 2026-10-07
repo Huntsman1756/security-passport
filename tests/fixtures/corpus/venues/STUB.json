@@ -1,0 +1,36 @@
+{
+ "country": "DE",
+ "market_category": "MLTF",
+ "market_name": "BOERSE STUTTGART - FREIVERKEHR",
+ "mic": "STUB",
+ "operating_mic": "XSTU",
+ "operator": "BOERSE STUTTGART GMBH",
+ "operator_lei": "529900A0WHA0NVXY0G45",
+ "registry_sha256": "79de0f7704e260bd49b0d2439f3084891cabc93481da8bdbaa716e15a27211ed",
+ "rulebooks": [
+  {
+   "documents": [],
+   "family": "stuttgart",
+   "matched_mics": [
+    "EUWX",
+    "STUA",
+    "STUB",
+    "STUC",
+    "STUD",
+    "STUE",
+    "STUF",
+    "STUH",
+    "STUJ",
+    "STUL",
+    "XCTS",
+    "XDEX",
+    "XSTF",
+    "XSTP",
+    "XSTU"
+   ],
+   "name": "B\u00f6rse Stuttgart",
+   "state": "NOT_IN_CORPUS"
+  }
+ ],
+ "segment_mic": "STUB"
+}

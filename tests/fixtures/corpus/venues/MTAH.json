@@ -1,0 +1,37 @@
+{
+ "country": "IT",
+ "market_category": "MLTF",
+ "market_name": "BORSA ITALIANA - TRADING AFTER HOURS",
+ "mic": "MTAH",
+ "operating_mic": "XMIL",
+ "operator": "BORSA ITALIANA S.P.A.",
+ "operator_lei": "8156005391EE905D3124",
+ "registry_sha256": "79de0f7704e260bd49b0d2439f3084891cabc93481da8bdbaa716e15a27211ed",
+ "rulebooks": [
+  {
+   "documents": [],
+   "family": "borsa-italiana",
+   "matched_mics": [
+    "ATFX",
+    "BGEM",
+    "DMIL",
+    "ETFP",
+    "ETLX",
+    "EXGM",
+    "MACX",
+    "MIVX",
+    "MOTX",
+    "MTAA",
+    "MTAH",
+    "SEDX",
+    "XAIM",
+    "XDMI",
+    "XMIL",
+    "XMOT"
+   ],
+   "name": "Borsa Italiana / Euronext Milan",
+   "state": "NOT_IN_CORPUS"
+  }
+ ],
+ "segment_mic": "MTAH"
+}

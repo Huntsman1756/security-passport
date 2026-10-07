@@ -21,9 +21,11 @@ function F(
 
 export function PassportPage() {
   const { isin = "" } = useParams();
+  const asOf = new URLSearchParams(window.location.search)
+    .get("as_of") ?? undefined;
   const q = useQuery({
-    queryKey: ["passport", isin],
-    queryFn: () => fetchPassport(isin),
+    queryKey: ["passport", isin, asOf],
+    queryFn: () => fetchPassport(isin, asOf),
     retry: (n, e) =>
       !(e instanceof ApiRequestError && e.code === "INVALID_ISIN") &&
       n < 2,
@@ -230,6 +232,10 @@ export function PassportPage() {
                     {l.mic ? ` via ${l.mic}` : ""}
                     {l.effective_from
                       ? ` (from ${l.effective_from})`
+                      : ""}
+                    {l.effective === true ? " [effective]" : ""}
+                    {l.effective === false
+                      ? " [not yet effective]"
                       : ""}
                   </li>
                 ))}

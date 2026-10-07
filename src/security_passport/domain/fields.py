@@ -24,7 +24,11 @@ from security_passport.domain.status import (
 
 @dataclass(frozen=True)
 class TemporalCoverage:
-    """Honest temporal-basis declaration (ADR-005)."""
+    """Honest temporal-basis declaration (ADR-005).
+
+    ``answer_state`` is present only when the passport was
+    requested at an ``as_of`` date; it is a closed
+    ``TemporalAnswerState`` and never a ``FieldStatus``."""
 
     basis: TemporalBasis
     coverage_start: str | None = None
@@ -32,15 +36,24 @@ class TemporalCoverage:
     left_censored: bool = False
     source_time_semantics: SourceTimeSemantics = (
         SourceTimeSemantics.RETRIEVAL_TIME)
+    requested_as_of: str | None = None
+    answer_state: str | None = None          # TemporalAnswerState
+    answer_note: str = ""
 
     def to_dict(self) -> dict[str, Any]:
-        return {
+        out = {
             "basis": self.basis.value,
             "coverage_start": self.coverage_start,
             "coverage_end": self.coverage_end,
             "left_censored": self.left_censored,
             "source_time_semantics": self.source_time_semantics.value,
         }
+        if self.requested_as_of is not None:
+            out["requested_as_of"] = self.requested_as_of
+            out["answer_state"] = self.answer_state
+            if self.answer_note:
+                out["answer_note"] = self.answer_note
+        return out
 
 
 @dataclass

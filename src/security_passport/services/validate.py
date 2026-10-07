@@ -75,6 +75,21 @@ def check_passport(p: Passport, report: ValidationReport) -> None:
                 if f.evidence and (
                         st == "reported" or f.rule is not None):
                     supported_positive += 1
+        # temporal-substitution gate: a block outside coverage at
+        # T must not carry ANY positive field — current values may
+        # never be projected into a requested historical window.
+        if block.temporal is not None and \
+                block.temporal.answer_state in (
+                    "outside_coverage", "unavailable"):
+            for f in block.all_fields():
+                if f.status.value in ("reported", "derived",
+                                      "inferred") \
+                        and f.value is not None:
+                    report.unsupported.append(
+                        f"{p.isin}/{block.name}.{f.name}: "
+                        f"positive value inside "
+                        f"{block.temporal.answer_state} block "
+                        "at as_of (substitution)")
     if positive:
         report.provenance_coverage = (
             (report.provenance_coverage

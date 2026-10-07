@@ -52,6 +52,9 @@ export const Temporal = z.object({
   coverage_end: z.string().nullable().default(null),
   left_censored: z.boolean().default(false),
   source_time_semantics: z.string().default(""),
+  requested_as_of: z.string().nullable().optional(),
+  answer_state: z.string().nullable().optional(),
+  answer_note: z.string().optional(),
 });
 
 export const PassportField = z.object({
@@ -141,6 +144,7 @@ const Block = z
       settlement_currency: string;
       source_published_at: string;
       effective_from: string | null; note: string | null;
+      effective?: boolean | null;
       status: string; provider: string;
       evidence?: EvidenceRef;
     }[];

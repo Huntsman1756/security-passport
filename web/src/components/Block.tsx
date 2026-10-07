@@ -14,7 +14,9 @@ export function Block({
   children,
 }: {
   title: string;
-  temporal?: { basis?: string; left_censored?: boolean };
+  temporal?: { basis?: string; left_censored?: boolean;
+               answer_state?: string | null;
+               answer_note?: string };
   warnings?: string[];
   children: ReactNode;
 }) {
@@ -28,6 +30,17 @@ export function Block({
           <span className="text-[11px] text-[var(--ink-2)]">
             temporal: {BASIS_LABEL[temporal.basis] ?? temporal.basis}
             {temporal.left_censored ? " · left-censored" : ""}
+            {temporal.answer_state ? (
+              <span style={{
+                marginLeft: 8, padding: "1px 6px",
+                border: "1px solid currentColor",
+                borderRadius: 3, fontSize: 10,
+                color: temporal.answer_state === "available"
+                  ? "#4a7" : "#c73",
+              }}>
+                at T: {temporal.answer_state}
+              </span>
+            ) : null}
           </span>
         ) : null}
       </header>

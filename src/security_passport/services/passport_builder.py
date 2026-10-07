@@ -8,6 +8,7 @@ assigned here; providers never decide epistemology.
 from __future__ import annotations
 
 from datetime import UTC, datetime
+from datetime import date as _Date
 from typing import Any
 
 from security_passport.domain.evidence import Assertion, EvidenceRef
@@ -17,6 +18,7 @@ from security_passport.domain.status import (
     FieldStatus,
     QualityFlag,
     SourceTimeSemantics,
+    TemporalAnswerState,
     TemporalBasis,
 )
 from security_passport.providers import ecb_dictionary
@@ -26,6 +28,7 @@ from security_passport.providers.base import (
     ListingFact,
     PassportStore,
     ProviderError,
+    SettlementLocationFact,
 )
 from security_passport.providers.iberclear import (
     IBERCLEAR_CODES,
@@ -53,6 +56,29 @@ UNDATED_LETTERS = {"C", "E"}
 
 def _now() -> str:
     return datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _d(s: str | None) -> _Date | None:
+    """Best-effort ISO/period string → date."""
+    import datetime as _dt
+    s = (s or "")[:10]
+    for fmt in ("%Y-%m-%d", "%Y%m%d", "%y%m%d", "%Y-%m"):
+        try:
+            return _dt.datetime.strptime(s, fmt).date()
+        except ValueError:
+            continue
+    return None
+
+
+def _month_end(period: str | None) -> _Date | None:
+    """"2026-05" → 2026-05-31."""
+    import calendar
+    d = _d(period)
+    if d is None:
+        return None
+    import datetime as _dt
+    return _dt.date(d.year, d.month,
+                    calendar.monthrange(d.year, d.month)[1])
 
 
 def _oi_ev(provider_locator: str, *, dataset: str = _OI_DS,
@@ -149,9 +175,11 @@ def _oi_state_field(name: str, value: Any, state: str,
 class PassportBuilder:
     def __init__(self, provider: InstrumentProvider,
                  store: PassportStore,
-                 warnings: list[str] | None = None) -> None:
+                 warnings: list[str] | None = None,
+                 venue: Any = None) -> None:
         self._p = provider
         self._s = store
+        self._v = venue          # VenueContextProvider | None
         self._warnings: list[str] = list(warnings or [])
         self._searched: dict[str, set[str]] = {}
 
@@ -163,14 +191,21 @@ class PassportBuilder:
 
     # ================= main entry =====================================
 
-    def build(self, isin: str, checksum_ok: bool) -> Passport:
+    def build(self, isin: str, checksum_ok: bool,
+              as_of: str | None = None) -> Passport:
+        """Build the passport. With ``as_of=T`` each block selects
+        only evidence admissible at T *before* adjudication — the
+        current passport is never built and then truncated."""
+        import datetime as _dt
+
+        T = _dt.date.fromisoformat(as_of) if as_of else None
         searched_oi = f"openinstrument ({self._p.name()})"
-        identity = self._identity(isin, searched_oi, checksum_ok)
-        secondary = self._secondary(isin, searched_oi)
-        primary = self._primary(isin)
-        self._iic_roles(isin, primary)
-        ecb = self._collateral(isin)
-        post = self._post_trade(isin, ecb)
+        identity = self._identity(isin, searched_oi, checksum_ok, T)
+        secondary = self._secondary(isin, searched_oi, T)
+        primary = self._primary(isin, T)
+        self._iic_roles(isin, primary, T)
+        ecb = self._collateral(isin, T)
+        post = self._post_trade(isin, ecb, T)
 
         overall = self._overall(identity, primary, secondary,
                                 post, ecb)
@@ -197,7 +232,8 @@ class PassportBuilder:
                 "eurosystem_collateral": {"basis": "current_only"}},
             source_summary=self._source_summary(),
             warnings=self._warnings,
-            valid_checksum=checksum_ok)
+            valid_checksum=checksum_ok,
+            as_of=as_of)
 
     def _source_summary(self) -> list[dict[str, Any]]:
         out: list[dict[str, Any]] = [
@@ -212,16 +248,94 @@ class PassportBuilder:
             out.append({"provider": "fixtures", "mode": "demo"})
         return out
 
+    def _temporal(self, b: PassportBlock,
+                  T: _Date | None, basis: TemporalBasis,
+                  semantics: SourceTimeSemantics,
+                  answer_state: TemporalAnswerState | None = None,
+                  note: str = "",
+                  coverage_start: str | None = None,
+                  coverage_end: str | None = None) -> None:
+        b.temporal = TemporalCoverage(
+            basis=basis,
+            coverage_start=coverage_start,
+            coverage_end=coverage_end,
+            left_censored=(basis == TemporalBasis.RECONSTRUCTED),
+            source_time_semantics=semantics,
+            requested_as_of=T.isoformat() if T else None,
+            answer_state=(answer_state.value if answer_state
+                          else None),
+            answer_note=note)
+
+    def _earliest_listing_date(
+            self, isin: str) -> _Date | None:
+        """Earliest provider-published date evidencing the
+        instrument's existence — admission, request, or first
+        trade across listings."""
+        try:
+            listings = self._p.listings(isin)
+        except ProviderError:
+            return None
+        dates: list[_Date] = []
+        for li in listings:
+            for raw in (li.admission_approval_date,
+                        li.admission_request_date,
+                        li.first_trade_date):
+                nd = normalize_firds_date(raw)
+                dd = _d(nd.value)
+                if dd is not None:
+                    dates.append(dd)
+        return min(dates) if dates else None
+
+    def _self_declared_not_found(self, b: PassportBlock,
+                                 names: list[str],
+                                 searched: list[str],
+                                 why: str) -> None:
+        for n in names:
+            b.fields[n] = PassportField.not_found(
+                n, searched_sources=searched, explanation=why)
+
     # ================= IDENTITY =======================================
 
     def _identity(self, isin: str, searched: str,
-                  checksum_ok: bool) -> PassportBlock:
+                  checksum_ok: bool, T: _Date | None = None) -> PassportBlock:
         b = PassportBlock(name="identity")
         b.temporal = TemporalCoverage(
             basis=TemporalBasis.RECONSTRUCTED,
             left_censored=True,
             source_time_semantics=(
                 SourceTimeSemantics.PROVIDER_PUBLICATION_TIME))
+        # reconstructed basis: the instrument is answerable at T
+        # iff some provider-dated evidence of its existence is
+        # already admissible at T.
+        earliest = self._earliest_listing_date(isin)
+        if T is not None and earliest is not None and earliest > T:
+            self._temporal(
+                b, T, TemporalBasis.RECONSTRUCTED,
+                SourceTimeSemantics.PROVIDER_PUBLICATION_TIME,
+                TemporalAnswerState.OUTSIDE_COVERAGE,
+                note=("No provider-dated evidence of this "
+                      "instrument's existence at "
+                      f"{T.isoformat()} (earliest: "
+                      f"{earliest.isoformat()}). Current data "
+                      "has NOT been substituted."),
+                coverage_start=earliest.isoformat())
+            self._self_declared_not_found(
+                b, ["isin", "cfi", "fisn", "instrument_name",
+                    "issuer_lei", "issuer_name",
+                    "notional_currency", "competent_authority",
+                    "instrument_type", "maturity_date",
+                    "firds_record_count"], [searched],
+                "outside coverage at requested as_of")
+            b.collections["identifiers"] = []
+            b.collections["entity_roles"] = []
+            return b
+        if T is not None:
+            self._temporal(
+                b, T, TemporalBasis.RECONSTRUCTED,
+                SourceTimeSemantics.PROVIDER_PUBLICATION_TIME,
+                TemporalAnswerState.AVAILABLE,
+                coverage_start=(earliest.isoformat()
+                                if earliest else None))
         try:
             inst = self._p.instrument(isin)
         except ProviderError as e:
@@ -472,13 +586,48 @@ class PassportBuilder:
 
     # ================= PRIMARY MARKET =================================
 
-    def _primary(self, isin: str) -> PassportBlock:
+    def _primary(self, isin: str, T: _Date | None = None) -> PassportBlock:
         b = PassportBlock(name="primary_market")
         b.temporal = TemporalCoverage(
             basis=TemporalBasis.OBSERVED_HISTORY,
             source_time_semantics=SourceTimeSemantics.RETRIEVAL_TIME)
         pr = self._s.priii(isin)
         searched = ["esma_priii (esma_registers_priii_documents)"]
+        # observed_history: PRIII evidence exists only from our
+        # first observation — never substitute a later capture.
+        obs_start = _d(pr.observed_at) if pr else None
+        if T is not None:
+            if obs_start is not None and obs_start > T:
+                self._temporal(
+                    b, T, TemporalBasis.OBSERVED_HISTORY,
+                    SourceTimeSemantics.RETRIEVAL_TIME,
+                    TemporalAnswerState.OUTSIDE_COVERAGE,
+                    note=("Historical evidence unavailable before "
+                          f"{obs_start.isoformat()} (first "
+                          "observation of the PRIII corpus). "
+                          "Current data has NOT been "
+                          "substituted."),
+                    coverage_start=obs_start.isoformat())
+                self._self_declared_not_found(
+                    b, ["prospectus_found", "home_member_state",
+                        "approval_filing_date", "is_passported",
+                        "host_member_states"], searched,
+                    "outside coverage at requested as_of")
+                b.collections["document_graph"] = []
+                b.collections["fund_roles"] = []
+                return b
+            self._temporal(
+                b, T, TemporalBasis.OBSERVED_HISTORY,
+                SourceTimeSemantics.RETRIEVAL_TIME,
+                TemporalAnswerState.AVAILABLE
+                if pr is not None else
+                TemporalAnswerState.UNAVAILABLE,
+                note=("" if pr is not None else
+                      "No PRIII observation for this ISIN in "
+                      "this generation — coverage cannot be "
+                      "bounded."),
+                coverage_start=(obs_start.isoformat()
+                                if obs_start else None))
         if pr is None:
             for n in ("prospectus_found", "home_member_state",
                       "approval_filing_date", "is_passported"):
@@ -491,7 +640,14 @@ class PassportBuilder:
                               "ISIN in this generation")
             return b
         ev = _priii_ev(isin, pr.artifact_id, pr.observed_at)
-        found = bool(pr.documents)
+        # at T: only documents approved/filed by T existed —
+        # the register capture is admissible (T ≥ obs_start)
+        # but its contents are filtered to T.
+        docs: list[Any] = list(pr.documents)
+        if T is not None:
+            docs = [d for d in pr.documents
+                    if (_d(d.approval_filing_date) or T) <= T]
+        found = bool(docs)
         b.fields["prospectus_found"] = PassportField.reported(
             "prospectus_found", found, [ev],
             explanation=("Register search performed for this ISIN. "
@@ -509,7 +665,7 @@ class PassportBuilder:
                                  "exists'."))
             b.collections["document_graph"] = []
             return b
-        first = pr.documents[0]
+        first = docs[0]
         evd = _priii_ev(first.root_id or isin, pr.artifact_id,
                         pr.observed_at,
                         raw=first.national_document_id)
@@ -527,7 +683,7 @@ class PassportBuilder:
             "host_member_states",
             sorted(set(first.member_states)), [evd])
         b.collections["document_graph"] = [
-            self._doc_node(d, pr) for d in pr.documents]
+            self._doc_node(d, pr) for d in docs]
         return b
 
     def _doc_node(self, d: Any, pr: Any) -> dict[str, Any]:
@@ -556,13 +712,25 @@ class PassportBuilder:
             "observed_at": pr.observed_at,
         }
 
-    def _iic_roles(self, isin: str, b: PassportBlock) -> None:
+    def _iic_roles(self, isin: str, b: PassportBlock,
+                   T: _Date | None = None) -> None:
         """cnmv_iic registry roles for ES IIC share classes —
         fund/compartment/share-class + gestora/depositario as
         ROLES, never promoted to issuer identity."""
         r = self._s.iic_roles(isin)
-        if r is None:
+        period_end = _month_end(r.period) if r else None
+        if r is None or (T is not None and period_end is not None
+                         and period_end > T):
             b.collections["fund_roles"] = []
+            if T is not None and r is not None:
+                for n in ("fund_vehicle", "fund_share_class",
+                          "management_company", "depositary"):
+                    b.fields[n] = PassportField.not_found(
+                        n, searched_sources=["cnmv_iic registry"],
+                        explanation=(
+                            f"registry period {r.period} not "
+                            f"published at {T.isoformat()}; "
+                            "current data NOT substituted"))
             return
         ev = EvidenceRef(
             provider="openfunds_cnmv_iic",
@@ -606,7 +774,8 @@ class PassportBuilder:
 
     # ================= SECONDARY MARKET ================================
 
-    def _secondary(self, isin: str, searched: str) -> PassportBlock:
+    def _secondary(self, isin: str, searched: str,
+                   T: _Date | None = None) -> PassportBlock:
         b = PassportBlock(name="secondary_market")
         b.temporal = TemporalCoverage(
             basis=TemporalBasis.RECONSTRUCTED,
@@ -618,6 +787,33 @@ class PassportBuilder:
         except ProviderError as e:
             self._note("secondary_market", "listings", e.message)
             listings = []
+        # as-of filtering: a listing is admissible at T iff some
+        # provider-published date on it is already ≤ T; state is
+        # then recomputed at T (terminated only if termination ≤ T).
+        n_dropped = 0
+        if T is not None and listings:
+            admissible = []
+            for li in listings:
+                dates = []
+                for x in (li.admission_approval_date,
+                          li.admission_request_date,
+                          li.first_trade_date):
+                    d = _d(normalize_firds_date(x).value or "")
+                    if d is not None:
+                        dates.append(d)
+                if dates and min(dates) > T:
+                    n_dropped += 1
+                    continue
+                admissible.append(li)
+            listings = admissible
+            state = (TemporalAnswerState.PARTIAL
+                     if n_dropped else TemporalAnswerState.AVAILABLE)
+            self._temporal(
+                b, T, TemporalBasis.RECONSTRUCTED,
+                SourceTimeSemantics.PROVIDER_PUBLICATION_TIME,
+                state,
+                note=(f"{n_dropped} listing(s) postdate T "
+                      "and are excluded" if n_dropped else ""))
         if not listings:
             b.fields["listing_count"] = PassportField.reported(
                 "listing_count", 0, [_oi_ev(
@@ -634,7 +830,7 @@ class PassportBuilder:
         adm_cands: list[NormalizedDate] = []
         n_active = 0
         for li in listings:
-            rows.append(self._listing_row(li))
+            rows.append(self._listing_row(li, T))
             state = rows[-1]["state"]
             if state == "active":
                 n_active += 1
@@ -679,14 +875,18 @@ class PassportBuilder:
             b.fields["first_admission_date"] = nf
         return b
 
-    def _listing_row(self, li: ListingFact) -> dict[str, Any]:
+    def _listing_row(self, li: ListingFact,
+                     T: _Date | None = None) -> dict[str, Any]:
         adm = normalize_firds_date(li.admission_approval_date)
         req = normalize_firds_date(li.admission_request_date)
         trd = normalize_firds_date(li.first_trade_date)
         term = normalize_firds_date(li.termination_date)
         # venue state (venue_state.v1): terminated < active < pending
-        if term.value is not None:
+        term_d = _d(term.value or "")
+        if term_d is not None and (T is None or term_d <= T):
             state = "terminated"
+        elif T is not None and term_d is not None and term_d > T:
+            state = "active"     # terminates after T — active at T
         elif adm.value or trd.value or req.value:
             state = "active"
         else:
@@ -702,7 +902,8 @@ class PassportBuilder:
             for f in nd.flags:
                 if f not in flags:
                     flags.append(f)
-        return {
+        vc = self._v.venue(li.venue_mic) if self._v else None
+        row = {
             "venue_mic": li.venue_mic,
             "venue_name": micf.market_name if micf else "",
             "venue_mic_status": micf.status if micf else "",
@@ -717,6 +918,12 @@ class PassportBuilder:
                              (micf.lei if micf else "")),
             "market_category": (micf.market_category
                                 if micf else ""),
+            "rulebook_family": (vc.rulebook_ref or None
+                                if vc else None),
+            "rulebook_state": (vc.rulebooks[0].get("state")
+                               if vc and vc.rulebooks else
+                               "unconfigured" if vc is None else
+                               None),
             "relevant_venue": li.relevant_venue,
             "relevant_venue_name": relf.market_name if relf else "",
             "issuer_requested_admission":
@@ -738,10 +945,24 @@ class PassportBuilder:
             "mic_evidence": _mic_ev(li.venue_mic).to_dict()
             if micf else None,
         }
+        if vc is not None and vc.rulebooks:
+            row["rulebooks"] = [
+                {"family": rb.get("family"),
+                 "name": rb.get("name"),
+                 "state": rb.get("state"),
+                 "documents": [
+                     {"title": doc.get("title"),
+                      "document_id": doc.get("document_id"),
+                      "effective_from": doc.get("effective_from"),
+                      "sha256": doc.get("sha256"),
+                      "captured_at": doc.get("captured_at")}
+                     for doc in (rb.get("documents") or [])]}
+                for rb in vc.rulebooks]
+        return row
 
     # ================= EUROSYSTEM COLLATERAL ==========================
 
-    def _collateral(self, isin: str) -> PassportBlock:
+    def _collateral(self, isin: str, T: _Date | None = None) -> PassportBlock:
         b = PassportBlock(name="eurosystem_collateral")
         b.temporal = TemporalCoverage(
             basis=TemporalBasis.CURRENT_ONLY,
@@ -749,6 +970,45 @@ class PassportBuilder:
             source_time_semantics=SourceTimeSemantics.EFFECTIVE_TIME)
         snap = self._s.ecb_snapshot()
         searched = [f"ecb_eligible_assets ea_csv_{snap}"]
+        snap_d = _d(f"20{snap}" if len(snap) == 6 else snap)
+        retrieved_d = _d(self._s.ecb_retrieved_at())
+        if T is not None:
+            # single-snapshot store: answerable iff T sits inside
+            # [snapshot publication, capture]. Before publication
+            # we cannot substitute the current list backwards;
+            # after capture a later snapshot may already exist.
+            if snap_d and snap_d > T:
+                self._temporal(
+                    b, T, TemporalBasis.CURRENT_ONLY,
+                    SourceTimeSemantics.EFFECTIVE_TIME,
+                    TemporalAnswerState.OUTSIDE_COVERAGE,
+                    note=(f"Requested {T.isoformat()} precedes "
+                          f"the held snapshot ({snap}). The "
+                          "current eligible-assets list has "
+                          "NOT been projected backwards."),
+                    coverage_start=snap_d.isoformat())
+                self._self_declared_not_found(
+                    b, ["eligible", "haircut_category", "haircut",
+                        "asset_type", "issuer_csd",
+                        "ecb_snapshot"], searched,
+                    "outside coverage at requested as_of")
+                return b
+            later = (retrieved_d is not None and
+                     snap_d is not None and
+                     retrieved_d > snap_d)
+            self._temporal(
+                b, T, TemporalBasis.CURRENT_ONLY,
+                SourceTimeSemantics.EFFECTIVE_TIME,
+                TemporalAnswerState.AVAILABLE,
+                note=("single-snapshot store — the snapshot is "
+                      "the published state at T when "
+                      "T ≥ snapshot date" +
+                      ("; snapshots published after capture are "
+                       "not held" if later else "")),
+                coverage_start=(snap_d.isoformat()
+                                if snap_d else None),
+                coverage_end=(retrieved_d.isoformat()
+                              if retrieved_d else None))
         row = self._s.ecb_asset(isin)
         # absence evidence points at the enumeration itself, not a
         # row that does not exist
@@ -810,7 +1070,8 @@ class PassportBuilder:
     # ================= POST-TRADE =====================================
 
     def _post_trade(self, isin: str,
-                    ecb_block: PassportBlock) -> PassportBlock:
+                    ecb_block: PassportBlock,
+                    T: _Date | None = None) -> PassportBlock:
         b = PassportBlock(name="post_trade")
         b.temporal = TemporalCoverage(
             basis=TemporalBasis.OBSERVED_HISTORY,
@@ -818,6 +1079,11 @@ class PassportBuilder:
         searched = ["ecb_eligible_assets", "ecb_sss_links",
                     "iberclear (public documentation)",
                     "euronext_esmil", "euronext_frs"]
+        if T is not None:
+            self._temporal(
+                b, T, TemporalBasis.OBSERVED_HISTORY,
+                SourceTimeSemantics.RETRIEVAL_TIME,
+                TemporalAnswerState.AVAILABLE)
         # four separate assertions that must never merge:
         #   issuer CSD (ECB collateral-reference semantics)
         #   CSDs that admit this ISIN (instrument-level)
@@ -828,6 +1094,12 @@ class PassportBuilder:
         issuer_sss_name = ""
         issuer_sss_code = ""
         row = self._s.ecb_asset(isin)
+        if T is not None:
+            snap_d = _d(f"20{self._s.ecb_snapshot()}")
+            if snap_d is not None and snap_d > T:
+                # ECB evidence unpublished at T — same window as
+                # the collateral block; do not project backwards.
+                row = None
         if row is not None and row.issuer_csd:
             code = row.issuer_csd
             issuer_sss_code = code
@@ -880,6 +1152,24 @@ class PassportBuilder:
         # ---- infrastructure topology ------------------------------------
         sss = self._s.eligible_sss()
         links = self._s.eligible_links()
+        if T is not None:
+            # the pages' own "last updated" is the admissibility
+            # bound: content observed after T may reflect a later
+            # revision — excluded, never projected back.
+            stamp_d = _d((sss[0].page_stamp if sss else "") or
+                         (links[0].page_stamp if links else ""))
+            if stamp_d is not None and stamp_d > T:
+                sss, links = [], []
+                if b.temporal is not None:
+                    import dataclasses
+                    b.temporal = dataclasses.replace(
+                        b.temporal,
+                        answer_state=(
+                            TemporalAnswerState.PARTIAL.value),
+                        answer_note=(
+                            "SSS/link topology excluded: page "
+                            "content postdates T "
+                            f"({stamp_d.isoformat()} > T)."))
         stamp = (sss[0].page_stamp if sss else "") or (
             links[0].page_stamp if links else "")
         obs = (sss[0].observed_at if sss else "") or (
@@ -919,6 +1209,25 @@ class PassportBuilder:
                 "eligible_sss_count", searched_sources=searched)
         # ---- instrument-level settlement locations ----------------------
         locs = self._s.settlement_locations(isin)
+        n_inadmissible = 0
+        if T is not None:
+            # knowledge at T: the source file must be published
+            # by T; effectiveness is a per-location annotation —
+            # never merge published_at with effective_from.
+            admissible = []
+            for r in locs:
+                pub = _d(r.source_published_at)
+                if pub is not None and pub > T:
+                    n_inadmissible += 1
+                    continue
+                admissible.append(r)
+            locs = admissible
+        def _eff(r: SettlementLocationFact) -> bool:
+            efd = _d(r.effective_from)
+            return (r.relationship in (
+                "issuer_csd", "current_place_of_settlement")
+                or (efd is not None and T is not None
+                    and efd <= T))
         b.collections["settlement_locations"] = [
             {"csd": r.csd_name,
              "csd_code": r.csd_code,
@@ -929,6 +1238,7 @@ class PassportBuilder:
              "scope": r.scope,
              "source_published_at": r.source_published_at,
              "effective_from": r.effective_from or None,
+             "effective": _eff(r) if T is not None else None,
              "note": r.note or None,
              "status": "reported",
              "provider": r.provider,
@@ -1015,6 +1325,14 @@ class PassportBuilder:
         elif sss:
             assess_ev = [_sss_ev("eligible_sss_page",
                                  "eligible_sss", stamp, obs)]
+        if not assess_ev:
+            b.fields["assessment"] = PassportField.not_found(
+                "assessment", searched_sources=searched,
+                explanation=("No admissible post-trade evidence "
+                             "at the requested date — nothing to "
+                             "assess, and no current value has "
+                             "been substituted."))
+            return b
         b.fields["assessment"] = PassportField.derived(
             "assessment", txt, assess_ev,
             ref("settlement_path",

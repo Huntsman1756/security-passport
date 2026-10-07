@@ -1,0 +1,45 @@
+{
+ "country": "PL",
+ "market_category": "RMKT",
+ "market_name": "WARSAW STOCK EXCHANGE/ ETPS",
+ "mic": "WETP",
+ "operating_mic": "XWAR",
+ "operator": "WARSAW STOCK EXCHANGE/EQUITIES/MAIN MARKET",
+ "operator_lei": "25940039ZHD3Z37GKR71",
+ "registry_sha256": "79de0f7704e260bd49b0d2439f3084891cabc93481da8bdbaa716e15a27211ed",
+ "rulebooks": [
+  {
+   "documents": [],
+   "family": "warsaw",
+   "matched_mics": [
+    "BOSP",
+    "CETO",
+    "PLPD",
+    "PLPO",
+    "PLPS",
+    "PLPX",
+    "POEE",
+    "RPWC",
+    "TBSA",
+    "TBSP",
+    "WBCL",
+    "WBLC",
+    "WBON",
+    "WCDE",
+    "WDER",
+    "WETP",
+    "WGAS",
+    "WIND",
+    "WIPO",
+    "WMTF",
+    "WOPO",
+    "XGLO",
+    "XNCO",
+    "XWAR"
+   ],
+   "name": "Warsaw Stock Exchange",
+   "state": "NOT_IN_CORPUS"
+  }
+ ],
+ "segment_mic": "WETP"
+}

@@ -1,0 +1,24 @@
+{
+ "country": "LU",
+ "market_category": "RMKT",
+ "market_name": "LUXEMBOURG STOCK EXCHANGE",
+ "mic": "XLUX",
+ "operating_mic": "XLUX",
+ "operator": "BOURSE DE LUXEMBOURG",
+ "operator_lei": "22210053OF4F2MYKUV22",
+ "registry_sha256": "79de0f7704e260bd49b0d2439f3084891cabc93481da8bdbaa716e15a27211ed",
+ "rulebooks": [
+  {
+   "documents": [],
+   "family": "luxse",
+   "matched_mics": [
+    "EM3S",
+    "EMTF",
+    "XLUX"
+   ],
+   "name": "Luxembourg Stock Exchange",
+   "state": "NOT_IN_CORPUS"
+  }
+ ],
+ "segment_mic": "XLUX"
+}

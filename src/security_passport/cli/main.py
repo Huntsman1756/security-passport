@@ -36,7 +36,7 @@ app = typer.Typer(
     no_args_is_help=False)
 
 
-def _runtime() -> tuple[Any, Any]:
+def _runtime() -> tuple[Any, Any, Any]:
     s = load()
     if s.provider == "openinstrument_api":
         from security_passport.providers.openinstrument.api import (
@@ -47,10 +47,30 @@ def _runtime() -> tuple[Any, Any]:
         gen = generations.current(s.data_root / "read")
         store = (GenerationStore(gen) if gen
                  else FixturePassportStore(s.fixtures_dir))
-        return OpenInstrumentApiProvider(
-            s.openinstrument_url), store
+        return (OpenInstrumentApiProvider(s.openinstrument_url),
+                store, _venue(s))
     return (FixtureInstrumentProvider(s.fixtures_dir),
-            FixturePassportStore(s.fixtures_dir))
+            FixturePassportStore(s.fixtures_dir), _venue(s))
+
+
+def _venue(s: Any) -> Any:
+    """VenueContextProvider when configured — OpenVenue URL,
+    else the fixture/generation venues dir, else None."""
+    import os
+
+    from security_passport.providers.venue_context import (
+        FixtureVenueProvider,
+        OpenVenueProvider,
+    )
+    ov_url = os.environ.get("OPENVENUE_URL", "")
+    if ov_url:
+        return OpenVenueProvider(ov_url)
+    base = (s.data_root / "read" / "current"
+            if s.provider == "openinstrument_api"
+            else s.fixtures_dir)
+    if (base / "venues").exists():
+        return FixtureVenueProvider(base)
+    return None
 
 
 def _status_color(status: str) -> str:
@@ -252,17 +272,21 @@ def main_callback(ctx: typer.Context) -> None:
 
 
 def _lookup(isin: str, json_out: bool, sources: bool,
-            explain: str) -> None:
+            explain: str, as_of: str | None = None) -> None:
     isin_n = normalize(isin)
     if not checksum_ok(isin_n):
         typer.secho(
             f"INVALID_ISIN: '{isin}' fails structure/checksum.",
             err=True, fg=typer.colors.RED)
         raise typer.Exit(2)
-    prov, store = _runtime()
+    prov, store, venue = _runtime()
     try:
-        p = PassportBuilder(prov, store).build(
-            isin_n, checksum_ok=True)
+        p = PassportBuilder(prov, store, venue=venue).build(
+            isin_n, checksum_ok=True, as_of=as_of)
+    except ValueError as e:
+        typer.secho(f"INVALID_AS_OF: {e}", err=True,
+                    fg=typer.colors.RED)
+        raise typer.Exit(2) from e
     except Exception as e:
         typer.secho(f"SOURCE_UNAVAILABLE: {e}", err=True,
                     fg=typer.colors.RED)
@@ -330,7 +354,7 @@ def validate(
         ValidationReport,
         check_passport,
     )
-    prov, store = _runtime()
+    prov, store, venue = _runtime()
     spec = yaml.safe_load(goldens.read_text(encoding="utf-8"))
     report = ValidationReport()
     failures: list[str] = []
@@ -338,7 +362,7 @@ def validate(
         isin = g["isin"]
         if g.get("fixture") is False:
             continue
-        p = PassportBuilder(prov, store).build(
+        p = PassportBuilder(prov, store, venue=venue).build(
             normalize(isin), checksum_ok=checksum_ok(isin))
         check_passport(p, report)
         exp = g.get("expected") or {}
@@ -399,7 +423,7 @@ def doctor() -> None:
     typer.echo(f"data root     : {s.data_root}")
     typer.echo(f"fixtures      : {s.fixtures_dir} "
                f"({'ok' if s.fixtures_dir.exists() else 'MISSING'})")
-    prov, store = _runtime()
+    prov, store, _venue = _runtime()
     try:
         typer.echo(f"upstream gen  : {prov.generation()}")
     except Exception as e:
@@ -448,13 +472,18 @@ def main() -> None:
         json_out = "--json" in rest
         sources = "--sources" in rest
         explain = ""
+        as_of = None
         for i, a in enumerate(rest):
             if a == "--explain" and i + 1 < len(rest):
                 explain = rest[i + 1]
             elif a.startswith("--explain="):
                 explain = a.split("=", 1)[1]
+            elif a == "--as-of" and i + 1 < len(rest):
+                as_of = rest[i + 1]
+            elif a.startswith("--as-of="):
+                as_of = a.split("=", 1)[1]
         try:
-            _lookup(isin, json_out, sources, explain)
+            _lookup(isin, json_out, sources, explain, as_of)
         except typer.Exit as e:
             sys.exit(e.exit_code)
         return

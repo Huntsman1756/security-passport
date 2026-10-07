@@ -1,0 +1,12 @@
+{
+ "country": "FR",
+ "market_category": "MLTF",
+ "market_name": "TP ICAP EU - MTF - ORDERBOOK",
+ "mic": "TPIO",
+ "operating_mic": "TPIC",
+ "operator": "TP ICAP (EUROPE) SA",
+ "operator_lei": "213800R54EFFINMY1P02",
+ "registry_sha256": "79de0f7704e260bd49b0d2439f3084891cabc93481da8bdbaa716e15a27211ed",
+ "rulebooks": [],
+ "segment_mic": "TPIO"
+}

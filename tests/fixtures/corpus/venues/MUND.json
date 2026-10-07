@@ -1,0 +1,27 @@
+{
+ "country": "DE",
+ "market_category": "MLTF",
+ "market_name": "BOERSE MUENCHEN - GETTEX - FREIVERKEHR",
+ "mic": "MUND",
+ "operating_mic": "XMUN",
+ "operator": "BOERSE MUENCHEN",
+ "operator_lei": "391200Z7ZWISADXEGZ47",
+ "registry_sha256": "79de0f7704e260bd49b0d2439f3084891cabc93481da8bdbaa716e15a27211ed",
+ "rulebooks": [
+  {
+   "documents": [],
+   "family": "munich",
+   "matched_mics": [
+    "MUNA",
+    "MUNB",
+    "MUNC",
+    "MUND",
+    "PLUS",
+    "XMUN"
+   ],
+   "name": "B\u00f6rse M\u00fcnchen",
+   "state": "NOT_IN_CORPUS"
+  }
+ ],
+ "segment_mic": "MUND"
+}

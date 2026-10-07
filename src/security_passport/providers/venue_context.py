@@ -22,7 +22,11 @@ from typing import Any, Protocol
 
 @dataclass(frozen=True)
 class VenueContext:
-    """Venue facts the passport may surface (secondary_market)."""
+    """Venue facts the passport may surface (secondary_market).
+
+    ``rulebooks`` mirrors OpenVenue's corpus match: each entry
+    carries the family identity plus its corpus state —
+    ``NOT_IN_CORPUS`` is a reportable absence, not an error."""
     mic: str
     operating_mic: str
     segment_mic: str
@@ -30,6 +34,7 @@ class VenueContext:
     operator: str
     market_category: str
     country: str
+    rulebooks: tuple[dict[str, Any], ...] = ()
     rulebook_ref: str = ""
     rulebook_version: str = ""
     observed_at: str = ""
@@ -64,6 +69,7 @@ class FixtureVenueProvider:
             operator=d.get("operator", ""),
             market_category=d.get("market_category", ""),
             country=d.get("country", ""),
+            rulebooks=tuple(d.get("rulebooks") or ()),
             rulebook_ref=d.get("rulebook_ref", ""),
             rulebook_version=d.get("rulebook_version", ""),
             observed_at=d.get("observed_at", ""))
@@ -96,16 +102,27 @@ class OpenVenueProvider:
             d = r.json()
         except Exception:
             return None
+        # real OpenVenue shape: ``requested`` = the segment row,
+        # ``operator`` = its operating venue, ``rulebooks`` =
+        # corpus-family matches (may be NOT_IN_CORPUS)
+        req = d.get("requested") or {}
+        op = d.get("operator") or {}
         return VenueContext(
             mic=mic,
-            operating_mic=d.get("operating_mic", ""),
-            segment_mic=d.get("segment_mic", mic),
-            market_name=d.get("name", ""),
-            operator=d.get("operator", ""),
-            market_category=d.get("market_category", ""),
-            country=d.get("country", ""),
-            rulebook_ref=d.get("rulebook_ref", ""),
-            observed_at=d.get("observed_at", ""))
+            operating_mic=req.get("operating_mic",
+                                  op.get("mic", "")),
+            segment_mic=req.get("mic", mic),
+            market_name=req.get("name", ""),
+            operator=(op.get("legal_entity") or op.get("name")
+                      or ""),
+            market_category=req.get("category", ""),
+            country=req.get("country", ""),
+            rulebooks=tuple(d.get("rulebooks") or ()),
+            rulebook_ref=(",".join(
+                rb.get("family", "") for rb in
+                (d.get("rulebooks") or []) if rb.get("family"))),
+            observed_at=str(
+                (d.get("registry") or {}).get("sha256", "")))
 
     def instrument_dossier(self, isin: str) -> dict[str, Any]:
         try:

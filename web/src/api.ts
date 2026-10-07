@@ -35,8 +35,12 @@ async function get<T>(path: string, schema: {
   return schema.parse(body);
 }
 
-export function fetchPassport(isin: string): Promise<TPassport> {
-  return get(`/api/v1/passports/${isin}`, Passport);
+export function fetchPassport(
+  isin: string,
+  asOf?: string,
+): Promise<TPassport> {
+  const q = asOf ? `?as_of=${encodeURIComponent(asOf)}` : "";
+  return get(`/api/v1/passports/${isin}${q}`, Passport);
 }
 
 export function search(q: string) {

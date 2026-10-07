@@ -1,0 +1,33 @@
+{
+ "country": "IE",
+ "market_category": "MLTF",
+ "market_name": "IRISH STOCK EXCHANGE  - GLOBAL EXCHANGE MARKET",
+ "mic": "XEYE",
+ "operating_mic": "XDUB",
+ "operator": "IRISH STOCK EXCHANGE - ALL MARKET",
+ "operator_lei": "635400DZBUIMTBCXGA12",
+ "registry_sha256": "79de0f7704e260bd49b0d2439f3084891cabc93481da8bdbaa716e15a27211ed",
+ "rulebooks": [
+  {
+   "documents": [],
+   "family": "euronext-mtf",
+   "matched_mics": [
+    "XACD",
+    "XESM"
+   ],
+   "name": "Euronext Growth / Access / Expand",
+   "state": "NOT_IN_CORPUS"
+  },
+  {
+   "documents": [],
+   "family": "euronext-rm",
+   "matched_mics": [
+    "XDUB",
+    "XMSM"
+   ],
+   "name": "Euronext mercados regulados",
+   "state": "NOT_IN_CORPUS"
+  }
+ ],
+ "segment_mic": "XEYE"
+}
