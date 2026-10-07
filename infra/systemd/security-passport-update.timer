@@ -1,0 +1,10 @@
+[Unit]
+Description=Security Passport data update (daily)
+
+[Timer]
+OnCalendar=*-*-* 05:30:00
+RandomizedDelaySec=900
+Persistent=true
+
+[Install]
+WantedBy=timers.target

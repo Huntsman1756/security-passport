@@ -1,0 +1,17 @@
+.git
+.github
+.venv
+venv
+node_modules
+web/node_modules
+web/dist
+data/
+!data/.gitkeep
+tests/
+docs/
+.pytest_cache
+.mypy_cache
+.ruff_cache
+*.log
+.env
+nul

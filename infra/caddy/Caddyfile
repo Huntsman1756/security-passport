@@ -1,0 +1,30 @@
+# Security Passport — edge: TLS, /api proxy, SPA fallback.
+# PUBLIC_BASE_URL is set via environment (e.g. passport.example.org).
+
+{$PUBLIC_BASE_URL:passport.localhost} {
+
+	encode zstd gzip
+
+	header {
+		X-Content-Type-Options nosniff
+		X-Frame-Options DENY
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+
+	@api path /api/* /health/*
+	handle @api {
+		reverse_proxy security-passport-api:8000
+	}
+
+	handle {
+		root * /srv
+		try_files {path} /index.html
+		file_server
+	}
+
+	log {
+		output stdout
+		format json
+	}
+}

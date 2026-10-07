@@ -1,0 +1,33 @@
+# Security Passport — single-VPS deployment.
+# Expected topology: Caddy edge → FastAPI API → OpenInstrument API
+# (internal only) + mounted read-only generation data.
+services:
+  web:
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile.web
+    environment:
+      PUBLIC_BASE_URL: ${PUBLIC_BASE_URL:-passport.localhost}
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  api:
+    build:
+      context: .
+      dockerfile: infra/docker/Dockerfile.api
+    environment:
+      SECURITY_PASSPORT_PROVIDER: openinstrument_api
+      OPENINSTRUMENT_URL: ${OPENINSTRUMENT_URL:-http://openinstrument:8000}
+      SECURITY_PASSPORT_DATA: /data
+      SECURITY_PASSPORT_CORS_ORIGINS: ${PUBLIC_BASE_URL:-http://localhost}
+    volumes:
+      - ${DATA_ROOT:-./data}:/data:ro
+    restart: unless-stopped
+    # no published port — reachable only via the web edge
+
+  # openinstrument runs as a sibling service in production;
+  # it is intentionally NOT exposed to the internet.

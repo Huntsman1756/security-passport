@@ -1,0 +1,15 @@
+[Unit]
+Description=Security Passport data update
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/flock -n /run/security-passport-update.lock \
+  /usr/local/bin/security-passport update --data-root /srv/security-passport/data
+TimeoutStartSec=1800
+Nice=10
+IOSchedulingClass=best-effort
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=security-passport-update
