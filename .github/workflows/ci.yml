@@ -44,11 +44,12 @@ jobs:
         run: uv run python scripts/check_public_hygiene.py
       - name: openapi compatibility (oasdiff)
         run: |
-          go install github.com/oasdiff/oasdiff@${{ env.OASDIFF_VERSION }}
+          GOBIN="$(go env GOPATH)/bin" go install github.com/oasdiff/oasdiff@${{ env.OASDIFF_VERSION }}
           SECURITY_PASSPORT_PROVIDER=fixtures \
           SECURITY_PASSPORT_FIXTURES=tests/fixtures/corpus \
             uv run python scripts/export_openapi.py > /tmp/openapi-current.json
-          oasdiff breaking tests/fixtures/openapi-baseline.json \
+          "$(go env GOPATH)/bin/oasdiff" breaking \
+            tests/fixtures/openapi-baseline.json \
             /tmp/openapi-current.json --fail-on ERR
 
   python-matrix:
