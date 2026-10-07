@@ -66,6 +66,13 @@ class OpenInstrumentApiProvider:
 
     def generation(self) -> str:
         if not self._generation:
+            try:
+                ready = self._get("/health/ready")
+                if ready.get("generation"):
+                    self._generation = str(ready["generation"])
+                    return self._generation
+            except ProviderError:
+                pass
             st = self._get("/v1/status")
             self._generation = str(st.get("generation") or "unknown")
         return self._generation
