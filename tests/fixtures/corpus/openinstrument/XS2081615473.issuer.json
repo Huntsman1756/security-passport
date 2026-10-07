@@ -1,0 +1,124 @@
+{
+ "isin": "XS2081615473",
+ "found": true,
+ "canonical_lei": "529900XU3Z9D2HLBR716",
+ "state": "single_source",
+ "assertion_count": 22,
+ "assertions": {
+  "gleif_isin_lei": [],
+  "firds_field5": [
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "XGAT",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489597"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "BTFE",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489578"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "MANL",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489587"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "STUF",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489593"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "STUB",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489592"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "XLUX",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489598"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "HANB",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489586"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "AURO",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489577"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "HAMN",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489584"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "SSOB",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489591"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "DUSD",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489580"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "HAMB",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489583"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "TWEO",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489596"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "FRAB",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489581"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "FRAV",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489582"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "HAMQ",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489585"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "DUSB",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489579"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "TPIO",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489594"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "MUNB",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489588"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "TWEM",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489595"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "MUND",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489589"
+   },
+   {
+    "issr": "529900XU3Z9D2HLBR716",
+    "venue": "PBGR",
+    "locator": "FULINS_D_20261003_03of04.xml#RefData=489590"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

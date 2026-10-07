@@ -1,0 +1,208 @@
+{
+ "isin": "IE0007SRI1C7",
+ "coverage": "ENRICHED",
+ "fund": {
+  "label": "iShares iBonds Dec 2037 Term \u20ac Corp UCITS ETF",
+  "umbrella": null,
+  "subfund_code": null,
+  "domicile": "Ireland",
+  "legal_form": null,
+  "fund_base_currency": "EUR",
+  "fund_inception": null,
+  "registration_countries": null,
+  "ucits": "Yes",
+  "fund_size": null
+ },
+ "share_class": {
+  "currency": "EUR",
+  "trading_currencies": null,
+  "income_treatment": "Accumulating",
+  "income_treatment_raw": "Accumulating",
+  "share_class_inception": "15/May/2026",
+  "min_subscription": null,
+  "nav_frequency": null
+ },
+ "investment": {
+  "benchmark": "Bloomberg MSCI December 2037 Maturity EUR Corporate ESG Screened Index",
+  "benchmarked": null,
+  "investment_method": null,
+  "replication_method": "Physical",
+  "product_type": null,
+  "sfdr": null,
+  "recommended_holding_period": null,
+  "strategy": null
+ },
+ "risk": [],
+ "costs": [
+  {
+   "cost_type": "ongoing",
+   "cost_basis": "TER",
+   "value": "0.12%",
+   "unit": "percent",
+   "period_basis": "annual",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['Total Expense Ratio']"
+  }
+ ],
+ "roles": [
+  {
+   "role": "INVESTMENT_MANAGER",
+   "value": "BlackRock Asset Management Ireland Limited",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['Fund Manager']"
+  }
+ ],
+ "documents": [
+  {
+   "document_id": "77bf544aa02b419d9c71e7d6",
+   "doc_type": "FACTSHEET",
+   "title": "iShares fund data download",
+   "language": "en",
+   "country": "GB",
+   "effective_date": "",
+   "update_date": "",
+   "uri": "https://www.ishares.com/varnish-api/uk-retail01-product-data/product-data/api/v1/get-fund-document?appType=PRODUCT_PAGE&appSubType=ISHARES&targetSite=ishares-uk&locale=en_GB&portfolioId=349774&component=fundDownloadV2&userType=individual",
+   "filename": "fund-download-349774.xml",
+   "currentness": "UNKNOWN",
+   "adapter": "ishares"
+  }
+ ],
+ "relationships": [],
+ "related_share_classes": [],
+ "assertions": [
+  {
+   "field": "share_class_label",
+   "value": "iShares iBonds Dec 2037 Term \u20ac Corp UCITS ETF",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "row[0]",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "share_class_inception",
+   "value": "15/May/2026",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "SHARE_CLASS_INCEPTION",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['Inception Date']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "share_class_currency",
+   "value": "EUR",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "SHARE_CLASS_CURRENCY",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['Share Class Currency']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "fund_base_currency",
+   "value": "EUR",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "FUND_BASE_CURRENCY",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['Base Currency']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "benchmark",
+   "value": "Bloomberg MSCI December 2037 Maturity EUR Corporate ESG Screened Index",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['Benchmark Index']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "ter",
+   "value": "0.12%",
+   "value_type": "str",
+   "unit": "percent",
+   "qualifier": "TER",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['Total Expense Ratio']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "income_treatment",
+   "value": "Accumulating",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['Use of Income']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "fund_domicile",
+   "value": "Ireland",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['Domicile']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "product_structure",
+   "value": "Physical",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['Product Structure']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "ucits",
+   "value": "Yes",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['UCITS']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "manager",
+   "value": "BlackRock Asset Management Ireland Limited",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "INVESTMENT_MANAGER",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['Fund Manager']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "isin",
+   "value": "IE0007SRI1C7",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "SHARE_CLASS_ISIN",
+   "source_artifact": "2aaee54fbf2ede71c08abd0cbad6a3cc5499371e0db12b639e01027ce61f7d40",
+   "source_locator": "key_facts['ISIN']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  }
+ ],
+ "model_version": 1,
+ "structured": null
+}

@@ -1,0 +1,122 @@
+{
+ "service": "openinstrument",
+ "api_version": "v1",
+ "deployment_note": "FIRDS-derived fields are served under the ESMA Registers Legal Notice (reproduction authorised with conditions) \u2014 attribution + transformation notice required",
+ "attribution": "Source: European Securities and Markets Authority (ESMA), FIRDS / ESMA Registers. OpenInstrument transforms and combines the original REGISTERS information.",
+ "sources": {
+  "firds": "ESMA Registers \u2014 reproduction authorised except as otherwise stated, source acknowledged + transformation notice",
+  "gleif": "CC0",
+  "openfigi": "public data; attribution"
+ },
+ "versions": {
+  "dataset_schema_version": "1",
+  "canonical_model_version": "1",
+  "adjudication_version": "1",
+  "history_engine_version": "1",
+  "display_name_policy_version": "1",
+  "conflict_taxonomy_version": "1",
+  "name_variance_version": "1",
+  "parser_versions": {
+   "firds_fulins": "2",
+   "firds_dltins": "1",
+   "gleif_isin_lei": "1",
+   "gleif_golden": "1",
+   "openfigi": "1",
+   "esma_discovery": "1"
+  },
+  "fund_intelligence_model_version": "1",
+  "document_model_version": "1",
+  "fund_relationship_model_version": "1",
+  "adapter_contract_version": "1",
+  "intelligence_adapter_versions": {
+   "amundi": "1",
+   "invesco": "1",
+   "ishares": "1",
+   "ssga": "1"
+  },
+  "issuer_adapter_versions": {
+   "amf_fr": "1",
+   "eqs_news": "1",
+   "cnmv_es": "1",
+   "esef": "1",
+   "afm_nl": "1",
+   "bafin_de": "1"
+  },
+  "issuer_intel_model_version": "2",
+  "debt_intel_model_version": "2",
+  "debt_adapter_versions": {
+   "luxse": "1",
+   "esma_priii": "2"
+  },
+  "payoff_ir_model_version": "3",
+  "payoff_evaluator_version": "evaluator_v3",
+  "discovery_pipeline_version": "3",
+  "rebuild_manifest_version": 2,
+  "discovery_evidence_policy": {
+   "esma_firds_delta": "RAW_PROVIDER_ARTIFACTS_REQUIRED",
+   "gleif_anna_isin_lei": "RAW_PROVIDER_ARTIFACTS_REQUIRED",
+   "esma_priii_incr": "RAW_PROVIDER_ARTIFACTS_REQUIRED"
+  }
+ },
+ "manifests": [
+  "canonical_v1_2026-09-12.json",
+  "canonical_v1_2026-10-03.json",
+  "firds_events.json",
+  "firds_records_2026-10-03.json",
+  "gleif_golden_2026-09-18.json",
+  "gleif_isin_lei_2026-09-18.json",
+  "openfigi_2026-09-26.json"
+ ],
+ "firds_events": {
+  "artifacts": [
+   "esma-dltins/2026-09-13/5795dba0a0ac5dacb31d2145bfae1789d7ec1bbf925c17f228836ac6d315061c",
+   "esma-dltins/2026-09-14/8431a24205754ec0ef58d9fdc06363b02a35662b9b757f8420e50d1a4b39a7ca",
+   "esma-dltins/2026-09-15/214d5fb0482b8413e3e017f2fea7f4d9ed314787f501e6d5f0fe1d8d87e192bf",
+   "esma-dltins/2026-09-15/3197bfe816c2fc9aa0dcd401af6a465d2c2271969e22bb87d9eeabc7e27222f3",
+   "esma-dltins/2026-09-15/4c4c8b39bbe396c8dc5a3ce1de84eed1711cd78c34a7ee65f8f6dc5af9c5002c",
+   "esma-dltins/2026-09-15/7140eebc315a7b7dcf4ef09251e14745aa2dc44cc7d5ac33ecea3369e160499f",
+   "esma-dltins/2026-09-16/153f9c49a19c6fc574fb068cc59f4530f1b9855c5ad4cffdc61f0fc0c345a456",
+   "esma-dltins/2026-09-16/59f25a29e971ab8849d7723559bb692138d90bd473851ef606ecf55be5c056a8",
+   "esma-dltins/2026-09-16/ca75abcf2b3eba47b793249c97186b5707e8779086c1aa7130d582b6a342a929",
+   "esma-dltins/2026-09-16/f475ab29ee3690ce8452c80056f15a2a857561b7ff230a0f4d4690d953a9ed19",
+   "esma-dltins/2026-09-17/19dbc49dd5848dd44288621f3b42a8ae6efb5c104b2714933bda4a4d0fe71a7e",
+   "esma-dltins/2026-09-17/34059923637599f9b6f2034c07342df1504c86b6427614168bd2536421966edb",
+   "esma-dltins/2026-09-17/a355a9b2d8923a357ace2ec3e5873aa62eb7ea747e800f4dc6b32ea33bda1962",
+   "esma-dltins/2026-09-17/d0f88cd1e6cf860d4dc29e0f6db238a77af9630b89a356eea01677bceaef71b1",
+   "esma-dltins/2026-09-18/2d12ba91bf8c309d07ff0ebca2b5a886334fcdb174c0ac0bc220bc41ff66a808",
+   "esma-dltins/2026-09-18/4db79269c8bd4aca0ffb643da9c2327d5edf2eeb2d97ad2883229b981d1faa40",
+   "esma-dltins/2026-09-18/cc1c8accdca2ea495591c5d1fdda2c82d891180df71ffa1ab789d7b3785d9f32",
+   "esma-dltins/2026-09-18/e366ba0eadc234dcee5b07d17e0b28fc665ce6362f6442c74ee8e5cad4592e18",
+   "esma-dltins/2026-09-19/07bb62c4d81d2a30efb320632521d8d3af2723e0f0c173d5c1e46cfeacc2303b",
+   "esma-dltins/2026-09-19/441eac91b7337de9f88694c4121fa89675803bec692541b73b49e98462cc35dd",
+   "esma-dltins/2026-09-19/a2f537c392bf5d28fe89ed6f919ae20de9b0b65d3fa006b028643f5fdd545297",
+   "esma-dltins/2026-09-19/cf4b0a819caa114d544e3262f9c1e463e220b553b75295f4e8546749ca8c3556"
+  ],
+  "dataset": "firds_events",
+  "events": 8646290,
+  "events_per_day": {
+   "2026-09-13": 64632,
+   "2026-09-14": 620,
+   "2026-09-15": 1597721,
+   "2026-09-16": 1651822,
+   "2026-09-17": 1681607,
+   "2026-09-18": 1712911,
+   "2026-09-19": 1936977
+  },
+  "parser": "openinstrument.adapters.firds_dltins",
+  "parser_version": "1",
+  "partition_fingerprint": "2b57ed2097c8a469579267ec25e5ad6d703d0b903e4629d0e4e45f1a29535b65"
+ },
+ "canonical_v1_2026-09-12": {
+  "dataset": "canonical",
+  "canonical_version": "1",
+  "firds_snapshot": "2026-09-12",
+  "openfigi_campaign": "2026-09-26",
+  "instruments": 3461932,
+  "listings": 5329746,
+  "legal_entities": 2780,
+  "relationships": 3396,
+  "identifiers": 3478329,
+  "canonical_fingerprint": "60d073e6aa12883458e933c65c25a2871400a1a88dda36bd884ce026cfd291bf"
+ }
+}

@@ -1,0 +1,453 @@
+{
+ "isin": "IE0007SRI1C7",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "IE0007SRI1C7",
+   "observations": 1,
+   "provider": "anna_nna"
+  },
+  {
+   "level": "share_class",
+   "scheme": "SHARE_CLASS_FIGI",
+   "value": "BBG02289PFP7",
+   "observations": 42,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG02289PF22",
+   "observations": 5,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG02289PGK0",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG02289PH82",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG02289R6M8",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG02289R6Q4",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG02289R700",
+   "observations": 18,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG02289R871",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG022GZLHK5",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG022H0J6R1",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG022Q178T6",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG022Q1CDL7",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG022Q1CFK3",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG022QTBCJ2",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG022QTBCX6",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG0238RPL09",
+   "observations": 2,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG023NWFCV8",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG024Y2PLQ5",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG024Y87VX2",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG024YN1VP4",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "composite",
+   "scheme": "COMPOSITE_FIGI",
+   "value": "BBG0250FC712",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289PF22",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289PF77",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289PFJ4",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289PFK2",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289PFL1",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289PGL9",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289PH91",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R6N7",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R6R3",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R700",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R719",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R737",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R755",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R782",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R791",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R7B8",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R7C7",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R7H2",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R7J0",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R7L7",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R7M6",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R7N5",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R7P3",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R7R1",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R7S0",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R7T9",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R7W5",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG02289R880",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG022GZLHL4",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG022H0J6S0",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG022Q178V3",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG022Q1CDM6",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG022Q1CFL2",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG022QTBCK0",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG022QTBCY5",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG0238RPL09",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG0238RPL27",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG023NWFCW7",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG024Y2PLR4",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG024Y87VY1",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG024YN1VQ3",
+   "observations": 1,
+   "provider": "openfigi"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG0250FC721",
+   "observations": 1,
+   "provider": "openfigi"
+  }
+ ]
+}

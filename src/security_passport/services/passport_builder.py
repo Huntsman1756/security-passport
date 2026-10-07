@@ -1,0 +1,819 @@
+"""Passport builder — assertions → adjudicated blocks → passport.
+
+Assembles one passport per request from (a) the upstream
+InstrumentProvider pinned to one generation and (b) the own-source
+PassportStore pinned to one published generation. All statuses are
+assigned here; providers never decide epistemology.
+"""
+from __future__ import annotations
+
+from datetime import UTC, datetime
+from typing import Any
+
+from security_passport.domain.evidence import Assertion, EvidenceRef
+from security_passport.domain.fields import PassportField, \
+    TemporalCoverage
+from security_passport.domain.passport import Passport, PassportBlock
+from security_passport.domain.status import (
+    FieldStatus,
+    QualityFlag,
+    SourceTimeSemantics,
+    TemporalBasis,
+)
+from security_passport.providers.base import (
+    InstrumentProvider,
+    IssuerAssertionFact,
+    ListingFact,
+    PassportStore,
+    ProviderError,
+)
+from security_passport.providers.iberclear import (
+    IBERCLEAR_CODES,
+    LIMITATION_TEXT,
+    sss_for_csd_code,
+)
+from security_passport.rules import ref
+from security_passport.temporal import (
+    NormalizedDate,
+    min_real_date,
+    normalize_firds_date,
+)
+
+_OI_DS = "firds_projection"
+_PRIII_DS = "priii_documents"
+_ECB_DS = "ea_csv"
+_SSS_DS = "eligible_sss_links"
+
+CFI_CLASS = {"C": "collective_investment", "D": "debt",
+             "E": "equity", "F": "future", "H": "structured",
+             "I": "other", "J": "option", "O": "otc_derivative",
+             "R": "referential", "S": "swap"}
+UNDATED_LETTERS = {"C", "E"}
+
+
+def _now() -> str:
+    return datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+
+
+def _oi_ev(provider_locator: str, *, dataset: str = _OI_DS,
+           record_id: str, raw: Any = None,
+           upstream_artifact: str = "",
+           retrieved_at: str = "") -> EvidenceRef:
+    """Evidence pointing at the upstream-served record, carrying
+    upstream artifact provenance through verbatim."""
+    return EvidenceRef(
+        provider="openinstrument", dataset=dataset,
+        record_id=record_id,
+        source_locator=provider_locator,
+        retrieved_at=retrieved_at,
+        raw_value=raw,
+        upstream_provider="esma_firds",
+        upstream_artifact=upstream_artifact,
+        upstream_locator=provider_locator)
+
+
+def _ecb_ev(record_id: str, snapshot: str, retrieved_at: str,
+            raw: Any = None) -> EvidenceRef:
+    return EvidenceRef(
+        provider="ecb_eligible_assets", dataset=_ECB_DS,
+        record_id=record_id,
+        artifact_id=f"ea_csv_{snapshot}",
+        source_locator=("ecb.europa.eu eligible marketable "
+                        "assets daily list"),
+        retrieved_at=retrieved_at,
+        effective_at=snapshot,
+        raw_value=raw,
+        parser_version="ecb_assets.v1")
+
+
+def _priii_ev(record_id: str, artifact: str, observed_at: str,
+              raw: Any = None) -> EvidenceRef:
+    return EvidenceRef(
+        provider="esma_priii", dataset=_PRIII_DS,
+        record_id=record_id, artifact_id=artifact,
+        source_locator=("registers.esma.europa.eu solr "
+                        "esma_registers_priii_documents"),
+        retrieved_at=observed_at, raw_value=raw,
+        parser_version="esma_prospectus.v1")
+
+
+def _sss_ev(record_id: str, dataset: str, stamp: str,
+            observed_at: str, raw: Any = None) -> EvidenceRef:
+    return EvidenceRef(
+        provider="ecb_sss_links", dataset=dataset,
+        record_id=record_id,
+        source_locator="ecb.europa.eu eligible SSS/links pages",
+        retrieved_at=observed_at, published_at=stamp,
+        raw_value=raw, parser_version="ecb_sss.v1")
+
+
+def _mic_ev(mic_code: str) -> EvidenceRef:
+    return EvidenceRef(
+        provider="iso10383_mic", dataset="mic",
+        record_id=mic_code,
+        source_locator="iso20022.org ISO10383_MIC.csv",
+        parser_version="mic.v1")
+
+
+def _oi_state_field(name: str, value: Any, state: str,
+                    ev: EvidenceRef,
+                    searched: list[str]) -> PassportField:
+    """Map upstream adjudication state → passport status."""
+    if state == "conflict":
+        return PassportField(
+            name=name, value=None, status=FieldStatus.CONFLICT,
+            evidence=[ev],
+            explanation=("Upstream preserves a provider conflict; "
+                         "candidate values are not exported via "
+                         "the v1 contract for this field."),
+            searched_sources=searched)
+    if value in (None, ""):
+        return PassportField.not_found(
+            name, searched_sources=searched,
+            explanation="No assertion in upstream projection.")
+    return PassportField.reported(
+        name, value, [ev],
+        searched_sources=searched)
+
+
+class PassportBuilder:
+    def __init__(self, provider: InstrumentProvider,
+                 store: PassportStore,
+                 warnings: list[str] | None = None) -> None:
+        self._p = provider
+        self._s = store
+        self._warnings: list[str] = list(warnings or [])
+        self._searched: dict[str, set[str]] = {}
+
+    def _note(self, *parts: str) -> None:
+        self._warnings.append(":".join(parts))
+
+    def _searched_add(self, field_name: str, src: str) -> None:
+        self._searched.setdefault(field_name, set()).add(src)
+
+    # ================= main entry =====================================
+
+    def build(self, isin: str, checksum_ok: bool) -> Passport:
+        searched_oi = f"openinstrument ({self._p.name()})"
+        identity = self._identity(isin, searched_oi, checksum_ok)
+        secondary = self._secondary(isin, searched_oi)
+        primary = self._primary(isin)
+        ecb = self._collateral(isin)
+        post = self._post_trade(isin, ecb)
+
+        overall = self._overall(identity, primary, secondary,
+                                post, ecb)
+        gen = self._s.generation()
+        return Passport(
+            isin=isin,
+            generated_at=_now(),
+            generation=gen,
+            openinstrument_generation=self._p.generation(),
+            overall_state=overall,
+            identity=identity,
+            primary_market=primary,
+            secondary_market=secondary,
+            post_trade=post,
+            eurosystem_collateral=ecb,
+            temporal_coverage={
+                "identity": {"basis": "reconstructed",
+                             "source": "openinstrument/firds",
+                             "note": "provider publication time; "
+                                     "left-censored at baseline"},
+                "primary_market": {"basis": "observed_history"},
+                "secondary_market": {"basis": "reconstructed"},
+                "post_trade": {"basis": "observed_history"},
+                "eurosystem_collateral": {"basis": "current_only"}},
+            source_summary=self._source_summary(),
+            warnings=self._warnings,
+            valid_checksum=checksum_ok)
+
+    def _source_summary(self) -> list[dict[str, Any]]:
+        out: list[dict[str, Any]] = [
+            {"provider": "openinstrument",
+             "generation": self._p.generation(),
+             "basis": "reconstructed"},
+            {"provider": "ecb_eligible_assets",
+             "snapshot": self._s.ecb_snapshot(),
+             "basis": "current_only"}]
+        meta = getattr(self._s, "meta", lambda: {})() or {}
+        if "mode" in meta:
+            out.append({"provider": "fixtures", "mode": "demo"})
+        return out
+
+    # ================= IDENTITY =======================================
+
+    def _identity(self, isin: str, searched: str,
+                  checksum_ok: bool) -> PassportBlock:
+        b = PassportBlock(name="identity")
+        b.temporal = TemporalCoverage(
+            basis=TemporalBasis.RECONSTRUCTED,
+            left_censored=True,
+            source_time_semantics=(
+                SourceTimeSemantics.PROVIDER_PUBLICATION_TIME))
+        try:
+            inst = self._p.instrument(isin)
+        except ProviderError as e:
+            self._note("identity", "openinstrument unavailable",
+                       e.message)
+            inst = None
+        if inst is None or not inst.found:
+            srcs = [searched]
+            for n in ("isin", "cfi", "fisn", "instrument_name",
+                      "issuer_lei", "issuer_name",
+                      "notional_currency", "competent_authority"):
+                b.fields[n] = PassportField.not_found(
+                    n, searched_sources=srcs)
+            b.fields["instrument_type"] = PassportField.not_found(
+                "instrument_type", searched_sources=srcs)
+            b.fields["maturity_date"] = PassportField.not_found(
+                "maturity_date", searched_sources=srcs)
+            b.collections["identifiers"] = []
+            b.collections["entity_roles"] = []
+            if inst is None:
+                b.warnings.append("upstream instrument source "
+                                  "unavailable")
+            return b
+
+        ev = _oi_ev(f"/v1/instruments/{isin}", record_id=isin,
+                    retrieved_at=inst.firds_snapshot)
+        b.fields["isin"] = PassportField.reported(
+            "isin", isin, [ev])
+        b.fields["cfi"] = _oi_state_field(
+            "cfi", inst.cfi, inst.cfi_state, ev, [searched])
+        b.fields["fisn"] = _oi_state_field(
+            "fisn", inst.fisn, inst.fisn_state, ev, [searched])
+        # display name: prefer full_name; fall back to FISN, each
+        # carrying its OWN upstream state
+        if inst.full_name:
+            nf = _oi_state_field("instrument_name", inst.full_name,
+                                 inst.full_name_state, ev,
+                                 [searched])
+        elif inst.fisn:
+            nf = _oi_state_field("instrument_name", inst.fisn,
+                                 inst.fisn_state, ev, [searched])
+            nf.explanation = (
+                "full_name unset upstream; displaying FISN as "
+                "instrument name.")
+            if inst.full_name_state == "conflict":
+                nf.explanation += (" Upstream reports a "
+                                   "provider conflict on "
+                                   "full_name (venue-authored "
+                                   "names differ).")
+        else:
+            nf = PassportField.not_found(
+                "instrument_name", searched_sources=[searched])
+        b.fields["instrument_name"] = nf
+        b.fields["notional_currency"] = _oi_state_field(
+            "notional_currency", inst.notional_currency,
+            inst.notional_currency_state, ev, [searched])
+        b.fields["competent_authority"] = _oi_state_field(
+            "competent_authority", inst.competent_authority,
+            inst.competent_authority_state, ev, [searched])
+        b.fields["firds_record_count"] = PassportField.reported(
+            "firds_record_count", inst.n_firds_records, [ev])
+
+        letter = (inst.cfi_letter or (inst.cfi or "")[:1]).upper()
+        if letter in CFI_CLASS:
+            b.fields["instrument_type"] = PassportField.derived(
+                "instrument_type", CFI_CLASS[letter], [ev],
+                ref("instrument_type",
+                    inputs=({"cfi": inst.cfi},)))
+        else:
+            b.fields["instrument_type"] = PassportField.not_found(
+                "instrument_type", searched_sources=[searched])
+
+        # issuer
+        self._issuer(b, isin, searched, ev, inst)
+        # identifiers (FIGI levels)
+        try:
+            idents = self._p.identifiers(isin)
+        except ProviderError:
+            idents = []
+        b.collections["identifiers"] = [
+            {"level": i.level, "scheme": i.scheme, "value": i.value,
+             "provider": i.provider} for i in idents]
+        return b
+
+    def _issuer(self, b: PassportBlock, isin: str, searched: str,
+                ev: EvidenceRef, inst: Any) -> None:
+        try:
+            iss = self._p.issuer(isin)
+        except ProviderError as e:
+            self._note("identity", "issuer endpoint", e.message)
+            b.fields["issuer_lei"] = PassportField.not_found(
+                "issuer_lei", searched_sources=[searched])
+            b.fields["issuer_name"] = PassportField.not_found(
+                "issuer_name", searched_sources=[searched])
+            b.collections["entity_roles"] = []
+            return
+        if not iss.found:
+            for n in ("issuer_lei", "issuer_name"):
+                b.fields[n] = PassportField.not_found(
+                    n, searched_sources=[searched])
+            b.collections["entity_roles"] = []
+            return
+        if iss.state == "conflict":
+            cands: dict[str, Assertion] = {}
+            def pack(rows: tuple[IssuerAssertionFact, ...],
+                     role: str) -> None:
+                for a in rows:
+                    if a.lei not in cands:
+                        cands[a.lei] = Assertion(
+                            value=a.lei, role=role,
+                            evidence=_oi_ev(
+                                a.locator or f"/v1/instruments/"
+                                             f"{isin}/issuer",
+                                record_id=isin, raw=a.lei))
+            pack(iss.gleif_assertions, "gleif_isin_lei")
+            pack(iss.firds_assertions, "firds_issuer_or_venue_operator")
+            if len(cands) >= 2:
+                b.fields["issuer_lei"] = PassportField.conflict(
+                    "issuer_lei", list(cands.values()),
+                    explanation=("Provider disagreement preserved "
+                                 "by upstream adjudication; no "
+                                 "automatic winner."),
+                    searched_sources=[searched])
+            else:
+                # conflict state but candidates not reconstructable
+                b.fields["issuer_lei"] = PassportField(
+                    name="issuer_lei", value=None,
+                    status=FieldStatus.CONFLICT, evidence=[ev],
+                    explanation=("Upstream reports conflict but "
+                                 "the candidates are not exported "
+                                 "via the v1 contract."),
+                    searched_sources=[searched])
+        elif iss.canonical_lei:
+            st = "corroborated" if iss.state == "corroborated" \
+                else "single_source"
+            b.fields["issuer_lei"] = PassportField.reported(
+                "issuer_lei", iss.canonical_lei, [ev],
+                rule=ref("issuer_lei_adjudication",
+                         inputs=({"state": st},)),
+                searched_sources=[searched])
+        else:
+            b.fields["issuer_lei"] = PassportField.not_found(
+                "issuer_lei", searched_sources=[searched],
+                explanation="No issuer LEI assertion found.")
+        ent = iss.entity or {}
+        nm = (ent.get("legal_name") or ent.get("legalName")
+              or ent.get("name"))
+        if nm:
+            b.fields["issuer_name"] = PassportField.reported(
+                "issuer_name", nm, [_oi_ev(
+                    f"/v1/instruments/{isin}/issuer",
+                    record_id=isin,
+                    upstream_artifact=str(ent.get("locator") or ""),
+                    raw=nm)])
+        else:
+            b.fields["issuer_name"] = PassportField.not_found(
+                "issuer_name",
+                searched_sources=[searched, "gleif (via upstream)"])
+        # entity roles — fund roles when the upstream v2 surface has
+        # them; FIRDS Issr semantics is always listed as its own role
+        roles: list[dict[str, str]] = [{
+            "role": "issuer_or_venue_operator",
+            "lei": a.lei, "source": "esma_firds"}
+            for a in iss.firds_assertions][:8]
+        for a in iss.gleif_assertions[:4]:
+            roles.append({"role": "isin_lei_mapping",
+                          "lei": a.lei, "source": "gleif"})
+        try:
+            for r in self._p.fund_roles(isin):
+                roles.append({"role": r["role"].lower(),
+                              "lei": r["value"],
+                              "source": "openinstrument_v2"})
+        except ProviderError:
+            pass
+        # dedupe (role, lei)
+        seen: set[tuple[str, str]] = set()
+        dedup = []
+        for r in roles:
+            k = (r["role"], r["lei"])
+            if k not in seen:
+                seen.add(k)
+                dedup.append(r)
+        b.collections["entity_roles"] = dedup
+
+    # ================= PRIMARY MARKET =================================
+
+    def _primary(self, isin: str) -> PassportBlock:
+        b = PassportBlock(name="primary_market")
+        b.temporal = TemporalCoverage(
+            basis=TemporalBasis.OBSERVED_HISTORY,
+            source_time_semantics=SourceTimeSemantics.RETRIEVAL_TIME)
+        pr = self._s.priii(isin)
+        searched = ["esma_priii (esma_registers_priii_documents)"]
+        if pr is None:
+            for n in ("prospectus_found", "home_member_state",
+                      "approval_filing_date", "is_passported"):
+                b.fields[n] = PassportField.not_found(
+                    n, searched_sources=searched,
+                    explanation=("ISIN not in the observed PRIII "
+                                 "corpus of this generation."))
+            b.collections["document_graph"] = []
+            b.warnings.append("PRIII corpus does not cover this "
+                              "ISIN in this generation")
+            return b
+        ev = _priii_ev(isin, pr.artifact_id, pr.observed_at)
+        found = bool(pr.documents)
+        b.fields["prospectus_found"] = PassportField.reported(
+            "prospectus_found", found, [ev],
+            explanation=("Register search performed for this ISIN. "
+                         if not found else ""),
+            searched_sources=searched)
+        if not found:
+            for n in ("home_member_state", "approval_filing_date",
+                      "is_passported"):
+                b.fields[n] = PassportField.not_found(
+                    n, searched_sources=searched,
+                    explanation=("No filings returned by the "
+                                 "register; may be exempt, out of "
+                                 "scope, or unregistered — never "
+                                 "asserted as 'no prospectus "
+                                 "exists'."))
+            b.collections["document_graph"] = []
+            return b
+        first = pr.documents[0]
+        evd = _priii_ev(first.root_id or isin, pr.artifact_id,
+                        pr.observed_at,
+                        raw=first.national_document_id)
+        b.fields["home_member_state"] = PassportField.reported(
+            "home_member_state",
+            first.home_member_state_code or first.home_member_state,
+            [evd])
+        b.fields["approval_filing_date"] = PassportField.reported(
+            "approval_filing_date",
+            first.approval_filing_date[:10], [evd],
+            raw_value=first.approval_filing_date)
+        b.fields["is_passported"] = PassportField.reported(
+            "is_passported", first.is_passported, [evd])
+        b.fields["host_member_states"] = PassportField.reported(
+            "host_member_states",
+            sorted(set(first.member_states)), [evd])
+        b.collections["document_graph"] = [
+            self._doc_node(d, pr) for d in pr.documents]
+        return b
+
+    def _doc_node(self, d: Any, pr: Any) -> dict[str, Any]:
+        return {
+            "root_id": d.root_id,
+            "document_type": d.document_type,
+            "document_type_descr": d.document_type_descr,
+            "prospectus_type": d.prospectus_type,
+            "structure_type": d.structure_type,
+            "national_document_id": d.national_document_id,
+            "home_member_state": d.home_member_state_code,
+            "member_states": list(d.member_states),
+            "is_passported": d.is_passported,
+            "approval_filing_date": d.approval_filing_date[:10],
+            "first_passporting_date": d.first_passporting_date[:10],
+            "doc_last_update_date": d.doc_last_update_date,
+            "download_url": d.download_url,
+            "party_name": d.party_name,
+            "issuer_lei": d.issuer_lei,
+            "issuer_name": d.issuer_name,
+            "offeror_lei": d.offeror_lei,
+            "offeror_name": d.offeror_name,
+            "related_document_ids": list(d.related_document_ids),
+            "languages": d.document_languages,
+            "status": "reported",
+            "observed_at": pr.observed_at,
+        }
+
+    # ================= SECONDARY MARKET ================================
+
+    def _secondary(self, isin: str, searched: str) -> PassportBlock:
+        b = PassportBlock(name="secondary_market")
+        b.temporal = TemporalCoverage(
+            basis=TemporalBasis.RECONSTRUCTED,
+            left_censored=True,
+            source_time_semantics=(
+                SourceTimeSemantics.PROVIDER_PUBLICATION_TIME))
+        try:
+            listings = self._p.listings(isin)
+        except ProviderError as e:
+            self._note("secondary_market", "listings", e.message)
+            listings = []
+        if not listings:
+            b.fields["listing_count"] = PassportField.reported(
+                "listing_count", 0, [_oi_ev(
+                    f"/v1/instruments/{isin}/listings",
+                    record_id=isin)],
+                searched_sources=[searched])
+            for n in ("first_admission_date",
+                      "active_venue_count"):
+                b.fields[n] = PassportField.not_found(
+                    n, searched_sources=[searched])
+            b.collections["listings"] = []
+            return b
+        rows: list[dict[str, Any]] = []
+        adm_cands: list[NormalizedDate] = []
+        n_active = 0
+        for l in listings:
+            rows.append(self._listing_row(l))
+            state = rows[-1]["state"]
+            if state == "active":
+                n_active += 1
+            for raw in (l.admission_approval_date,
+                        l.admission_request_date,
+                        l.first_trade_date):
+                nd = normalize_firds_date(raw)
+                if nd.value is not None:
+                    adm_cands.append(nd)
+        b.collections["listings"] = rows
+        ev = _oi_ev(f"/v1/instruments/{isin}/listings",
+                    record_id=isin)
+        b.fields["listing_count"] = PassportField.reported(
+            "listing_count", len(rows), [ev])
+        b.fields["active_venue_count"] = PassportField.derived(
+            "active_venue_count", n_active, [ev],
+            ref("venue_state", inputs=(
+                {"n_listings": len(rows)},)))
+        best = min_real_date(adm_cands)
+        if best is not None and best.value:
+            flags = list(best.flags)
+            b.fields["first_admission_date"] = PassportField.derived(
+                "first_admission_date", best.value, [ev],
+                ref("first_admission",
+                    inputs=({"n_candidates": len(adm_cands)},)),
+                quality_flags=flags,
+                raw_value=best.raw)
+        else:
+            nf = PassportField.not_found(
+                "first_admission_date",
+                searched_sources=[searched],
+                explanation=("All admission-date evidence was "
+                             "sentinel/unknown."))
+            if adm_cands or any(
+                    normalize_firds_date(x).is_sentinel
+                    for l in listings
+                    for x in (l.admission_approval_date,
+                              l.admission_request_date,
+                              l.first_trade_date)):
+                nf.quality_flags.append(
+                    QualityFlag.SOURCE_DEFAULT_VALUE)
+            b.fields["first_admission_date"] = nf
+        return b
+
+    def _listing_row(self, l: ListingFact) -> dict[str, Any]:
+        adm = normalize_firds_date(l.admission_approval_date)
+        req = normalize_firds_date(l.admission_request_date)
+        trd = normalize_firds_date(l.first_trade_date)
+        term = normalize_firds_date(l.termination_date)
+        # venue state (venue_state.v1): terminated < active < pending
+        if term.value is not None:
+            state = "terminated"
+        elif adm.value or trd.value or req.value:
+            state = "active"
+        else:
+            state = "unknown_dates"
+        micf = self._s.mic(l.venue_mic)
+        relf = self._s.mic(l.relevant_venue) \
+            if l.relevant_venue else None
+        flags = []
+        for nd in (adm, req, trd, term):
+            for f in nd.flags:
+                if f not in flags:
+                    flags.append(f)
+        return {
+            "venue_mic": l.venue_mic,
+            "venue_name": micf.market_name if micf else "",
+            "venue_mic_status": micf.status if micf else "",
+            "oprt_sgmt": micf.oprt_sgmt if micf else "",
+            "relevant_venue": l.relevant_venue,
+            "relevant_venue_name": relf.market_name if relf else "",
+            "issuer_requested_admission":
+                l.issuer_requested_admission,
+            "admission_approval_date": adm.value,
+            "admission_approval_date_raw": adm.raw,
+            "first_trade_date": trd.value,
+            "first_trade_date_raw": trd.raw,
+            "termination_date": term.value,
+            "termination_date_raw": term.raw,
+            "state": state,
+            "quality_flags": [f.value for f in flags],
+            "evidence": _oi_ev(
+                l.locator or "firds", record_id=l.locator or
+                f"{l.venue_mic}",
+                raw={"adm": l.admission_approval_date,
+                     "trd": l.first_trade_date,
+                     "term": l.termination_date}).to_dict(),
+            "mic_evidence": _mic_ev(l.venue_mic).to_dict()
+            if micf else None,
+        }
+
+    # ================= EUROSYSTEM COLLATERAL ==========================
+
+    def _collateral(self, isin: str) -> PassportBlock:
+        b = PassportBlock(name="eurosystem_collateral")
+        b.temporal = TemporalCoverage(
+            basis=TemporalBasis.CURRENT_ONLY,
+            coverage_start=None, coverage_end=None,
+            source_time_semantics=SourceTimeSemantics.EFFECTIVE_TIME)
+        snap = self._s.ecb_snapshot()
+        searched = [f"ecb_eligible_assets ea_csv_{snap}"]
+        row = self._s.ecb_asset(isin)
+        # absence evidence points at the enumeration itself, not a
+        # row that does not exist
+        if row is None:
+            ev = _ecb_ev(f"ea_csv_{snap}", snap,
+                         self._s.ecb_retrieved_at())
+            b.fields["eligible"] = PassportField.derived(
+                "eligible", False, [ev],
+                ref("eurosystem_eligibility",
+                    inputs=({"snapshot": snap},)),
+                searched_sources=searched,
+                explanation=("ISIN absent from the authoritative "
+                             "eligible-assets enumeration for this "
+                             "snapshot — not eligible as of that "
+                             "date."))
+            for n in ("haircut_category", "asset_type", "haircut",
+                      "issuer_csd"):
+                b.fields[n] = PassportField.not_found(
+                    n, searched_sources=searched)
+            b.fields["ecb_snapshot"] = PassportField.reported(
+                "ecb_snapshot", snap, [ev])
+            return b
+        ev = _ecb_ev(isin, snap, row.retrieved_at or
+                     self._s.ecb_retrieved_at(),
+                     raw={"issuer_csd": row.issuer_csd})
+        b.fields["eligible"] = PassportField.derived(
+            "eligible", True, [ev],
+            ref("eurosystem_eligibility",
+                inputs=({"snapshot": snap},)),
+            searched_sources=searched)
+        b.fields["ecb_snapshot"] = PassportField.reported(
+            "ecb_snapshot", snap, [ev])
+        b.fields["haircut_category"] = PassportField.reported(
+            "haircut_category", row.haircut_category, [ev])
+        b.fields["asset_type"] = PassportField.reported(
+            "asset_type", row.asset_type, [ev])
+        if row.haircut:
+            b.fields["haircut"] = PassportField.reported(
+                "haircut", row.haircut, [ev], unit="percent",
+                rule=ref("haircut_display"))
+        else:
+            b.fields["haircut"] = PassportField.not_found(
+                "haircut", searched_sources=searched)
+        b.fields["issuer_csd"] = PassportField.reported(
+            "issuer_csd", row.issuer_csd, [ev])
+        for n, v in (("denomination_currency",
+                      row.denomination_currency),
+                     ("ecb_maturity_date", row.maturity_date),
+                     ("coupon_rate", row.coupon_rate),
+                     ("coupon_definition", row.coupon_definition),
+                     ("issuer_group", row.issuer_group),
+                     ("guarantor_name", row.guarantor_name),
+                     ("covered_bond_flag", row.covered_bond_flag),
+                     ("climate_factor", row.climate_factor)):
+            if v:
+                b.fields[n] = PassportField.reported(n, v, [ev])
+        return b
+
+    # ================= POST-TRADE =====================================
+
+    def _post_trade(self, isin: str,
+                    ecb_block: PassportBlock) -> PassportBlock:
+        b = PassportBlock(name="post_trade")
+        b.temporal = TemporalCoverage(
+            basis=TemporalBasis.OBSERVED_HISTORY,
+            source_time_semantics=SourceTimeSemantics.RETRIEVAL_TIME)
+        searched = ["ecb_eligible_assets", "ecb_sss_links",
+                    "iberclear (public documentation)"]
+        # issuer SSS — only via a directly reported ECB issuer_csd
+        issuer_sss_name = ""
+        issuer_sss_code = ""
+        row = self._s.ecb_asset(isin)
+        if row is not None and row.issuer_csd:
+            code = row.issuer_csd
+            issuer_sss_code = code
+            mapped = sss_for_csd_code(code)
+            ev = _ecb_ev(isin, row.snapshot,
+                         row.retrieved_at or self._s.ecb_retrieved_at(),
+                         raw={"ISSUER_CSD": code})
+            if mapped:
+                issuer_sss_name = mapped["name"]
+                b.fields["issuer_sss"] = PassportField.reported(
+                    "issuer_sss",
+                    {"code": code, "name": mapped["name"],
+                     "country": mapped["country"]}, [ev])
+            else:
+                b.fields["issuer_sss"] = PassportField.reported(
+                    "issuer_sss", {"code": code, "name": ""}, [ev],
+                    quality_flags=[
+                        QualityFlag.POSSIBLE_SOURCE_DEFAULT])
+                issuer_sss_name = code
+        else:
+            b.fields["issuer_sss"] = PassportField.not_found(
+                "issuer_sss", searched_sources=searched,
+                explanation=("No instrument-specific issuer-CSD "
+                             "evidence. The ECB list only reports "
+                             "issuer CSD for eligible assets; an "
+                             "ISIN prefix is never used as a "
+                             "substitute."))
+        # Iberclear — explicit absence unless ECB says CLES01
+        if issuer_sss_code in IBERCLEAR_CODES:
+            b.fields["iberclear_admitted"] = PassportField.reported(
+                "iberclear_admitted", True,
+                b.fields["issuer_sss"].evidence,
+                explanation=("ECB eligible-assets reports "
+                             "ISSUER_CSD=CLES01 (Iberclear-ARCO)."))
+        else:
+            b.fields["iberclear_admitted"] = PassportField.not_found(
+                "iberclear_admitted", searched_sources=searched,
+                explanation=LIMITATION_TEXT)
+        # topology — verbatim eligible SSSs + links (collections)
+        sss = self._s.eligible_sss()
+        links = self._s.eligible_links()
+        stamp = (sss[0].page_stamp if sss else "") or (
+            links[0].page_stamp if links else "")
+        obs = (sss[0].observed_at if sss else "") or (
+            links[0].observed_at if links else "")
+        b.collections["eligible_sss"] = [
+            {"name": s.name, "country": s.country,
+             "status": "reported",
+             "evidence": _sss_ev(
+                 s.name, "eligible_sss", s.page_stamp,
+                 s.observed_at).to_dict()}
+            for s in sss]
+        # links touching the issuer SSS — context only
+        relevant = [l for l in links
+                    if issuer_sss_name and (
+                        issuer_sss_name in l.issuer_sss
+                        or issuer_sss_name in l.investor_sss)]
+        b.collections["relevant_links"] = [
+            {"investor_sss": l.investor_sss,
+             "issuer_sss": l.issuer_sss,
+             "intermediaries": list(l.intermediaries),
+             "operated_by": l.operated_by,
+             "status": "reported",
+             "evidence": _sss_ev(
+                 f"{l.investor_sss}->{l.issuer_sss}",
+                 "eligible_links", l.page_stamp,
+                 l.observed_at).to_dict()}
+            for l in relevant]
+        if sss:
+            b.fields["eligible_sss_count"] = PassportField.reported(
+                "eligible_sss_count", len(sss),
+                [_sss_ev("eligible_sss_page", "eligible_sss",
+                         stamp, obs)])
+        else:
+            b.fields["eligible_sss_count"] = PassportField.not_found(
+                "eligible_sss_count", searched_sources=searched)
+        b.fields["possible_paths"] = PassportField.not_found(
+            "possible_paths", searched_sources=searched,
+            explanation=("Possible settlement paths require (a) a "
+                         "reported issuer SSS and (b) "
+                         "instrument-specific admission/holding "
+                         "evidence in an investor SSS. Condition "
+                         "(b) is not met by any v0.1 source."))
+        # assessment — derived statement of what evidence exists
+        if issuer_sss_name:
+            txt = (f"Issuer SSS reported as {issuer_sss_name} "
+                   f"({issuer_sss_code}) by the ECB eligible-assets "
+                   f"snapshot. Eligible-link topology to/from that "
+                   f"SSS exists in the Eurosystem list where shown. "
+                   f"This does not establish that this ISIN is "
+                   f"admitted to, held through, or operationally "
+                   f"settleable over any link.")
+        else:
+            txt = ("Insufficient evidence to assert a settlement "
+                   "path: no instrument-specific issuer-SSS "
+                   "evidence was found, and SSS-link topology is "
+                   "never used as a substitute for "
+                   "instrument-level admission evidence.")
+        assess_ev: list[EvidenceRef] = []
+        if issuer_sss_name:
+            assess_ev = list(b.fields["issuer_sss"].evidence)
+        elif sss:
+            assess_ev = [_sss_ev("eligible_sss_page",
+                                 "eligible_sss", stamp, obs)]
+        b.fields["assessment"] = PassportField.derived(
+            "assessment", txt, assess_ev,
+            ref("settlement_path",
+                inputs=({"issuer_sss": issuer_sss_code or None},
+                        {"links_for_sss": len(relevant)})),
+            searched_sources=searched)
+        return b
+
+    # ================= overall =========================================
+
+    def _overall(self, *blocks: PassportBlock) -> str:
+        idb = blocks[0]
+        isin_f = idb.fields.get("isin")
+        if isin_f is None or isin_f.status is FieldStatus.NOT_FOUND:
+            return "unknown"
+        n_missing = 0
+        for b in blocks:
+            flds = list(b.fields.values())
+            if flds and all(
+                    f.status in (FieldStatus.NOT_FOUND,
+                                 FieldStatus.NOT_APPLICABLE)
+                    for f in flds):
+                n_missing += 1
+        if n_missing >= len(blocks) - 1:
+            return "partial"
+        if n_missing:
+            return "partial"
+        return "found"

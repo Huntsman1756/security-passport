@@ -1,0 +1,301 @@
+{
+ "isin": "ES0113900J37",
+ "found": true,
+ "canonical_lei": "5493006QMFDDMYWIAM13",
+ "state": "corroborated",
+ "assertion_count": 50,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "5493006QMFDDMYWIAM13",
+    "locator": "lei-isin-20260918T071512.csv#row=3453664"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "BGEM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101588"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "EBLX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101595"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "EQTB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101597"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "ERFQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101598"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "FRAB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101600"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "RFQN",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101614"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "TQEM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101621"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "XWAR",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101632"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "ENTW",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101596"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "HAMB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101602"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "LISZ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101608"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "AQEA",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101584"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "DUSB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101593"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "STUD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101617"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "TQEX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101622"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "CEUO",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101590"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "TPIR",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101619"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "TQEA",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101620"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "XGAT",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101628"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "CEUX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101591"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "HAMQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101604"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "LNEQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101609"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "DUSD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101594"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "STUB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101616"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "MUNB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101611"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "XETB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101626"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "ETLX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101599"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "MTAH",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101610"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "STUF",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101618"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "TWEM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101623"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "JBUL",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101607"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "SGMU",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101615"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "XPAC",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101630"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "HAMN",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101603"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "UBSI",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101624"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "AQED",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101585"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "CEUD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101589"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "FRAV",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101601"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "HAND",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101606"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "AQEU",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101586"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "BEUP",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101587"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "DMAD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101592"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "OCXE",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101613"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "XETV",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101627"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "MUND",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101612"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "XPOS",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101631"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "HANB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101605"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "WBDM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101625"
+   },
+   {
+    "issr": "5493006QMFDDMYWIAM13",
+    "venue": "XMAD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101629"
+   }
+  ]
+ },
+ "entity": {
+  "lei": "5493006QMFDDMYWIAM13",
+  "snapshot_date": "2026-09-18",
+  "artifact_id": "lei-cdf/2026-09-18/076609e9ba872c0782ca0327a85299255d2a4e4810c0e956a86623d4e29e9cd2",
+  "locator": "20260918-gleif-concatenated-file-lei2.xml#LEIRecord=259390",
+  "legal_name": "BANCO SANTANDER S.A.",
+  "other_names_json": "[{\"lang\": null, \"name\": \"BANCO DE SANTANDER SA.\", \"type\": \"PREVIOUS_LEGAL_NAME\"}]",
+  "legal_address_json": "{\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"SANTANDER\", \"country\": \"ES\", \"first_address_line\": \"PASEO DE PEREDA 9-12\", \"postal_code\": \"39004\", \"region\": \"ES-S\"}",
+  "headquarters_address_json": "{\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"SANTANDER\", \"country\": \"ES\", \"first_address_line\": \"PASEO DE PEREDA 9-12\", \"postal_code\": \"39004\", \"region\": \"ES-S\"}",
+  "legal_jurisdiction": "ES",
+  "entity_category": "GENERAL",
+  "entity_status": "ACTIVE",
+  "legal_form_code": "5RDO",
+  "registration_status": "ISSUED",
+  "initial_registration_date": "2013-12-19T03:23:00Z",
+  "last_update_date": "2026-04-23T11:45:49.220Z",
+  "next_renewal_date": "2027-06-09T00:00:00Z",
+  "managing_lou": "213800WAVVOPS85N2205",
+  "raw_json": "{\"entity_category\": \"GENERAL\", \"entity_creation_date\": \"1857-01-01T00:00:00Z\", \"entity_expiration_date\": null, \"entity_status\": \"ACTIVE\", \"headquarters_address\": {\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"SANTANDER\", \"country\": \"ES\", \"first_address_line\": \"PASEO DE PEREDA 9-12\", \"postal_code\": \"39004\", \"region\": \"ES-S\"}, \"legal_address\": {\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"SANTANDER\", \"country\": \"ES\", \"first_address_line\": \"PASEO DE PEREDA 9-12\", \"postal_code\": \"39004\", \"region\": \"ES-S\"}, \"legal_form_code\": \"5RDO\", \"legal_jurisdiction\": \"ES\", \"legal_name\": \"BANCO SANTANDER S.A.\", \"legal_name_lang\": null, \"lei\": \"5493006QMFDDMYWIAM13\", \"other_legal_form\": null, \"other_names\": [{\"lang\": null, \"name\": \"BANCO DE SANTANDER SA.\", \"type\": \"PREVIOUS_LEGAL_NAME\"}], \"registration\": {\"initial_registration_date\": \"2013-12-19T03:23:00Z\", \"last_update_date\": \"2026-04-23T11:45:49.220Z\", \"managing_lou\": \"213800WAVVOPS85N2205\", \"next_renewal_date\": \"2027-06-09T00:00:00Z\", \"registration_status\": \"ISSUED\", \"validation_authority\": {\"entity_id\": \"A39000013\", \"id\": \"RA000535\"}, \"validation_sources\": \"PARTIALLY_CORROBORATED\"}, \"registration_authority\": {\"entity_id\": \"A39000013\", \"id\": \"RA000535\"}}",
+  "snapshot": "2026-09-18"
+ },
+ "relationships": [
+  {
+   "start_lei": "549300SMVCQN2P0O6I58",
+   "relationship_type": "IS_DIRECTLY_CONSOLIDATED_BY",
+   "end_lei": "5493006QMFDDMYWIAM13",
+   "status": "ACTIVE",
+   "snapshot_date": "2026-09-18",
+   "locator": "20260918-gleif-concatenated-file-rr.xml#RelationshipRecord=452699"
+  },
+  {
+   "start_lei": "549300SMVCQN2P0O6I58",
+   "relationship_type": "IS_ULTIMATELY_CONSOLIDATED_BY",
+   "end_lei": "5493006QMFDDMYWIAM13",
+   "status": "ACTIVE",
+   "snapshot_date": "2026-09-18",
+   "locator": "20260918-gleif-concatenated-file-rr.xml#RelationshipRecord=452700"
+  }
+ ]
+}

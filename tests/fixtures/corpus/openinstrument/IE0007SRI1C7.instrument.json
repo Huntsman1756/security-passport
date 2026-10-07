@@ -1,0 +1,27 @@
+{
+ "isin": "IE0007SRI1C7",
+ "cfi": "CEOGBS",
+ "cfi_state": "single_source",
+ "fisn": "ISHARES V/SHS CL-ACC EUR",
+ "fisn_state": "single_source",
+ "full_name": null,
+ "full_name_state": "conflict",
+ "notional_currency": "EUR",
+ "notional_currency_state": "single_source",
+ "issuer_lei": null,
+ "issuer_lei_state": "conflict",
+ "issuer_lei_assertions": 28,
+ "competent_authority": "FR",
+ "competent_authority_state": "single_source",
+ "firds_snapshot": "2026-10-03",
+ "n_firds_records": 27,
+ "cfi_letter": "C",
+ "canonical_version": "1",
+ "version": 1,
+ "found": true,
+ "valid_checksum": true,
+ "versions": {
+  "canonical_model_version": "1",
+  "adjudication_version": "1"
+ }
+}

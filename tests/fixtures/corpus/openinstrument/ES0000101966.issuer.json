@@ -1,0 +1,119 @@
+{
+ "isin": "ES0000101966",
+ "found": true,
+ "canonical_lei": "959800KASH3LCM57Q344",
+ "state": "corroborated",
+ "assertion_count": 21,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "959800KASH3LCM57Q344",
+    "locator": "lei-isin-20260918T071512.csv#row=7421916"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "DUSB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182688"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "HAMQ",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182693"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "FRAV",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182691"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "STUB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182699"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "HAMN",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182692"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "SEND",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182697"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "XERE",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182705"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "TWEM",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182702"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "BTFE",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182687"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "SSOB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182698"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "FRAB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182690"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "AURO",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182686"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "TWEO",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182703"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "DUSD",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182689"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "MANL",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182694"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "STUF",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182700"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "MUNB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182695"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "TEUR",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182701"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "MUND",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182696"
+   },
+   {
+    "issr": "959800KASH3LCM57Q344",
+    "venue": "XDRF",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=182704"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

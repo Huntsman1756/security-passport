@@ -1,0 +1,19 @@
+{
+ "isin": "XS2081615473",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "XS2081615473",
+   "observations": 1,
+   "provider": "anna_nna"
+  },
+  {
+   "level": "venue",
+   "scheme": "FIGI",
+   "value": "BBG00QX2RJN5",
+   "observations": 1,
+   "provider": "openfigi"
+  }
+ ]
+}

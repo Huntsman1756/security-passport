@@ -1,0 +1,15 @@
+{
+ "captured_at": "2026-10-07",
+ "openinstrument": "http://127.0.0.1:8765 (generation-0004)",
+ "isins": [
+  "DE000A3LJCB4",
+  "XS2081615473",
+  "DE0007164600",
+  "ES0113900J37",
+  "ES0000101966",
+  "IE0007SRI1C7",
+  "LU0003549028"
+ ],
+ "ecb_snapshot": "ea_csv_261006",
+ "note": "evidence.json payloads may carry _capture_error \u2014 upstream /v1/evidence 503s on generation-0004 (hardcoded stale firds snapshot)."
+}

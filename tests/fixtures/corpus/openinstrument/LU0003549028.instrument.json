@@ -1,0 +1,27 @@
+{
+ "isin": "LU0003549028",
+ "cfi": "CIOIBS",
+ "cfi_state": "single_source",
+ "fisn": "DWS EURORENTA/SH EUR",
+ "fisn_state": "single_source",
+ "full_name": null,
+ "full_name_state": "conflict",
+ "notional_currency": "EUR",
+ "notional_currency_state": "single_source",
+ "issuer_lei": "549300HXCBZYNNORGQ47",
+ "issuer_lei_state": "single_source",
+ "issuer_lei_assertions": 15,
+ "competent_authority": "DE",
+ "competent_authority_state": "single_source",
+ "firds_snapshot": "2026-10-03",
+ "n_firds_records": 15,
+ "cfi_letter": "C",
+ "canonical_version": "1",
+ "version": 1,
+ "found": true,
+ "valid_checksum": true,
+ "versions": {
+  "canonical_model_version": "1",
+  "adjudication_version": "1"
+ }
+}

@@ -1,0 +1,231 @@
+{
+ "isin": "DE000A3LJCB4",
+ "ifii": {
+  "numFound": 1,
+  "start": 0,
+  "numFoundExact": true,
+  "docs": [
+   {
+    "id": "IFII_35688796",
+    "type_s": "child",
+    "entity_type": "isinFinInstrInfo",
+    "ifii_dbId": "35688796",
+    "ifii_isin": "DE000A3LJCB4",
+    "ifii_fisn": "EPH GROUP/10 SV 20300717 USEC",
+    "ifii_cfi": "DBFUGB",
+    "ifii_denominationAmnt": "1000",
+    "ifii_denominationCurr": "EUR",
+    "ifii_volOfferedValue": "Max 50000",
+    "ifii_priceOfferedValue": "1000",
+    "ifii_consOfferedValue": "Max 50000000",
+    "ifii_matExpDate": "2030-07-03T00:00:00Z",
+    "ifii_securitiesType": "DWHD",
+    "ifii_securitiesTypeDesc": "Debt with denomination < \u20ac100.000",
+    "ifii_tvCharType": "MLTF",
+    "ifii_tvCharTypeDesc": "MTF which is not an SME growth market",
+    "ifii_offerAdmType": "IMTF",
+    "ifii_offerAdmTypeDesc": "Initial admission to trading on MTF with offer to the public",
+    "ifii_docVersionDbId": "23369885",
+    "ifii_natDocId": "C-028898",
+    "ifii_docType": "STDA",
+    "ifii_docTypeDesc": "Standalone prospectus",
+    "ifii_approvalFilingDate": "2023-06-07T00:00:00Z",
+    "ifii_tradingVenue": "Link to FIRDS",
+    "_root_": "23369885",
+    "_version_": 1849852803947692053,
+    "timestamp": "2025-11-26T11:38:28.035Z"
+   }
+  ]
+ },
+ "filings": [
+  {
+   "root": "23369885",
+   "parent": {
+    "numFound": 1,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "_root_": "23369885",
+      "id": "23369885",
+      "type_s": "parent",
+      "home_member_state_code": "LU",
+      "home_member_state_descr": "LUXEMBOURG",
+      "document_type": "STDA",
+      "document_type_descr": "Standalone prospectus",
+      "national_document_id": "C-028898",
+      "document_rfss_id": "27190110,5fa883b12fb7b00fe23a09468c228cff",
+      "approval_filing_date": "2023-06-07T00:00:00Z",
+      "eu_growth_prosp_cat_code": "S15A",
+      "eu_growth_prosp_cat_descr": "SME under PR Article 15(1)(a)",
+      "doc_last_update_date": "2023-06-07T13:11:02Z",
+      "prospectus_type_code": "STDA",
+      "prospectus_type_descr": "Standalone Prospectus",
+      "structure_type_code": "SNGL",
+      "structure_type_descr": "Single document prospectus",
+      "first_passporting_date": "2023-06-07T13:31:23Z",
+      "last_passporting_date": "2023-06-07T13:31:23Z",
+      "request_type": "New document record",
+      "prospectus_id": "C-028898",
+      "prospetus_id_fk": "35323",
+      "party_name": "EPH Group AG - 894500SN5GTABFSFWS54",
+      "instrument_isins": "DE000A3LJCB4",
+      "member_states": "AUSTRIA,GERMANY",
+      "document_languages": "German",
+      "is_passported": "1",
+      "_version_": 1849852803947692053,
+      "timestamp": "2025-11-26T11:38:28.035Z",
+      "national_document_id_facet": "C-028898",
+      "prospectus_id_facet": "C-028898"
+     }
+    ]
+   },
+   "children": {
+    "numFound": 11,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "id": "ISS_32477213",
+      "type_s": "child",
+      "issuer_name": "EPH Group AG",
+      "issuer_lei": "894500SN5GTABFSFWS54",
+      "issuer_residency": "AUSTRIA",
+      "issuer_residency_code": "AT",
+      "entity_type": "issuers",
+      "party_type": "ISSR",
+      "_root_": "23369885",
+      "_version_": 1849852803947692053,
+      "timestamp": "2025-11-26T11:38:28.035Z",
+      "issuer_lei_facet": "894500SN5GTABFSFWS54",
+      "issuer_name_facet": "EPH Group AG"
+     },
+     {
+      "id": "OFF_32477214",
+      "type_s": "child",
+      "offeror_name": "EPH Group AG",
+      "offeror_lei": "894500SN5GTABFSFWS54",
+      "offeror_residency": "AUSTRIA",
+      "offeror_residency_code": "AT",
+      "entity_type": "offerors",
+      "party_type": "OFFR",
+      "_root_": "23369885",
+      "_version_": 1849852803947692053,
+      "timestamp": "2025-11-26T11:38:28.035Z",
+      "offeror_name_facet": "EPH Group AG",
+      "offeror_lei_facet": "894500SN5GTABFSFWS54"
+     },
+     {
+      "id": "LNG_12357822",
+      "type_s": "child",
+      "document_language_descr": "German",
+      "document_language_code": "de",
+      "entity_type": "languages",
+      "_root_": "23369885",
+      "_version_": 1849852803947692053,
+      "timestamp": "2025-11-26T11:38:28.035Z"
+     },
+     {
+      "id": "DRG_29582",
+      "type_s": "child",
+      "disclosure_regime": "22",
+      "disclosure_regime_label": "Annex 22: Consent",
+      "entity_type": "disclosure_regimes",
+      "_root_": "23369885",
+      "_version_": 1849852803947692053,
+      "timestamp": "2025-11-26T11:38:28.035Z"
+     },
+     {
+      "id": "DRG_29580",
+      "type_s": "child",
+      "disclosure_regime": "25",
+      "disclosure_regime_label": "Annex 25: EU Growth registration document for non-equity securities",
+      "entity_type": "disclosure_regimes",
+      "_root_": "23369885",
+      "_version_": 1849852803947692053,
+      "timestamp": "2025-11-26T11:38:28.035Z"
+     },
+     {
+      "id": "DRG_29581",
+      "type_s": "child",
+      "disclosure_regime": "27",
+      "disclosure_regime_label": "Annex 27: EU Growth securities note for non-equity securities",
+      "entity_type": "disclosure_regimes",
+      "_root_": "23369885",
+      "_version_": 1849852803947692053,
+      "timestamp": "2025-11-26T11:38:28.035Z"
+     },
+     {
+      "id": "PRD_23331123",
+      "type_s": "child",
+      "related_document_identifier_search": "C-028898",
+      "_root_": "23369885",
+      "_version_": 1849852803947692053,
+      "timestamp": "2025-11-26T11:38:28.035Z",
+      "related_document_identifier_search_facet": "C-028898"
+     },
+     {
+      "id": "IFII_35688796",
+      "type_s": "child",
+      "entity_type": "isinFinInstrInfo",
+      "ifii_dbId": "35688796",
+      "ifii_isin": "DE000A3LJCB4",
+      "ifii_fisn": "EPH GROUP/10 SV 20300717 USEC",
+      "ifii_cfi": "DBFUGB",
+      "ifii_denominationAmnt": "1000",
+      "ifii_denominationCurr": "EUR",
+      "ifii_volOfferedValue": "Max 50000",
+      "ifii_priceOfferedValue": "1000",
+      "ifii_consOfferedValue": "Max 50000000",
+      "ifii_matExpDate": "2030-07-03T00:00:00Z",
+      "ifii_securitiesType": "DWHD",
+      "ifii_securitiesTypeDesc": "Debt with denomination < \u20ac100.000",
+      "ifii_tvCharType": "MLTF",
+      "ifii_tvCharTypeDesc": "MTF which is not an SME growth market",
+      "ifii_offerAdmType": "IMTF",
+      "ifii_offerAdmTypeDesc": "Initial admission to trading on MTF with offer to the public",
+      "ifii_docVersionDbId": "23369885",
+      "ifii_natDocId": "C-028898",
+      "ifii_docType": "STDA",
+      "ifii_docTypeDesc": "Standalone prospectus",
+      "ifii_approvalFilingDate": "2023-06-07T00:00:00Z",
+      "ifii_tradingVenue": "Link to FIRDS",
+      "_root_": "23369885",
+      "_version_": 1849852803947692053,
+      "timestamp": "2025-11-26T11:38:28.035Z"
+     },
+     {
+      "id": "PSCN_14675",
+      "type_s": "child",
+      "entity_type": "passportCountry",
+      "pscn_country_code": "AT",
+      "pscn_country_name": "AUSTRIA",
+      "_root_": "23369885",
+      "_version_": 1849852803947692053,
+      "timestamp": "2025-11-26T11:38:28.035Z"
+     },
+     {
+      "id": "PSCN_21898",
+      "type_s": "child",
+      "entity_type": "passportCountry",
+      "pscn_country_code": "DE",
+      "pscn_country_name": "GERMANY",
+      "_root_": "23369885",
+      "_version_": 1849852803947692053,
+      "timestamp": "2025-11-26T11:38:28.035Z"
+     },
+     {
+      "id": "ISIN_35688796",
+      "type_s": "child",
+      "entity_type": "isinEntity",
+      "isin_isin": "DE000A3LJCB4",
+      "_root_": "23369885",
+      "_version_": 1849852803947692053,
+      "timestamp": "2025-11-26T11:38:28.035Z",
+      "isin_isin_facet": "DE000A3LJCB4"
+     }
+    ]
+   }
+  }
+ ]
+}

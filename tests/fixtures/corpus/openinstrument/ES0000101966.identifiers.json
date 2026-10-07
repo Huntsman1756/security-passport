@@ -1,0 +1,12 @@
+{
+ "isin": "ES0000101966",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "ES0000101966",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}

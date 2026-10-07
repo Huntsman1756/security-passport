@@ -1,0 +1,12 @@
+{
+ "isin": "LU0003549028",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "LU0003549028",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}

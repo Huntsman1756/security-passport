@@ -1,0 +1,111 @@
+# Golden corpus — v0.1.0 seed
+# Each entry: isin, case class, reason, expected assertions.
+# Fixture-backed cases are served by FixtureInstrumentProvider.
+# live_validated marks cases verified against live sources at
+# manifest review time (2026-10-07, OI generation-0004).
+
+goldens:
+  - isin: DE000A3LJCB4
+    case: corporate_bond_priii_multi_venue
+    reason: |
+      EPH Group bond. PRIII standalone prospectus (LU home,
+      passported AT/DE), 16 FIRDS venue records (relevant WBDM),
+      corroborated issuer LEI, NOT ECB-eligible as of 260925.
+    fixture: true
+    live_validated: 2026-10-07
+    expected:
+      identity.issuer_lei: { status: reported, value: "894500SN5GTABFSFWS54" }
+      primary_market.prospectus_found: { status: reported, value: true }
+      primary_market.home_member_state: { status: reported, value: "LU" }
+      secondary_market.listing_count_at_least: 8
+      eurosystem_collateral.eligible: { status: derived, value: false }
+      post_trade.issuer_sss: { status: not_found }
+
+  - isin: XS2081615473
+    case: emtn_ecb_eligible_no_priii
+    reason: |
+      Holcim Finance EMTN. ECB-eligible (L1D/AT02, issuer CSD
+      CLBL01=Clearstream Banking Luxembourg). No PRIII filings —
+      wholesale EMTN. issuer_lei single_source.
+    fixture: true
+    live_validated: 2026-10-07
+    expected:
+      eurosystem_collateral.eligible: { status: derived, value: true }
+      eurosystem_collateral.haircut_category: { status: reported, value: "L1D" }
+      post_trade.issuer_sss: { status: reported }
+      primary_market.prospectus_found: { status: reported, value: false }
+
+  - isin: DE0007164600
+    case: german_equity_multi_venue
+    reason: |
+      SAP SE ordinary share. Equity (CFI ESVUFB), corroborated
+      issuer, many venue listings, maturity not_applicable.
+    fixture: true
+    live_validated: 2026-10-07
+    expected:
+      identity.cfi: { status: reported, value: "ESVUFB" }
+      identity.maturity_date: { status: not_applicable }
+      eurosystem_collateral.eligible: { status: derived, value: false }
+      secondary_market.listing_count_at_least: 5
+
+  - isin: ES0113900J37
+    case: spanish_equity_iberclear_relevant
+    reason: |
+      Banco Santander share. Spanish equity — Iberclear is the
+      natural issuer-side SSS but NO instrument-specific settlement
+      evidence is asserted without ECB/other proof. Post-trade
+      must stay evidence-only (no ES-prefix inference).
+    fixture: true
+    live_validated: 2026-10-07
+    expected:
+      post_trade.iberclear_admitted: { status: not_found }
+      post_trade.assessment: { status: derived }
+
+  - isin: ES0000101966
+    case: regional_sovereign_ecb_iberclear
+    reason: |
+      Comunidad de Madrid bond. ECB-eligible with
+      ISSUER_CSD=CLES01 (Iberclear-ARCO) — the only direct
+      Iberclear-relevant evidence class available publicly.
+    fixture: true
+    live_validated: 2026-10-07
+    expected:
+      eurosystem_collateral.eligible: { status: derived, value: true }
+      post_trade.issuer_sss: { status: reported }
+
+  - isin: IE0007SRI1C7
+    case: fund_issuer_lei_conflict
+    reason: |
+      iShares V share class — preserved issuer conflict in OI
+      (28 assertions). Fund vehicle vs management-company LEI
+      distinction must NOT collapse to a single wrong value.
+    fixture: true
+    live_validated: 2026-10-07
+    expected:
+      identity.issuer_lei: { status: conflict }
+
+  - isin: LU0003549028
+    case: fund_share_class
+    reason: DWS EURORENTA fund share class (CFI CIOIBS).
+    fixture: true
+    live_validated: 2026-10-07
+    expected:
+      identity.cfi: { status: reported, value: "CIOIBS" }
+      identity.maturity_date: { status: not_applicable }
+
+  - isin: XX0000000001
+    case: unknown_valid_isin
+    reason: |
+      Valid checksum, no evidence anywhere. Every block must
+      degrade to not_found — never an error, never invented.
+    fixture: true
+    live_validated: 2026-10-07
+    expected:
+      overall_state: "unknown"
+
+  - isin: DE000A3LJCB0
+    case: invalid_checksum
+    reason: Bad check digit — must be rejected before providers.
+    fixture: false
+    expected:
+      api_error: INVALID_ISIN

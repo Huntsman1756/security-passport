@@ -1,0 +1,99 @@
+{
+ "isin": "DE000A3LJCB4",
+ "found": true,
+ "canonical_lei": "894500SN5GTABFSFWS54",
+ "state": "corroborated",
+ "assertion_count": 17,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "894500SN5GTABFSFWS54",
+    "locator": "lei-isin-20260918T071512.csv#row=6965410"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "FRAB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246809"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "WBDM",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246819"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "FRAV",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246810"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "MUNB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246815"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "MUND",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246816"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "HANB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246813"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "DUSB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246807"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "HAMB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246811"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "DUSD",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246808"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "HAMQ",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246812"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "XGAT",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246820"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "STUF",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246818"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "MANL",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246814"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "STUB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246817"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "BTFE",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246806"
+   },
+   {
+    "issr": "894500SN5GTABFSFWS54",
+    "venue": "XMLI",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=246821"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

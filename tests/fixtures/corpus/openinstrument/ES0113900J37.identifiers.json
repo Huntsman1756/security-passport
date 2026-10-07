@@ -1,0 +1,12 @@
+{
+ "isin": "ES0113900J37",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "ES0113900J37",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}
