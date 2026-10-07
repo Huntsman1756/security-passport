@@ -171,12 +171,12 @@ class GenerationStore:
         stamp = str(self._sss.get("links_page_stamp") or "")
         obs = str(self._sss.get("observed_at") or "")
         return [SssLinkFact(
-            investor_sss=str(l.get("investor_sss") or ""),
-            issuer_sss=str(l.get("issuer_sss") or ""),
-            intermediaries=tuple(l.get("intermediaries") or ()),
-            operated_by=str(l.get("operated_by") or ""),
+            investor_sss=str(lnk.get("investor_sss") or ""),
+            issuer_sss=str(lnk.get("issuer_sss") or ""),
+            intermediaries=tuple(lnk.get("intermediaries") or ()),
+            operated_by=str(lnk.get("operated_by") or ""),
             observed_at=obs, page_stamp=stamp)
-            for l in self._sss.get("links") or []]
+            for lnk in self._sss.get("links") or []]
 
     # ---- MIC ---------------------------------------------------------------
 

@@ -61,6 +61,21 @@ ignore = ["S101"]
 [tool.ruff.lint.per-file-ignores]
 # Fixture rows must stay single-line verbatim
 "tests/fixtures/**" = ["E501"]
+# FastAPI dependency-injection idiom requires callables in
+# parameter defaults — Depends() in defaults is the framework's
+# documented pattern, not deferred-execution abuse.
+"src/security_passport/api/app.py" = ["B008"]
+# DuckDB SQL is built over internal generation paths only; all
+# runtime values are bound via $1 parameters — never interpolated.
+"src/security_passport/storage/store.py" = ["S608"]
+# Typer Option() in defaults is the documented CLI idiom.
+"src/security_passport/cli/main.py" = ["B008"]
+# Outbound fetches are hardcoded to allowlisted HTTPS hosts
+# (ecb.europa.eu, registers.esma.europa.eu, iso20022.org).
+"src/security_passport/providers/ecb_assets.py" = ["S310"]
+"src/security_passport/providers/ecb_sss.py" = ["S310"]
+"src/security_passport/providers/esma_prospectus.py" = ["S310"]
+"src/security_passport/providers/mic.py" = ["S310"]
 
 [tool.mypy]
 python_version = "3.11"
@@ -69,7 +84,7 @@ mypy_path = "src"
 packages = ["security_passport"]
 
 [[tool.mypy.overrides]]
-module = ["bs4", "bs4.*"]
+module = ["bs4", "bs4.*", "pyarrow", "pyarrow.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

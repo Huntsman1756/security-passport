@@ -16,11 +16,9 @@ from __future__ import annotations
 
 import hashlib
 import json
-import os
 import time
 import uuid
 from contextlib import asynccontextmanager
-from pathlib import Path
 from typing import Any
 
 from fastapi import Depends, FastAPI, Query, Request
@@ -71,15 +69,16 @@ class _State:
         self.provider_error = self.store_error = ""
         try:
             if s.provider == "openinstrument_api":
-                from security_passport.providers.openinstrument.api \
-                    import OpenInstrumentApiProvider
+                from security_passport.providers.openinstrument.api import (
+                    OpenInstrumentApiProvider,
+                )
                 self.provider = OpenInstrumentApiProvider(
                     s.openinstrument_url)
                 self.provider.generation()  # probe now
             else:
                 self.provider = FixtureInstrumentProvider(
                     s.fixtures_dir)
-        except Exception as e:  # noqa: BLE001
+        except Exception as e:
             self.provider_error = f"{type(e).__name__}: {e}"
             self.provider = None
         try:
@@ -92,7 +91,7 @@ class _State:
                 self.store = GenerationStore(gen)
             else:
                 self.store = FixturePassportStore(s.fixtures_dir)
-        except Exception as e:  # noqa: BLE001
+        except Exception as e:
             self.store_error = f"{type(e).__name__}: {e}"
             self.store = None
 
@@ -102,7 +101,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
     state = _State(settings)
 
     @asynccontextmanager
-    async def lifespan(app: FastAPI):
+    async def lifespan(app: FastAPI):  # type: ignore[no-untyped-def]
         state.reload()
         yield
 
@@ -122,7 +121,8 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         return state
 
     @app.middleware("http")
-    async def security_headers(request: Request, call_next):
+    async def security_headers(request: Request,
+                               call_next: Any) -> Any:
         resp = await call_next(request)
         resp.headers["X-Content-Type-Options"] = "nosniff"
         resp.headers["X-Frame-Options"] = "DENY"
@@ -259,7 +259,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
         if st.store is not None:
             try:
                 st.store.ecb_snapshot()
-            except Exception:  # noqa: BLE001
+            except Exception:
                 checks["store"] = False
         ok = all(checks.values())
         return JSONResponse(

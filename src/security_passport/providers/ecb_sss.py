@@ -17,7 +17,7 @@ from __future__ import annotations
 import hashlib
 import re
 import urllib.request
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import Any
 
 PARSER = "security_passport.providers.ecb_sss"
@@ -39,7 +39,7 @@ class SchemaError(Exception):
 
 
 def fetch(url: str) -> tuple[str, str]:
-    raw = urllib.request.urlopen(  # noqa: S310 — allowlisted ECB
+    raw = urllib.request.urlopen(
         urllib.request.Request(url, headers=_UA),
         timeout=60).read()
     return raw.decode("utf-8", "replace"), \
@@ -107,7 +107,7 @@ def parse_links_page(html: str) -> list[LinkEntry]:
     links: list[LinkEntry] = []
     current_investor = ""
     for raw_line in text.split("\n"):
-        line = raw_line.strip().rstrip(" ")
+        line = raw_line.strip()
         if not line:
             continue
         # section headers look like "Country - SSS name"
@@ -145,9 +145,9 @@ def parse_pages(sss_html: str, links_html: str
                 ) -> dict[str, Any]:
     return {
         "sss": [s.__dict__ for s in parse_sss_page(sss_html)],
-        "links": [l.__dict__ | {"intermediaries":
-                                list(l.intermediaries)}
-                  for l in parse_links_page(links_html)],
+        "links": [lnk.__dict__ | {"intermediaries":
+                                list(lnk.intermediaries)}
+                  for lnk in parse_links_page(links_html)],
         "sss_page_stamp": page_stamp(sss_html),
         "links_page_stamp": page_stamp(links_html),
         "sss_sha": hashlib.sha256(sss_html.encode()).hexdigest(),

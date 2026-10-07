@@ -77,8 +77,8 @@ def min_real_date(dates: list[NormalizedDate]) -> NormalizedDate | None:
         return None
     best = min(real, key=lambda d: d.value or "")
     merged = list(best.flags)
-    if any(d.is_sentinel for d in dates):
-        if QualityFlag.SOURCE_DEFAULT_VALUE not in merged:
+    if any(d.is_sentinel for d in dates) and (
+            QualityFlag.SOURCE_DEFAULT_VALUE not in merged):
             merged.append(QualityFlag.SOURCE_DEFAULT_VALUE)
     return NormalizedDate(value=best.value, raw=best.raw,
                           flags=merged, end_of_day=best.end_of_day)

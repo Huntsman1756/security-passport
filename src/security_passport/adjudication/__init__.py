@@ -33,5 +33,5 @@ def normalize_for_compare(value: Any) -> str:
     try:
         from decimal import Decimal
         return format(Decimal(s).normalize(), "f")
-    except Exception:  # noqa: BLE001
+    except Exception:
         return " ".join(s.split()).upper()

@@ -26,7 +26,6 @@ from security_passport.providers import (
 from security_passport.providers.base import (
     EcbAssetFact,
     MicFact,
-    PassportStore,
     PriiiDocument,
     PriiiFacts,
     ProviderError,
@@ -62,22 +61,25 @@ class FixtureInstrumentProvider(OpenInstrumentApiProvider):
 
     def _get(self, path: str, **params: Any) -> dict[str, Any]:
         if path == "/v1/status":
-            return json.loads(
+            out: dict[str, Any] = json.loads(
                 (self._dir / "status.json").read_text(
                     encoding="utf-8"))
+            return out
         if path == "/v1/search":
             q = (params.get("q") or "").strip().upper()
             results = []
             for p in sorted(self._dir.glob("*.instrument.json")):
-                d = json.loads(p.read_text(encoding="utf-8"))
-                if d.get("found"):
-                    nm = (d.get("full_name") or d.get("fisn") or "")
+                doc: dict[str, Any] = json.loads(
+                    p.read_text(encoding="utf-8"))
+                if doc.get("found"):
+                    nm = (doc.get("full_name") or doc.get("fisn")
+                          or "")
                     if (p.name.split(".")[0] == q
                             or q in str(nm).upper()):
                         results.append({
-                            "isin": d["isin"],
-                            "full_name": d.get("full_name"),
-                            "cfi": d.get("cfi")})
+                            "isin": doc["isin"],
+                            "full_name": doc.get("full_name"),
+                            "cfi": doc.get("cfi")})
             kind = ("exact_isin" if len(q) == 12
                     else "text_candidates")
             return {"query": q, "kind": kind, "results": results}
@@ -89,7 +91,7 @@ class FixtureInstrumentProvider(OpenInstrumentApiProvider):
             name = parts[4]
         else:
             name = "instrument"
-        d = self._load(isin, name)
+        d: dict[str, Any] = self._load(isin, name)
         if "_capture_error" in d:
             raise ProviderError(
                 "openinstrument",
@@ -208,13 +210,13 @@ class FixturePassportStore:
 
     def eligible_links(self) -> list[SssLinkFact]:
         return [SssLinkFact(
-            investor_sss=l["investor_sss"],
-            issuer_sss=l["issuer_sss"],
-            intermediaries=tuple(l["intermediaries"]),
-            operated_by=l["operated_by"],
+            investor_sss=lnk["investor_sss"],
+            issuer_sss=lnk["issuer_sss"],
+            intermediaries=tuple(lnk["intermediaries"]),
+            operated_by=lnk["operated_by"],
             observed_at="2026-10-07",
             page_stamp=self._sss["links_page_stamp"])
-            for l in self._sss["links"]]
+            for lnk in self._sss["links"]]
 
     # ---- MIC -----------------------------------------------------------------
 

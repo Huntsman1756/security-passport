@@ -9,8 +9,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any
 
-from security_passport.domain.fields import PassportField, \
-    TemporalCoverage
+from security_passport.domain.fields import PassportField, TemporalCoverage
 
 SCHEMA_VERSION = "1"
 

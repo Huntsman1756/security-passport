@@ -35,9 +35,9 @@ class MicRow:
 
 
 def download() -> bytes:
-    return urllib.request.urlopen(  # noqa: S310 — allowlisted ISO
+    return bytes(urllib.request.urlopen(
         urllib.request.Request(MIC_URL, headers=_UA),
-        timeout=120).read()
+        timeout=120).read())
 
 
 def decode_csv(raw: bytes) -> str:

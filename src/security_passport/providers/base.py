@@ -9,7 +9,6 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Any, Protocol
 
-
 # ---- upstream instrument facts -------------------------------------------
 
 @dataclass(frozen=True)
@@ -38,7 +37,7 @@ class InstrumentFacts:
 
 @dataclass(frozen=True)
 class ListingFact:
-    """One ISIN×venue record — verbatim provider dates (sentinels
+    """One ISIN x venue record — verbatim provider dates (sentinels
     included; normalization is a passport-layer rule)."""
 
     venue_mic: str

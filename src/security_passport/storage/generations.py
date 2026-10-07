@@ -70,13 +70,26 @@ def inventory(root: Path) -> dict[str, str]:
     return out
 
 
+_VOLATILE = {"created_at", "retrieved_at", "observed_at",
+             "generated_at", "locked_at"}
+
+
+def _strip_volatile(obj: Any) -> Any:
+    if isinstance(obj, dict):
+        return {k: _strip_volatile(v) for k, v in obj.items()
+                if k not in _VOLATILE}
+    if isinstance(obj, list):
+        return [_strip_volatile(v) for v in obj]
+    return obj
+
+
 def semantic_fingerprint(manifest: dict[str, Any]) -> str:
-    """Deterministic fingerprint over semantic content —
-    timestamps and volatile fields are excluded so an identical
-    rebuild fingerprints identically."""
+    """Deterministic fingerprint over semantic content — file
+    inventory, volatile timestamps, and the generation name are
+    excluded so an identical rebuild fingerprints identically."""
     sem = {k: v for k, v in manifest.items()
-           if k not in ("created_at", "files")}
-    raw = json.dumps(sem, sort_keys=True,
+           if k not in ("files", "generation")}
+    raw = json.dumps(_strip_volatile(sem), sort_keys=True,
                      ensure_ascii=False).encode()
     return hashlib.sha256(raw).hexdigest()
 

@@ -53,7 +53,7 @@ def latest_url(list_page_html: str | None = None
     """(absolute_url, snapshot_tag like '261006')."""
     html = list_page_html
     if html is None:
-        html = urllib.request.urlopen(  # noqa: S310 — allowlisted
+        html = urllib.request.urlopen(
             urllib.request.Request(LIST_PAGE, headers=_UA),
             timeout=60).read().decode("utf-8", "replace")
     m = _HREF_RE.search(html)
@@ -65,7 +65,7 @@ def latest_url(list_page_html: str | None = None
 
 
 def download(url: str) -> tuple[bytes, str]:
-    raw = urllib.request.urlopen(  # noqa: S310 — allowlisted ECB
+    raw = urllib.request.urlopen(
         urllib.request.Request(url, headers=_UA),
         timeout=300).read()
     return raw, hashlib.sha256(raw).hexdigest()

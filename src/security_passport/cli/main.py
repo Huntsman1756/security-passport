@@ -23,7 +23,6 @@ import typer
 from security_passport import __version__
 from security_passport.config import load
 from security_passport.domain.isin import checksum_ok, normalize
-from security_passport.domain.status import FieldStatus
 from security_passport.providers.fixtures import (
     FixtureInstrumentProvider,
     FixturePassportStore,
@@ -137,10 +136,10 @@ def _print_passport(d: dict[str, Any]) -> None:
         f = sm.get(k)
         if f:
             _print_field(label, f)
-    for l in (sm.get("listings") or [])[:14]:
-        st = l["state"]
-        nm = l.get("venue_name") or l["venue_mic"]
-        print(f"    {l['venue_mic']:<6}{nm[:34]:<36}{st}")
+    for li in (sm.get("listings") or [])[:14]:
+        st = li["state"]
+        nm = li.get("venue_name") or li["venue_mic"]
+        print(f"    {li['venue_mic']:<6}{nm[:34]:<36}{st}")
     if len(sm.get("listings") or []) > 14:
         print(f"    … {len(sm['listings']) - 14} more")
     pt = d["post_trade"]
@@ -172,7 +171,7 @@ def _print_passport(d: dict[str, Any]) -> None:
     counts: dict[str, int] = {}
     for blk in ("identity", "primary_market", "secondary_market",
                 "post_trade", "eurosystem_collateral"):
-        for k, v in d[blk].items():
+        for v in d[blk].values():
             if isinstance(v, dict) and "status" in v:
                 counts[v["status"]] = counts.get(
                     v["status"], 0) + 1
@@ -244,7 +243,7 @@ def _lookup(isin: str, json_out: bool, sources: bool,
     try:
         p = PassportBuilder(prov, store).build(
             isin_n, checksum_ok=True)
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         typer.secho(f"SOURCE_UNAVAILABLE: {e}", err=True,
                     fg=typer.colors.RED)
         raise typer.Exit(3) from e
@@ -276,17 +275,18 @@ def update(
     upstream_gen = ""
     if s.provider == "openinstrument_api":
         try:
-            from security_passport.providers.openinstrument.api \
-                import OpenInstrumentApiProvider
+            from security_passport.providers.openinstrument.api import (
+                OpenInstrumentApiProvider,
+            )
             upstream_gen = OpenInstrumentApiProvider(
                 s.openinstrument_url).generation()
-        except Exception as e:  # noqa: BLE001
+        except Exception as e:
             typer.echo(f"warning: upstream generation probe "
                        f"failed: {e}")
     try:
         res = run_update(root, priii_isin or [],
                          upstream_generation=upstream_gen)
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         typer.secho(f"update failed: {e}", err=True,
                     fg=typer.colors.RED)
         raise typer.Exit(1) from e
@@ -305,6 +305,7 @@ def validate(
             "--goldens")] = Path("tests/fixtures/goldens.yaml")) -> None:
     """Run the assertion validator over the golden corpus."""
     import yaml  # type: ignore[import-untyped]
+
     from security_passport.services.validate import (
         ValidationReport,
         check_passport,
@@ -367,13 +368,13 @@ def doctor() -> None:
     prov, store = _runtime()
     try:
         typer.echo(f"upstream gen  : {prov.generation()}")
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         typer.secho(f"upstream gen  : FAIL {e}",
                     fg=typer.colors.RED)
     try:
         typer.echo(f"store gen     : {store.generation()}")
         typer.echo(f"ecb snapshot  : {store.ecb_snapshot()}")
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         typer.secho(f"store         : FAIL {e}",
                     fg=typer.colors.RED)
 

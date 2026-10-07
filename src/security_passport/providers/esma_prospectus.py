@@ -50,13 +50,14 @@ def select(q: str, rows: int = 200,
     """One Solr select — returns the response object."""
     p = urllib.parse.urlencode({"q": q, "wt": "json",
                                 "rows": str(rows)})
-    req = urllib.request.Request(  # noqa: S310 — allowlisted ESMA
+    req = urllib.request.Request(
         solr_url + "?" + p, headers=_UA)
-    raw = urllib.request.urlopen(req, timeout=90).read()  # noqa: S310
-    resp = json.loads(raw)
+    raw = urllib.request.urlopen(req, timeout=90).read()
+    resp: dict[str, Any] = json.loads(raw)
     if "response" not in resp:
         raise SchemaError("PRIII Solr payload missing 'response'")
-    return resp["response"]
+    out: dict[str, Any] = resp["response"]
+    return out
 
 
 def download_url(rfss_id: str) -> str:

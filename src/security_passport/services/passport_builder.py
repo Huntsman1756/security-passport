@@ -11,8 +11,7 @@ from datetime import UTC, datetime
 from typing import Any
 
 from security_passport.domain.evidence import Assertion, EvidenceRef
-from security_passport.domain.fields import PassportField, \
-    TemporalCoverage
+from security_passport.domain.fields import PassportField, TemporalCoverage
 from security_passport.domain.passport import Passport, PassportBlock
 from security_passport.domain.status import (
     FieldStatus,
@@ -196,7 +195,7 @@ class PassportBuilder:
             {"provider": "ecb_eligible_assets",
              "snapshot": self._s.ecb_snapshot(),
              "basis": "current_only"}]
-        meta = getattr(self._s, "meta", lambda: {})() or {}
+        meta: dict[str, Any] = getattr(self._s, "meta", lambda: {})() or {}
         if "mode" in meta:
             out.append({"provider": "fixtures", "mode": "demo"})
         return out
@@ -574,14 +573,14 @@ class PassportBuilder:
         rows: list[dict[str, Any]] = []
         adm_cands: list[NormalizedDate] = []
         n_active = 0
-        for l in listings:
-            rows.append(self._listing_row(l))
+        for li in listings:
+            rows.append(self._listing_row(li))
             state = rows[-1]["state"]
             if state == "active":
                 n_active += 1
-            for raw in (l.admission_approval_date,
-                        l.admission_request_date,
-                        l.first_trade_date):
+            for raw in (li.admission_approval_date,
+                        li.admission_request_date,
+                        li.first_trade_date):
                 nd = normalize_firds_date(raw)
                 if nd.value is not None:
                     adm_cands.append(nd)
@@ -611,20 +610,20 @@ class PassportBuilder:
                              "sentinel/unknown."))
             if adm_cands or any(
                     normalize_firds_date(x).is_sentinel
-                    for l in listings
-                    for x in (l.admission_approval_date,
-                              l.admission_request_date,
-                              l.first_trade_date)):
+                    for li in listings
+                    for x in (li.admission_approval_date,
+                              li.admission_request_date,
+                              li.first_trade_date)):
                 nf.quality_flags.append(
                     QualityFlag.SOURCE_DEFAULT_VALUE)
             b.fields["first_admission_date"] = nf
         return b
 
-    def _listing_row(self, l: ListingFact) -> dict[str, Any]:
-        adm = normalize_firds_date(l.admission_approval_date)
-        req = normalize_firds_date(l.admission_request_date)
-        trd = normalize_firds_date(l.first_trade_date)
-        term = normalize_firds_date(l.termination_date)
+    def _listing_row(self, li: ListingFact) -> dict[str, Any]:
+        adm = normalize_firds_date(li.admission_approval_date)
+        req = normalize_firds_date(li.admission_request_date)
+        trd = normalize_firds_date(li.first_trade_date)
+        term = normalize_firds_date(li.termination_date)
         # venue state (venue_state.v1): terminated < active < pending
         if term.value is not None:
             state = "terminated"
@@ -632,23 +631,23 @@ class PassportBuilder:
             state = "active"
         else:
             state = "unknown_dates"
-        micf = self._s.mic(l.venue_mic)
-        relf = self._s.mic(l.relevant_venue) \
-            if l.relevant_venue else None
+        micf = self._s.mic(li.venue_mic)
+        relf = self._s.mic(li.relevant_venue) \
+            if li.relevant_venue else None
         flags = []
         for nd in (adm, req, trd, term):
             for f in nd.flags:
                 if f not in flags:
                     flags.append(f)
         return {
-            "venue_mic": l.venue_mic,
+            "venue_mic": li.venue_mic,
             "venue_name": micf.market_name if micf else "",
             "venue_mic_status": micf.status if micf else "",
             "oprt_sgmt": micf.oprt_sgmt if micf else "",
-            "relevant_venue": l.relevant_venue,
+            "relevant_venue": li.relevant_venue,
             "relevant_venue_name": relf.market_name if relf else "",
             "issuer_requested_admission":
-                l.issuer_requested_admission,
+                li.issuer_requested_admission,
             "admission_approval_date": adm.value,
             "admission_approval_date_raw": adm.raw,
             "first_trade_date": trd.value,
@@ -658,12 +657,12 @@ class PassportBuilder:
             "state": state,
             "quality_flags": [f.value for f in flags],
             "evidence": _oi_ev(
-                l.locator or "firds", record_id=l.locator or
-                f"{l.venue_mic}",
-                raw={"adm": l.admission_approval_date,
-                     "trd": l.first_trade_date,
-                     "term": l.termination_date}).to_dict(),
-            "mic_evidence": _mic_ev(l.venue_mic).to_dict()
+                li.locator or "firds", record_id=li.locator or
+                f"{li.venue_mic}",
+                raw={"adm": li.admission_approval_date,
+                     "trd": li.first_trade_date,
+                     "term": li.termination_date}).to_dict(),
+            "mic_evidence": _mic_ev(li.venue_mic).to_dict()
             if micf else None,
         }
 
@@ -802,21 +801,21 @@ class PassportBuilder:
                  s.observed_at).to_dict()}
             for s in sss]
         # links touching the issuer SSS — context only
-        relevant = [l for l in links
+        relevant = [lnk for lnk in links
                     if issuer_sss_name and (
-                        issuer_sss_name in l.issuer_sss
-                        or issuer_sss_name in l.investor_sss)]
+                        issuer_sss_name in lnk.issuer_sss
+                        or issuer_sss_name in lnk.investor_sss)]
         b.collections["relevant_links"] = [
-            {"investor_sss": l.investor_sss,
-             "issuer_sss": l.issuer_sss,
-             "intermediaries": list(l.intermediaries),
-             "operated_by": l.operated_by,
+            {"investor_sss": lnk.investor_sss,
+             "issuer_sss": lnk.issuer_sss,
+             "intermediaries": list(lnk.intermediaries),
+             "operated_by": lnk.operated_by,
              "status": "reported",
              "evidence": _sss_ev(
-                 f"{l.investor_sss}->{l.issuer_sss}",
-                 "eligible_links", l.page_stamp,
-                 l.observed_at).to_dict()}
-            for l in relevant]
+                 f"{lnk.investor_sss}->{lnk.issuer_sss}",
+                 "eligible_links", lnk.page_stamp,
+                 lnk.observed_at).to_dict()}
+            for lnk in relevant]
         if sss:
             b.fields["eligible_sss_count"] = PassportField.reported(
                 "eligible_sss_count", len(sss),

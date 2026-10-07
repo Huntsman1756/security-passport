@@ -17,8 +17,6 @@ from __future__ import annotations
 
 import json
 import shutil
-import sys
-import tempfile
 from pathlib import Path
 from typing import Any
 
@@ -26,8 +24,12 @@ import pyarrow as pa
 import pyarrow.parquet as pq
 
 from security_passport import evidence
-from security_passport.providers import ecb_assets, ecb_sss, \
-    esma_prospectus, mic
+from security_passport.providers import (
+    ecb_assets,
+    ecb_sss,
+    esma_prospectus,
+    mic,
+)
 from security_passport.storage import generations
 
 UPDATE_LOCK = "update.lock"
@@ -60,10 +62,9 @@ def acquire_lock(data_root: Path) -> Path:
 
 
 def release_lock(lp: Path) -> None:
-    try:
+    import contextlib
+    with contextlib.suppress(FileNotFoundError):
         lp.unlink()
-    except FileNotFoundError:
-        pass
 
 
 def _write_parquet(rows: list[dict[str, Any]],
@@ -199,7 +200,8 @@ def run_update(
             meta["esma_priii"] = {"isin_count": len(payloads)}
             fetched["priii_payloads"] = payloads
         else:
-            fetched = fetch_fn()
+            fetched = dict(fetch_fn())
+            meta.update(fetched.pop("meta", {}) or {})
 
         meta["openinstrument_generation"] = upstream_generation
 
