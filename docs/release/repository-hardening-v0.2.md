@@ -7,7 +7,7 @@ Pure repository engineering; no passport semantics changed.
 | issue | fix |
 |---|---|
 | Three version sources (`pyproject` 0.2.0, `__init__` 0.1.2, web 0.1.0, UAs 0.1.0) | `__version__` now resolves via `importlib.metadata`; all provider UAs use `security_passport.user_agent()`; web `version` removed, `packageManager: pnpm@12.9.1` pinned |
-| Local paths `F:\_Proyectos\…` in `AGENTS.md`, `REUSE_AUDIT_V2.md` | Replaced by sibling-project + pinned-tag references; commit pins preserved |
+| Local drive paths on `AGENTS.md`, `REUSE_AUDIT_V2.md` | Replaced by sibling-project + pinned-tag references; commit pins preserved |
 | `pnpm install --frozen-lockfile \|\| pnpm install` — fallback silently re-resolved | Fallback removed; a bad lockfile now fails the build |
 | CI: `oasdiff@latest`, unpinned actions, no permissions block, no timeouts | All actions pinned by commit SHA w/ human version comments; `permissions: contents: read`; `concurrency` + `timeout-minutes` per job; oasdiff pinned to `v1.15.1` |
 | Python 3.11/3.13 declared, only 3.12 tested | `python-matrix` job runs unit+contract tests on 3.11/3.12/3.13; heavy jobs stay on 3.12 |
