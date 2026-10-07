@@ -22,7 +22,11 @@ def structural_ok(isin: str) -> bool:
 
 
 def checksum_ok(isin: str) -> bool:
-    """Luhn check over digit expansion of the first 11 chars."""
+    """Luhn over the digit-expanded string (A=10…Z=35).
+
+    Double every second digit counting from the right starting
+    with the digit left of the check digit — i.e. odd indices in
+    the reversed traversal."""
     if not structural_ok(isin):
         return False
     digits = "".join(str(ord(c) - 55) if c.isalpha() else c
@@ -30,7 +34,7 @@ def checksum_ok(isin: str) -> bool:
     total = 0
     for i, ch in enumerate(reversed(digits)):
         d = int(ch)
-        if i % 2 == 0:
+        if i % 2 == 1:
             d *= 2
             if d > 9:
                 d -= 9

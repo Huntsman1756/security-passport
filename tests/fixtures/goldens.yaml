@@ -93,7 +93,7 @@ goldens:
       identity.cfi: { status: reported, value: "CIOIBS" }
       identity.maturity_date: { status: not_applicable }
 
-  - isin: XX0000000001
+  - isin: XX0000000002
     case: unknown_valid_isin
     reason: |
       Valid checksum, no evidence anywhere. Every block must

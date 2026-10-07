@@ -17,7 +17,12 @@ import json
 from pathlib import Path
 from typing import Any
 
-from security_passport.providers import ecb_assets, ecb_sss, mic
+from security_passport.providers import (
+    ecb_assets,
+    ecb_sss,
+    esma_prospectus,
+    mic,
+)
 from security_passport.providers.base import (
     EcbAssetFact,
     MicFact,
@@ -140,7 +145,8 @@ class FixturePassportStore:
         p = self._dir / "priii" / f"{isin}.json"
         if not p.exists():
             return None
-        d = json.loads(p.read_text(encoding="utf-8"))
+        raw = json.loads(p.read_text(encoding="utf-8"))
+        d = esma_prospectus.normalize_raw(raw)
         docs: list[PriiiDocument] = []
         for fl in d.get("filings") or []:
             docs.append(PriiiDocument(

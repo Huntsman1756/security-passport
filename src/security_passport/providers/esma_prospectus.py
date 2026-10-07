@@ -78,13 +78,13 @@ def _children_by_type(children: list[dict[str, Any]]
     return out
 
 
-def family_for_isin(
-        isin: str,
-        select_fn: Any = select) -> dict[str, Any]:
-    """Document family graph for one ISIN.
+def fetch_raw(isin: str,
+              select_fn: Any = select) -> dict[str, Any]:
+    """Raw Solr responses for one ISIN — the archivable form.
 
-    Returns raw payloads + the resolved graph. ``select_fn`` is
-    injectable so fixtures/tests replay captured responses."""
+    ``{ifii: <response>, filings: [{root, parent: <response>,
+    children: <response>}]}`` — bytes that hash, store, and
+    replay identically."""
     ifii_resp = select_fn(f'ifii_isin:"{isin}"')
     ifii_docs = ifii_resp.get("docs") or []
     roots = sorted({str(d.get("_root_") or
@@ -92,11 +92,26 @@ def family_for_isin(
                     for d in ifii_docs
                     if d.get("_root_") or
                     d.get("ifii_docVersionDbId")})
+    return {"isin": isin, "ifii": ifii_resp,
+            "filings": [
+                {"root": root,
+                 "parent": select_fn(
+                     f'_root_:"{root}" AND type_s:parent'),
+                 "children": select_fn(
+                     f'_root_:"{root}" AND type_s:child')}
+                for root in roots]}
+
+
+def normalize_raw(raw: dict[str, Any]) -> dict[str, Any]:
+    """Captured raw payload → normalized filing graph.
+
+    Used identically by the live path, the update pipeline, and
+    the fixture store — one normalization, no drift."""
     filings: list[dict[str, Any]] = []
-    for root in roots:
-        parent_resp = select_fn(f'_root_:"{root}" AND type_s:parent')
-        children_resp = select_fn(
-            f'_root_:"{root}" AND type_s:child')
+    for entry in raw.get("filings") or []:
+        root = str(entry.get("root") or "")
+        parent_resp = entry.get("parent") or {}
+        children_resp = entry.get("children") or {}
         parent = _first(parent_resp.get("docs") or [])
         children = children_resp.get("docs") or []
         by = _children_by_type(children)
@@ -173,7 +188,16 @@ def family_for_isin(
             "children_sha": hashlib.sha256(
                 _canon(children)).hexdigest(),
         })
-    payload = {"isin": isin, "ifii": ifii_resp,
+    payload = {"isin": str(raw.get("isin") or ""),
+               "ifii": raw.get("ifii") or {},
                "filings": filings}
     payload["sha256"] = hashlib.sha256(_canon(payload)).hexdigest()
     return payload
+
+
+def family_for_isin(
+        isin: str,
+        select_fn: Any = select) -> dict[str, Any]:
+    """Live path: fetch raw responses, normalize, return the
+    family graph (with a sha of the normalized payload)."""
+    return normalize_raw(fetch_raw(isin, select_fn))

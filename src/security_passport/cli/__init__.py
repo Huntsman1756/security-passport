@@ -1,0 +1,1 @@
+"""CLI — security-passport command."""

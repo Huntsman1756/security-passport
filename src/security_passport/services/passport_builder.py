@@ -283,6 +283,42 @@ class PassportBuilder:
             b.fields["instrument_type"] = PassportField.not_found(
                 "instrument_type", searched_sources=[searched])
 
+        # maturity — reported only when a source carries it
+        ecb_row = self._s.ecb_asset(isin)
+        pr = self._s.priii(isin)
+        mat_val = ""
+        mat_ev: list[EvidenceRef] = []
+        if ecb_row is not None and ecb_row.maturity_date:
+            mat_val = ecb_row.maturity_date
+            mat_ev.append(_ecb_ev(
+                isin, ecb_row.snapshot,
+                ecb_row.retrieved_at or
+                self._s.ecb_retrieved_at(),
+                raw=ecb_row.maturity_date))
+        if pr and pr.documents:
+            for d in pr.documents:
+                if d.ifii_mat_exp_date:
+                    mat_ev.append(_priii_ev(
+                        d.root_id or isin, pr.artifact_id,
+                        pr.observed_at, raw=d.ifii_mat_exp_date))
+                    if not mat_val:
+                        mat_val = d.ifii_mat_exp_date[:10]
+        if letter in UNDATED_LETTERS and not mat_val:
+            b.fields["maturity_date"] = PassportField.not_applicable(
+                "maturity_date",
+                ref("dated_instrument_scope",
+                    inputs=({"cfi": inst.cfi},)),
+                explanation=(f"CFI {letter}* instruments are "
+                             "undated by construction."))
+        elif mat_val:
+            b.fields["maturity_date"] = PassportField.reported(
+                "maturity_date", mat_val, mat_ev)
+        else:
+            b.fields["maturity_date"] = PassportField.not_found(
+                "maturity_date",
+                searched_sources=[searched, "ecb_eligible_assets",
+                                  "esma_priii"])
+
         # issuer
         self._issuer(b, isin, searched, ev, inst)
         # identifiers (FIGI levels)
@@ -366,9 +402,37 @@ class PassportBuilder:
                     upstream_artifact=str(ent.get("locator") or ""),
                     raw=nm)])
         else:
-            b.fields["issuer_name"] = PassportField.not_found(
-                "issuer_name",
-                searched_sources=[searched, "gleif (via upstream)"])
+            # corroborating issuer names from own sources
+            alt_ev: list[EvidenceRef] = []
+            alt_name = ""
+            pr = self._s.priii(isin)
+            if pr and pr.documents and pr.documents[0].issuer_name:
+                alt_name = pr.documents[0].issuer_name
+                alt_ev.append(_priii_ev(
+                    pr.documents[0].root_id or isin,
+                    pr.artifact_id, pr.observed_at,
+                    raw=alt_name))
+            ecb_row = self._s.ecb_asset(isin)
+            if ecb_row and ecb_row.issuer_name:
+                alt_ev.append(_ecb_ev(
+                    isin, ecb_row.snapshot,
+                    ecb_row.retrieved_at or
+                    self._s.ecb_retrieved_at(),
+                    raw=ecb_row.issuer_name))
+                if not alt_name:
+                    alt_name = ecb_row.issuer_name
+            if alt_name and alt_ev:
+                b.fields["issuer_name"] = PassportField.reported(
+                    "issuer_name", alt_name, alt_ev,
+                    explanation=("Issuer name from register/"
+                                 "collateral sources; GLEIF entity "
+                                 "lookup returned nothing."))
+            else:
+                b.fields["issuer_name"] = PassportField.not_found(
+                    "issuer_name",
+                    searched_sources=[
+                        searched, "gleif (via upstream)",
+                        "esma_priii", "ecb_eligible_assets"])
         # entity roles — fund roles when the upstream v2 surface has
         # them; FIRDS Issr semantics is always listed as its own role
         roles: list[dict[str, str]] = [{

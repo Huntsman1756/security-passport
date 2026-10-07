@@ -31,6 +31,7 @@ dependencies = [
     "uvicorn>=0.30",
     "pydantic>=2.7",
     "beautifulsoup4>=4.12",
+    "pyyaml>=6.0",
 ]
 
 [project.optional-dependencies]
@@ -43,7 +44,7 @@ dev = [
 ]
 
 [project.scripts]
-security-passport = "security_passport.cli.main:app"
+security-passport = "security_passport.cli.main:main"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/security_passport"]
