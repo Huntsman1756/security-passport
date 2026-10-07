@@ -15,12 +15,6 @@ keywords = [
     "collateral", "settlement", "provenance", "reference-data",
 ]
 
-[project.urls]
-Homepage = "https://passport.h1756.es"
-Repository = "https://github.com/Huntsman1756/security-passport"
-Issues = "https://github.com/Huntsman1756/security-passport/issues"
-Documentation = "https://github.com/Huntsman1756/security-passport/tree/main/docs"
-Changelog = "https://github.com/Huntsman1756/security-passport/releases"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: MIT License",
@@ -41,6 +35,13 @@ dependencies = [
     "pyyaml>=6.0",
     "python-stdnum>=2.2",
 ]
+
+[project.urls]
+Homepage = "https://passport.h1756.es"
+Repository = "https://github.com/Huntsman1756/security-passport"
+Issues = "https://github.com/Huntsman1756/security-passport/issues"
+Documentation = "https://github.com/Huntsman1756/security-passport/tree/main/docs"
+Changelog = "https://github.com/Huntsman1756/security-passport/releases"
 
 [project.optional-dependencies]
 dev = [
