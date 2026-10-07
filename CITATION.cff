@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: >-
+  If you use this software, please cite it using these metadata.
+title: >-
+  Security Passport: an evidence-backed operational passport for
+  European financial instruments
+authors:
+  - name: Huntsman1756
+    url: https://github.com/Huntsman1756
+repository-code: >-
+  https://github.com/Huntsman1756/security-passport
+version: "0.2.0"
+date-released: "2026-10-07"
+license: MIT
+keywords:
+  - ISIN
+  - capital markets
+  - market infrastructure
+  - post-trade
+  - provenance
+  - temporal queries
+abstract: >-
+  Security Passport turns an ISIN into an evidence-backed
+  operational record. Every reported, derived, or inferred field
+  carries provenance; blocks answer a requested --as-of date
+  only from admissible evidence — unavailable historical
+  evidence is never replaced with current knowledge.

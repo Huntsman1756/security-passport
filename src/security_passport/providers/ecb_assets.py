@@ -22,6 +22,8 @@ import re
 import urllib.request
 from typing import Any
 
+from security_passport import user_agent
+
 PARSER = "security_passport.providers.ecb_assets"
 PARSER_VERSION = "1"
 PROVIDER = "ecb_eligible_assets"
@@ -29,7 +31,7 @@ DATASET = "ea_csv"
 
 LIST_PAGE = ("https://www.ecb.europa.eu/mopo/coll/assets/html/"
              "list-MID.en.html")
-_UA = {"User-Agent": "security-passport/0.1.0"}
+_UA = {"User-Agent": user_agent()}
 
 _HREF_RE = re.compile(r'href="([^"]*/ea_csv_\d{6}\.csv\.gz)"')
 

@@ -1,7 +1,7 @@
-# Security Passport API — multi-stage, non-root.
+# Security Passport API — multi-stage, non-root, frozen deps.
 FROM python:3.12-slim AS build
 WORKDIR /app
-COPY pyproject.toml README.md LICENSE ./
+COPY pyproject.toml uv.lock README.md LICENSE ./
 COPY src ./src
 RUN python -m pip install --no-cache-dir --upgrade pip \
  && python -m pip wheel --no-cache-dir --no-deps -w /wheels .
@@ -11,9 +11,16 @@ ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 \
     SECURITY_PASSPORT_DATA=/data
 RUN useradd -r -u 10001 -m passport
 WORKDIR /app
+# locked runtime deps first — rebuilds never re-resolve versions
+COPY pyproject.toml uv.lock ./
+RUN python -m pip install --no-cache-dir uv==0.11.25 \
+ && uv export --frozen --no-dev --no-hashes --no-emit-project \
+   -o /tmp/reqs.txt \
+ && python -m pip install --no-cache-dir -r /tmp/reqs.txt
 COPY --from=build /wheels /wheels
-RUN python -m pip install --no-cache-dir /wheels/*.whl \
- && rm -rf /wheels
+RUN python -m pip install --no-cache-dir --no-deps /wheels/*.whl \
+ && rm -rf /wheels /tmp/reqs.txt \
+ && python -m pip uninstall -y uv 2>/dev/null || true
 USER passport
 EXPOSE 8000
 HEALTHCHECK --interval=30s --timeout=5s --retries=3 \

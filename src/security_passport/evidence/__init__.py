@@ -19,6 +19,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any
 
+from security_passport import user_agent
 from security_passport.evidence.store import (
     ArtifactStore,
     RetrievalAttempt,
@@ -32,8 +33,9 @@ __all__ = [
     "read_observations", "store_for", "today", "utcnow",
 ]
 
-_UA = {"User-Agent": "security-passport/0.1 "
-       "(+https://github.com/; public-data observation)"}
+_UA = {"User-Agent": user_agent() +
+       " (+https://github.com/Huntsman1756/security-passport; "
+       "public-data observation)"}
 
 
 def today() -> str:

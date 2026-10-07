@@ -4,7 +4,7 @@
 
 Evidence-backed operational passport for European financial
 instruments. Thin, read-only product over the OpenInstrument
-security master (`F:\_Proyectos\openinstrument` — upstream, do not
+security master (`openinstrument` (sibling project, pinned) — upstream, do not
 modify) plus own-source stores. Start at `README.md`, then
 `docs/architecture.md`, `docs/domain.md`.
 

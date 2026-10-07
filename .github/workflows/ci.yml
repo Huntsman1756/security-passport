@@ -6,48 +6,80 @@ on:
     branches: [main]
     tags: ["v*"]
 
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   PYTHON_VERSION: "3.12"
   NODE_VERSION: "22"
+  OASDIFF_VERSION: "v1.15.1"
 
 jobs:
   backend:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7  # v10.2.0
+        with:
+          version: "0.11.25"
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          cache: pip
-      - run: python -m pip install -e ".[dev]"
-      - name: ruff
-        run: ruff check src tests
-      - name: mypy strict
-        run: mypy src
+      - run: uv sync --frozen --extra dev
+      - run: uv run ruff check src tests
+      - run: uv run mypy src
       - name: tests (offline)
-        run: pytest tests/ -q
+        run: uv run pytest tests/ -q
       - name: release gate — goldens + validator
         run: |
           SECURITY_PASSPORT_PROVIDER=fixtures \
           SECURITY_PASSPORT_FIXTURES=tests/fixtures/corpus \
-            python -m security_passport.cli.main validate
+            uv run python -m security_passport.cli.main validate
+      - name: public-repo hygiene
+        run: uv run python scripts/check_public_hygiene.py
       - name: openapi compatibility (oasdiff)
         run: |
-          go install github.com/oasdiff/oasdiff@latest
+          go install github.com/oasdiff/oasdiff/cmd/oasdiff@${{ env.OASDIFF_VERSION }}
           SECURITY_PASSPORT_PROVIDER=fixtures \
           SECURITY_PASSPORT_FIXTURES=tests/fixtures/corpus \
-            python scripts/export_openapi.py > /tmp/openapi-current.json
+            uv run python scripts/export_openapi.py > /tmp/openapi-current.json
           oasdiff breaking tests/fixtures/openapi-baseline.json \
             /tmp/openapi-current.json --fail-on ERR
 
+  python-matrix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7  # v10.2.0
+        with:
+          version: "0.11.25"
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
+        with:
+          python-version: ${{ matrix.python }}
+      - run: uv sync --frozen --extra dev
+      - name: unit + domain tests (py${{ matrix.python }})
+        run: uv run pytest tests/unit tests/contract -q
+
   frontend:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: pnpm/action-setup@d9184bf108216479bc5a137cc391f4d7b14c870b  # v6.1.0
         with:
-          version: 10
-      - uses: actions/setup-node@v4
+          path_to_package_json: web
+          run_install: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
@@ -65,9 +97,10 @@ jobs:
 
   docker:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     needs: [backend, frontend]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
       - name: build api image
         run: docker build -f infra/docker/Dockerfile.api -t security-passport-api .
       - name: build web image
@@ -75,29 +108,33 @@ jobs:
 
   e2e:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     needs: [backend]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7.0.1
+      - uses: astral-sh/setup-uv@c18668ad3cf93ea998bef934396af7bb5c839dc7  # v10.2.0
+        with:
+          version: "0.11.25"
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97  # v7.0.0
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          cache: pip
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@d9184bf108216479bc5a137cc391f4d7b14c870b  # v6.1.0
         with:
-          version: 10
-      - uses: actions/setup-node@v4
+          path_to_package_json: web
+          run_install: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7.0.0
         with:
           node-version: ${{ env.NODE_VERSION }}
           cache: pnpm
           cache-dependency-path: web/pnpm-lock.yaml
-      - run: python -m pip install -e ".[dev]"
+      - run: uv sync --frozen --extra dev
       - run: pnpm install --frozen-lockfile
         working-directory: web
       - name: api (fixture mode)
         run: |
           SECURITY_PASSPORT_PROVIDER=fixtures \
           SECURITY_PASSPORT_FIXTURES=tests/fixtures/corpus \
-            python -m uvicorn security_passport.api.app:app \
+            uv run python -m uvicorn security_passport.api.app:app \
               --host 127.0.0.1 --port 8000 &
           sleep 4
       - run: pnpm exec playwright install --with-deps chromium

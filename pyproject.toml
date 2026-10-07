@@ -9,11 +9,18 @@ description = "An evidence-backed operational passport for European financial in
 readme = "README.md"
 requires-python = ">=3.11"
 license = { text = "MIT" }
-authors = [{ name = "security-passport contributors" }]
+authors = [{ name = "Huntsman1756" }]
 keywords = [
     "isin", "cfi", "fisn", "lei", "firds", "prospectus", "ecb",
     "collateral", "settlement", "provenance", "reference-data",
 ]
+
+[project.urls]
+Homepage = "https://passport.h1756.es"
+Repository = "https://github.com/Huntsman1756/security-passport"
+Issues = "https://github.com/Huntsman1756/security-passport/issues"
+Documentation = "https://github.com/Huntsman1756/security-passport/tree/main/docs"
+Changelog = "https://github.com/Huntsman1756/security-passport/releases"
 classifiers = [
     "Development Status :: 3 - Alpha",
     "License :: OSI Approved :: MIT License",

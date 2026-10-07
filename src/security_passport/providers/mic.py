@@ -12,13 +12,15 @@ import io
 import urllib.request
 from dataclasses import dataclass
 
+from security_passport import user_agent
+
 PARSER = "security_passport.providers.mic"
 PARSER_VERSION = "1"
 PROVIDER = "iso10383_mic"
 
 MIC_URL = ("https://www.iso20022.org/sites/default/files/"
            "ISO10383_MIC/ISO10383_MIC.csv")
-_UA = {"User-Agent": "security-passport/0.1.0"}
+_UA = {"User-Agent": user_agent()}
 
 
 @dataclass(frozen=True)

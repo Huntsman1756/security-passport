@@ -1,7 +1,16 @@
 # Security Passport
 
+[![ci](https://github.com/Huntsman1756/security-passport/actions/workflows/ci.yml/badge.svg)](https://github.com/Huntsman1756/security-passport/actions/workflows/ci.yml)
+[![release](https://img.shields.io/github/v/release/Huntsman1756/security-passport)](https://github.com/Huntsman1756/security-passport/releases)
+[![MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![python](https://img.shields.io/badge/python-3.11–3.13-blue)](pyproject.toml)
+
 **An evidence-backed operational passport for European financial
 instruments.**
+
+Live demo: <https://passport.h1756.es> ·
+Latest release: [`v0.2.0`](https://github.com/Huntsman1756/security-passport/releases) ·
+Status: research-grade / pre-1.0
 
 > Security Passport turns an ISIN into an evidence-backed
 > operational record by joining European securities reference data,
@@ -24,6 +33,11 @@ CFI             DBFUGB                       reported
 Issuer LEI      894500SN5GTABFSFWS54         reported · corroborated
 ...
 ```
+
+![Security Passport — IE00B4L5Y983 queried at 2026-09-19](docs/assets/security-passport.png)
+
+*The document was already known on 19 Sep 2026; the designated
+settlement location does not become effective until 21 Sep 2026.*
 
 ## What it does
 

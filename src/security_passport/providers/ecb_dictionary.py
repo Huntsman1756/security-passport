@@ -14,6 +14,8 @@ from typing import Any
 
 from bs4 import BeautifulSoup
 
+from security_passport import user_agent
+
 PROVIDER = "ecb_collateral_dictionary"
 PARSER = "security_passport.providers.ecb_dictionary"
 PARSER_VERSION = "1"
@@ -65,8 +67,7 @@ def fetch() -> bytes:
     import urllib.request
     with urllib.request.urlopen(
             urllib.request.Request(
-                URL, headers={"User-Agent":
-                              "security-passport/0.1"}),
+                URL, headers={"User-Agent": user_agent()}),
             timeout=120) as r:
         return bytes(r.read())
 

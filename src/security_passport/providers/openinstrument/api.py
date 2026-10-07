@@ -12,6 +12,7 @@ from typing import Any
 
 import httpx
 
+from security_passport import user_agent
 from security_passport.providers.base import (
     IdentifierFact,
     InstrumentFacts,
@@ -36,8 +37,7 @@ class OpenInstrumentApiProvider:
         self._base = base_url.rstrip("/")
         self._client = httpx.Client(
             base_url=self._base, timeout=timeout,
-            headers={"User-Agent":
-                     "security-passport/0.1.0"})
+            headers={"User-Agent": user_agent()})
         self._generation = ""
 
     def name(self) -> str:

@@ -20,6 +20,8 @@ import urllib.request
 from dataclasses import dataclass
 from typing import Any
 
+from security_passport import user_agent
+
 PARSER = "security_passport.providers.ecb_sss"
 PARSER_VERSION = "1"
 PROVIDER = "ecb_sss_links"
@@ -28,7 +30,7 @@ SSS_PAGE = ("https://www.ecb.europa.eu/mopo/coll/coll/eligiblesss/"
             "html/index.en.html")
 LINKS_PAGE = ("https://www.ecb.europa.eu/mopo/coll/coll/ssslinks/"
               "html/index.en.html")
-_UA = {"User-Agent": "security-passport/0.1.0"}
+_UA = {"User-Agent": user_agent()}
 
 _LAST_UPDATED_RE = re.compile(
     r"Last updated:\s*([0-9]{1,2}\s+\w+\s+[0-9]{4})")

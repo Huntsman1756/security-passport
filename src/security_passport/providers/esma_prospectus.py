@@ -23,6 +23,8 @@ import urllib.parse
 import urllib.request
 from typing import Any
 
+from security_passport import user_agent
+
 PARSER = "security_passport.providers.esma_prospectus"
 PARSER_VERSION = "1"
 PROVIDER = "esma_priii"
@@ -30,7 +32,7 @@ DATASET = "priii_documents"
 
 SOLR = ("https://registers.esma.europa.eu/solr/"
         "esma_registers_priii_documents/select")
-_UA = {"User-Agent": "security-passport/0.1.0"}
+_UA = {"User-Agent": user_agent()}
 
 RFSS_DOWNLOAD = ("https://registers.esma.europa.eu/publication/"
                  "downloadFile?fileId={fid}&checksum={cks}")
