@@ -44,3 +44,19 @@ API `/api/v1/status` response.
 > Security Passport is an independent evidence-backed projection
 > of public European regulatory data. It is not endorsed by ESMA,
 > the ECB, GLEIF, ISO/SWIFT, or BME/Iberclear.
+
+## v0.1.1 additions
+
+- `python-stdnum` 2.2+ — LGPL-2.1+. Used as a library for
+  ISO 6166/17442 validation; no code copied; dynamic linking
+  satisfies the licence.
+- `schemathesis` 4.x — MIT. Test-only dependency.
+- `oasdiff` — Apache-2.0. CI tool, not distributed.
+- ECB Eligible Assets Dictionary — public data, verbatim labels
+  preserved as codebook evidence.
+- Euronext Securities Milan ISIN-eligibility workbook — public
+  operational file; rows carry artifact SHA-256 + file date.
+- `openinstrument/artifacts/store.py` (MIT, same-owner) —
+  pattern ported to `evidence/store.py`.
+- `posttrade-europe/capture` (Apache-2.0, same-owner) —
+  retrieval-attempt semantics ported.
