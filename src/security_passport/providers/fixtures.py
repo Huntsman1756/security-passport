@@ -25,6 +25,7 @@ from security_passport.providers import (
 )
 from security_passport.providers.base import (
     EcbAssetFact,
+    InstrumentCsdEvidence,
     MicFact,
     PriiiDocument,
     PriiiFacts,
@@ -231,3 +232,34 @@ class FixturePassportStore:
 
     def meta(self) -> dict[str, Any]:
         return {"mode": "fixtures"}
+
+    # ---- ECB collateral dictionary ------------------------------------
+    def csd_codes(self) -> dict[str, str]:
+        dp = self._dir / "ecb_dictionary" / "dictionary.en.html"
+        if not dp.exists():
+            return {}
+        from security_passport.providers import ecb_dictionary
+        return ecb_dictionary.parse(
+            dp.read_text(encoding="utf-8",
+                         errors="replace")).get(
+                             "issuer_csd") or {}
+
+    # ---- instrument-level CSD evidence ----------------------------------
+    def instrument_csd_evidence(
+            self, isin: str) -> list[InstrumentCsdEvidence]:
+        ep = self._dir / "esmil" / "rows.json"
+        if not ep.exists():
+            return []
+        rows = json.loads(ep.read_text(encoding="utf-8"))
+        return [InstrumentCsdEvidence(
+            isin=r["isin"], provider=r["provider"],
+            issuer_csd_name=r.get("issuer_csd_name", ""),
+            issuer_csd_code=r.get("issuer_csd_code"),
+            market=r.get("market", ""), mic=r.get("mic", ""),
+            other_mic=r.get("other_mic", ""),
+            settlement_currency=r.get("settlement_currency", ""),
+            sheet=r.get("sheet", ""),
+            observed_at=r.get("observed_at", ""),
+            artifact_sha256=r.get("artifact_sha256", ""),
+            file_date=r.get("file_date", ""))
+            for r in rows.get("rows", []) if r.get("isin") == isin]

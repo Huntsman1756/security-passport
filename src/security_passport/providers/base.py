@@ -210,6 +210,29 @@ class MicFact:
     status: str
 
 
+@dataclass(frozen=True)
+class InstrumentCsdEvidence:
+    """Instrument-level CSD admission evidence — reported
+    membership, never topology-derived.
+
+    Currently: Euronext Securities Milan "ISINs eligible for
+    settlement" workbook. Deliberately distinct from
+    ``issuer_sss`` (which is an ECB-reported code): this row is
+    what the CSD itself publishes."""
+    isin: str
+    provider: str
+    issuer_csd_name: str
+    issuer_csd_code: str | None
+    market: str
+    mic: str
+    other_mic: str
+    settlement_currency: str
+    sheet: str
+    observed_at: str
+    artifact_sha256: str
+    file_date: str
+
+
 class PassportStore(Protocol):
     """Read surface over the pinned own-source generation."""
 
@@ -221,6 +244,9 @@ class PassportStore(Protocol):
     def eligible_sss(self) -> list[SssFact]: ...
     def eligible_links(self) -> list[SssLinkFact]: ...
     def mic(self, mic: str) -> MicFact | None: ...
+    def csd_codes(self) -> dict[str, str]: ...
+    def instrument_csd_evidence(
+        self, isin: str) -> list[InstrumentCsdEvidence]: ...
 
 
 # ---- errors ---------------------------------------------------------------

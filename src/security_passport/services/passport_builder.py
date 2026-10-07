@@ -19,6 +19,7 @@ from security_passport.domain.status import (
     SourceTimeSemantics,
     TemporalBasis,
 )
+from security_passport.providers import ecb_dictionary
 from security_passport.providers.base import (
     InstrumentProvider,
     IssuerAssertionFact,
@@ -94,6 +95,16 @@ def _priii_ev(record_id: str, artifact: str, observed_at: str,
                         "esma_registers_priii_documents"),
         retrieved_at=observed_at, raw_value=raw,
         parser_version="esma_prospectus.v1")
+
+
+def _artifact_ev(record_id: str, provider: str, file_date: str,
+                 observed_at: str,
+                 artifact_sha: str) -> EvidenceRef:
+    return EvidenceRef(
+        provider=provider, dataset="instrument_csd_evidence",
+        record_id=record_id, artifact_id=artifact_sha,
+        published_at=file_date, retrieved_at=observed_at,
+        parser_version="euronext_esmil.v1")
 
 
 def _sss_ev(record_id: str, dataset: str, stamp: str,
@@ -751,7 +762,15 @@ class PassportBuilder:
         if row is not None and row.issuer_csd:
             code = row.issuer_csd
             issuer_sss_code = code
-            mapped = sss_for_csd_code(code)
+            # prefer the official ECB dictionary codebook from the
+            # generation; curated map is the offline fallback
+            mapped = None
+            dict_label = self._s.csd_codes().get(code, "")
+            if dict_label:
+                mapped = ecb_dictionary.csd_label(
+                    code, self._s.csd_codes())
+            if mapped is None:
+                mapped = sss_for_csd_code(code)
             ev = _ecb_ev(isin, row.snapshot,
                          row.retrieved_at or self._s.ecb_retrieved_at(),
                          raw={"ISSUER_CSD": code})
@@ -824,6 +843,46 @@ class PassportBuilder:
         else:
             b.fields["eligible_sss_count"] = PassportField.not_found(
                 "eligible_sss_count", searched_sources=searched)
+        # ---- instrument-level CSD admission evidence ------------------
+        ice = self._s.instrument_csd_evidence(isin)
+        searched.append("euronext_esmil")
+        b.collections["instrument_csd_evidence"] = [
+            {"provider": r.provider,
+             "issuer_csd_name": r.issuer_csd_name,
+             "issuer_csd_code": r.issuer_csd_code,
+             "market": r.market, "mic": r.mic,
+             "other_mic": r.other_mic,
+             "settlement_currency": r.settlement_currency,
+             "file_date": r.file_date,
+             "state": "reported",
+             "evidence": _artifact_ev(
+                 f"esmil:{r.isin}", r.provider,
+                 r.file_date, r.observed_at,
+                 artifact_sha=r.artifact_sha256).to_dict()}
+            for r in ice]
+        if ice:
+            csds = sorted({r.issuer_csd_name for r in ice
+                           if r.issuer_csd_name})
+            b.fields["csd_admission"] = PassportField.reported(
+                "csd_admission",
+                {"admitted": True, "issuer_csds": csds,
+                 "file_date": ice[0].file_date},
+                [_artifact_ev(f"esmil:{isin}",
+                              ice[0].provider, ice[0].file_date,
+                              ice[0].observed_at,
+                              ice[0].artifact_sha256)],
+                searched_sources=searched,
+                explanation=("Instrument appears verbatim in a "
+                             "CSD-published eligibility file "
+                             "(Euronext Securities Milan)."))
+        else:
+            b.fields["csd_admission"] = PassportField.not_found(
+                "csd_admission", searched_sources=searched,
+                explanation=("No instrument-level CSD-published "
+                             "admission file lists this ISIN. "
+                             "Absence is not ineligibility — only "
+                             "files actually searched are "
+                             "declared."))
         b.fields["possible_paths"] = PassportField.not_found(
             "possible_paths", searched_sources=searched,
             explanation=("Possible settlement paths require (a) a "

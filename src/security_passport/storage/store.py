@@ -22,6 +22,7 @@ import duckdb
 
 from security_passport.providers.base import (
     EcbAssetFact,
+    InstrumentCsdEvidence,
     MicFact,
     PriiiDocument,
     PriiiFacts,
@@ -42,6 +43,16 @@ class GenerationStore:
         sp = self._stores / "sss.json"
         if sp.exists():
             self._sss = json.loads(sp.read_text(encoding="utf-8"))
+        self._dictionary: dict[str, dict[str, str]] = {}
+        dp = self._stores / "collateral_dictionary.json"
+        if dp.exists():
+            self._dictionary = json.loads(
+                dp.read_text(encoding="utf-8"))
+        self._esmil: list[dict[str, Any]] = []
+        ep = self._stores / "esmil.json"
+        if ep.exists():
+            self._esmil = json.loads(
+                ep.read_text(encoding="utf-8")).get("rows") or []
 
     def generation(self) -> str:
         return self._root.name
@@ -204,3 +215,30 @@ class GenerationStore:
 
     def meta(self) -> dict[str, Any]:
         return self._meta
+
+    # ---- ECB collateral dictionary --------------------------------------
+    def csd_codes(self) -> dict[str, str]:
+        return dict(self._dictionary.get("issuer_csd") or {})
+
+    def dictionary_section(self, name: str) -> dict[str, str]:
+        return dict(self._dictionary.get(name) or {})
+
+    # ---- instrument-level CSD evidence (Euronext Milan) -----------------
+    def instrument_csd_evidence(
+            self, isin: str) -> list[InstrumentCsdEvidence]:
+        return [InstrumentCsdEvidence(
+            isin=str(r.get("isin") or ""),
+            provider=str(r.get("provider") or ""),
+            issuer_csd_name=str(r.get("issuer_csd_name") or ""),
+            issuer_csd_code=(str(r["issuer_csd_code"])
+                             if r.get("issuer_csd_code") else None),
+            market=str(r.get("market") or ""),
+            mic=str(r.get("mic") or ""),
+            other_mic=str(r.get("other_mic") or ""),
+            settlement_currency=str(
+                r.get("settlement_currency") or ""),
+            sheet=str(r.get("sheet") or ""),
+            observed_at=str(r.get("observed_at") or ""),
+            artifact_sha256=str(r.get("artifact_sha256") or ""),
+            file_date=str(r.get("file_date") or ""))
+            for r in self._esmil if r.get("isin") == isin]

@@ -70,7 +70,7 @@ def test_iberclear_evidence(builder: PassportBuilder) -> None:
     d = builder.build("ES0000101966", True).to_dict()
     pt = d["post_trade"]
     assert pt["issuer_sss"]["value"]["code"] == "CLES01"
-    assert pt["issuer_sss"]["value"]["name"] == "Iberclear-ARCO"
+    assert pt["issuer_sss"]["value"]["name"] == "Iberclear (ARCO)"
     assert pt["iberclear_admitted"]["value"] is True
     assert pt["iberclear_admitted"]["status"] == "reported"
 
@@ -122,6 +122,7 @@ def test_no_silent_nulls(builder: PassportBuilder) -> None:
             if k in ("listings", "document_graph",
                      "entity_roles", "identifiers",
                      "eligible_sss", "relevant_links",
+                     "instrument_csd_evidence",
                      "temporal", "warnings"):
                 continue
             assert "status" in v, f"{blk}.{k} has no status"

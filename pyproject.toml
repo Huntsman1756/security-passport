@@ -79,6 +79,7 @@ ignore = ["S101"]
 "src/security_passport/providers/esma_prospectus.py" = ["S310"]
 "src/security_passport/providers/mic.py" = ["S310"]
 "src/security_passport/evidence/__init__.py" = ["S310"]
+"src/security_passport/providers/ecb_dictionary.py" = ["S310"]
 "tests/integration/test_schemathesis.py" = ["E402"]
 
 [tool.mypy]
@@ -88,7 +89,7 @@ mypy_path = "src"
 packages = ["security_passport"]
 
 [[tool.mypy.overrides]]
-module = ["bs4", "bs4.*", "pyarrow", "pyarrow.*"]
+module = ["bs4", "bs4.*", "pyarrow", "pyarrow.*", "openpyxl", "openpyxl.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]

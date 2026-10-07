@@ -97,7 +97,7 @@ goldens:
       assert admission when instrument-level evidence exists.
     expected:
       post_trade.issuer_sss:
-        {status: reported, value: {code: "CLES01", name: "Iberclear-ARCO"}}
+        {status: reported, value: {code: "CLES01"}}
       post_trade.iberclear_admitted: {status: reported, value: true}
       eurosystem_collateral.eligible: {status: derived, value: true}
 
@@ -126,6 +126,7 @@ goldens:
     expected:
       identity.issuer_lei: {status: conflict}
       overall_state: found
+      post_trade.csd_admission: {status: reported}
 
   - isin: LU0003549028
     case: lu_fund
@@ -162,6 +163,7 @@ goldens:
       secondary_market.listings_at_least: 30
       eurosystem_collateral.eligible: {status: derived, value: false}
       post_trade.issuer_sss: {status: not_found}
+      post_trade.csd_admission: {status: reported}
 
   - isin: FR0000120271
     case: fr_large_equity_multivenue
@@ -170,6 +172,7 @@ goldens:
     expected:
       overall_state: found
       secondary_market.listings_at_least: 40
+      post_trade.csd_admission: {status: reported}
 
   - isin: IT0004729759
     case: it_equity
@@ -186,6 +189,7 @@ goldens:
       overall_state: found
       primary_market.prospectus_found: {status: reported, value: true}
       secondary_market.listings_at_least: 40
+      post_trade.csd_admission: {status: reported}
 
   - isin: ES0113211835
     case: es_equity_large
@@ -203,6 +207,7 @@ goldens:
       identity.cfi: {status: reported}
       secondary_market.listings_at_least: 30
       identity.maturity_date: {status: not_applicable}
+      post_trade.csd_admission: {status: reported}
 
   - isin: IE00BYYJHC15
     case: ucits_share_class

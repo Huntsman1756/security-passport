@@ -15,42 +15,49 @@ from __future__ import annotations
 
 PROVIDER = "iberclear"
 
-# ECB eligible-assets ISSUER_CSD codes are 6-char composites
-# (CSD short code + country). Only names needed to label SSSs that
-# appear in the Eurosystem eligible-SSS list are curated here;
-# unknown codes are passed through verbatim with a quality flag.
+# ECB eligible-assets ISSUER_CSD codes — verbatim labels from the
+# ECB "Eligible Assets Dictionary" (providers/ecb_dictionary.py
+# parses the live page; this table is the offline fallback for it,
+# not a hand-rolled guess — v0.1 had CLBL01 mislabelled as
+# Clearstream Banking Luxembourg alone).
+# CLBL01 is a JOINT ICSD code — XS securities dual-issued through
+# Euroclear Bank / Clearstream Banking S.A. collapse to it.
 SSS_BY_CSD_CODE: dict[str, dict[str, str]] = {
-    "CLES01": {"name": "Iberclear-ARCO", "country": "Spain"},
+    "CLAT01": {"name": "OeKB", "country": "Austria"},
+    "CLBE01": {"name": "NBB SSS", "country": "Belgium"},
+    "CLBE02": {"name": "Euroclear Bank", "country": "Belgium"},
+    "CLBG01": {"name": "BNBGSSS", "country": "Bulgaria"},
+    "CLBL01": {"name": "Euroclear Bank / Clearstream Banking S.A.",
+               "country": "Belgium / Luxembourg"},
+    "CLCY01": {"name": "CDCR", "country": "Cyprus"},
+    "CLCZ01": {"name": "CDCP", "country": "Czech Republic"},
     "CLDE01": {"name": "Clearstream Europe AG - CASCADE",
                "country": "Germany"},
-    "CLBL01": {"name": "CBL (Clearstream Banking Luxembourg)",
-               "country": "Luxembourg"},
-    "CLFB01": {"name": "Euroclear France", "country": "France"},
-    "EBBE01": {"name": "Euroclear Bank", "country": "Belgium"},
-    "ENNL01": {"name": "Euroclear Nederland",
-               "country": "Netherlands"},
-    "NBBE01": {"name": "NBB-SSS", "country": "Belgium"},
-    "OEAT01": {"name": "OeKB CSD GmbH", "country": "Austria"},
-    "ESES01": {"name": "Euronext Securities Porto",
-               "country": "Portugal"},
-    "ESMI01": {"name": "Euronext Securities Milan",
-               "country": "Italy"},
-    "BOGR01": {"name": "BOGS", "country": "Greece"},
-    "LULU01": {"name": "LuxCSD", "country": "Luxembourg"},
-    "DKDK01": {"name": "Euronext Securities Copenhagen",
+    "CLDK01": {"name": "Euronext Securities Copenhagen",
                "country": "Denmark"},
-    "EFFI01": {"name": "Euroclear Nordics Oy", "country": "Finland"},
-    "MTMT01": {"name": "MaltaClear", "country": "Malta"},
-    "CDCZ01": {"name": "CSD Prague", "country": "Czech Republic"},
-    "CDSK01": {"name": "CDCP", "country": "Slovakia"},
-    "KDSI01": {"name": "KDD", "country": "Slovenia"},
-    "NDLT01": {"name": "Nasdaq CSD SE", "country": "Baltics"},
-    "SKHR01": {"name": "SKDD", "country": "Croatia"},
-    "CDCY01": {"name": "CDCR", "country": "Cyprus"},
-    "HUHU01": {"name": "KELER", "country": "Hungary"},
-    "PLPL01": {"name": "KDPW", "country": "Poland"},
-    "RORO01": {"name": "Depozitarul Central", "country": "Romania"},
-    "BGBG01": {"name": "BNBGSSS", "country": "Bulgaria"},
+    "CLEE01": {"name": "Nasdaq CSD SE", "country": "Estonia"},
+    "CLES01": {"name": "Iberclear-ARCO", "country": "Spain"},
+    "CLEU01": {"name": "ECB debt certificates", "country": ""},
+    "CLFI01": {"name": "Euroclear Finland Infinity System",
+               "country": "Finland"},
+    "CLFR01": {"name": "Euroclear France", "country": "France"},
+    "CLGR01": {"name": "BOGS", "country": "Greece"},
+    "CLHR01": {"name": "SKDD", "country": "Croatia"},
+    "CLIT01": {"name": "Euronext Securities Milan",
+               "country": "Italy"},
+    "CLLT02": {"name": "Nasdaq CSD SE", "country": "Lithuania"},
+    "CLLU01": {"name": "Clearstream Banking S.A.",
+               "country": "Luxembourg"},
+    "CLLU03": {"name": "LuxCSD", "country": "Luxembourg"},
+    "CLLV02": {"name": "Nasdaq CSD SE", "country": "Latvia"},
+    "CLMT01": {"name": "MaltaClear", "country": "Malta"},
+    "CLNL01": {"name": "Euroclear Nederland",
+               "country": "Netherlands"},
+    "CLPT02": {"name": "Euronext Securities Porto",
+               "country": "Portugal"},
+    "CLSE01": {"name": "Euroclear Sweden VPC", "country": "Sweden"},
+    "CLSI01": {"name": "KDD", "country": "Slovenia"},
+    "CLSK01": {"name": "CDCP", "country": "Slovakia"},
 }
 
 IBERCLEAR_CODES = {"CLES01"}

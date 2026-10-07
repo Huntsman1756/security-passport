@@ -26,8 +26,10 @@ import pyarrow.parquet as pq
 from security_passport import evidence
 from security_passport.providers import (
     ecb_assets,
+    ecb_dictionary,
     ecb_sss,
     esma_prospectus,
+    euronext_esmil,
     mic,
 )
 from security_passport.storage import generations
@@ -108,9 +110,52 @@ def build_stores(
                 json.dumps(payload, sort_keys=True,
                            ensure_ascii=False, indent=1),
                 encoding="utf-8")
+    dictionary = meta.pop("_dictionary", None)
+    if dictionary:
+        (stores / "collateral_dictionary.json").write_text(
+            json.dumps(dictionary, sort_keys=True,
+                       ensure_ascii=False, indent=1),
+            encoding="utf-8")
+    esmil_rows = meta.pop("_esmil_rows", None)
+    if esmil_rows is not None:
+        (stores / "esmil.json").write_text(
+            json.dumps({"source": "euronext-esmil-isin-file",
+                        "rows": esmil_rows},
+                       sort_keys=True, ensure_ascii=False, indent=1),
+            encoding="utf-8")
     (stores / "meta.json").write_text(
         json.dumps(meta, sort_keys=True, ensure_ascii=False,
                    indent=1), encoding="utf-8")
+
+
+def _fetch_esmil_workbook(
+        data_root: Path) -> tuple[bytes, Any, str]:
+    """Locate the current dated Euronext Milan ISIN workbook by
+    probing recent publication dates (the URL embeds the file
+    date; the source catalog records the naming convention)."""
+    import datetime as dt
+    today = dt.date.today()
+    tried: list[str] = []
+    for back in range(0, 45):
+        day = today - dt.timedelta(days=back)
+        name = (f"ISINs%20eligible%20for%20settlement%20in%20"
+                f"Euronext%20Securities%20Milan%20"
+                f"{day.isoformat()}.xlsx")
+        url = (f"https://www.euronext.com/sites/default/files/"
+               f"{day.strftime('%Y-%m')}/{name}")
+        try:
+            data, art = evidence.capture_fetch(
+                data_root, url=url,
+                provider="euronext_esmil",
+                source_family="isin_eligibility_file",
+                period=day.isoformat(),
+                parser_version=euronext_esmil.PARSER)
+            return data, art, name
+        except OSError:
+            tried.append(url)
+    raise OSError(
+        f"euronext_esmil: no workbook found in last 45d "
+        f"({len(tried)} attempts recorded)")
 
 
 def run_update(
@@ -229,6 +274,48 @@ def run_update(
                 "isin_count": len(payloads),
                 "raw_state": "raw_available"}
             fetched["priii_payloads"] = payloads
+
+            # ---- ECB collateral dictionary ---------------------------
+            dict_b, dict_art = evidence.capture_fetch(
+                data_root, url=ecb_dictionary.URL,
+                provider="ecb",
+                source_family="ecb_collateral_dictionary",
+                period=evidence.today(),
+                parser_version=ecb_dictionary.PARSER)
+            fetched["dictionary"] = ecb_dictionary.parse(
+                dict_b.decode("utf-8", "replace"))
+            meta["ecb_collateral_dictionary"] = {
+                "raw_state": "raw_available",
+                "raw_source_id": dict_art.source_id,
+                "sha256": dict_art.sha256,
+                "sections": {k: len(v)
+                             for k, v in
+                             fetched["dictionary"].items()}}
+
+            # ---- Euronext Milan ISIN eligibility workbook --------------
+            try:
+                esmil_b, esmil_art, esmil_name = \
+                    _fetch_esmil_workbook(data_root)
+                esmil_rows = [
+                    euronext_esmil.normalize(
+                        r, evidence.utcnow(), esmil_art.sha256,
+                        euronext_esmil.file_date_from_name(
+                            esmil_name))
+                    for r in euronext_esmil.parse_workbook(esmil_b)]
+                fetched["esmil_rows"] = esmil_rows
+                meta["euronext_esmil"] = {
+                    "raw_state": "raw_available",
+                    "raw_source_id": esmil_art.source_id,
+                    "sha256": esmil_art.sha256,
+                    "file": esmil_name,
+                    "rows": len(esmil_rows)}
+            except OSError as e:
+                # source failure is data — the passport degrades to
+                # not_found, never to fabricated evidence
+                meta["euronext_esmil"] = {
+                    "raw_state": "unavailable",
+                    "error": str(e)}
+                fetched["esmil_rows"] = []
         else:
             fetched = dict(fetch_fn())
             meta.update(fetched.pop("meta", {}) or {})
@@ -249,6 +336,10 @@ def run_update(
         name = generations.next_name(read_root)
         staging = read_root / f".build-{name}"
         staging.mkdir(parents=True)
+        if fetched.get("dictionary"):
+            meta["_dictionary"] = fetched["dictionary"]
+        if "esmil_rows" in fetched:
+            meta["_esmil_rows"] = fetched["esmil_rows"]
         build_stores(
             staging,
             ecb_rows=fetched.get("ecb_rows") or [],
