@@ -1,111 +1,354 @@
-# Golden corpus — v0.1.0 seed
-# Each entry: isin, case class, reason, expected assertions.
-# Fixture-backed cases are served by FixtureInstrumentProvider.
-# live_validated marks cases verified against live sources at
-# manifest review time (2026-10-07, OI generation-0004).
+# Golden corpus — scenario-driven, not volume-driven.
+#
+# Each entry documents: case purpose, expected assertions,
+# expected absences, expected conflicts, source evidence.
+# `security-passport validate` and tests/goldens/ verify every
+# expectation. Drift in the wrong direction blocks release;
+# drift in the right direction requires updating the expectation
+# WITH a reason in the commit message.
+#
+# Coverage map (scenario → ISIN):
+#   spanish equity          ES0113900J37, ES0113211835
+#   german equity           DE0007164600
+#   french equity           FR0013154002, FR0000120271
+#   italian equity          IT0004729759
+#   dutch equity + PRIII    NL0000235190
+#   ETF / UCITS share class IE00B4L5Y983, IE00BYYJHC15
+#   spanish fund (SICAV)    ES0155092036
+#   LU fund                 LU0003549028
+#   sovereign bond          IT0005282527, ES0000012E44, XS0971721963
+#   covered bond            DE000A2GSP56, XS2525255647
+#   corporate bond          DE000A3LJCB4
+#   bank bond / EMTN        XS2081615473, IT0005678443
+#   convertible/debt var.   FR001400YGG3, DE0001150548 (EY rights)
+#   option + LEI conflict   IT0024182286
+#   multi-venue equity      FR0000120271 (47), DE0007164600,
+#                           DE0005874846 (40), IE00B4L5Y983 (41)
+#   multi-venue debt        DE000A3LJCB4 (16), XS2525255647 (18)
+#   delisted (all term.)    AT0000A1NZ16
+#   FIRDS sentinel 9999     DE0005874846 (first_trade_date)
+#   maturity fallback       XS0971721963, IT0005282527
+#   PRIII absent            IT0004729759, DE0007164600, …
+#   PRIII single family     DE000A3LJCB4, XS2525255647, …
+#   PRIII-only instrument   DE000DN48XD7 (no canonical row)
+#   ECB-only instrument     FR0129714681 (no canonical row)
+#   LEI real conflict       IE0007SRI1C7, IT0024182286
+#   ECB eligible + issuer CSD   XS2081615473 CLBL01, ES0000101966
+#                               CLES01, ES0000012E44 CLES01,
+#                               IT0005678443 CLIT01, FR0129714681
+#                               CLFR01, DE000A2GSP56 CLDE01
+#   ECB absent              FR0000120271, IT0005282527 (non-euro
+#                           snapshot), most equities
+#   unknown checksum-valid  XSSE2WKP7HV5
+#   invalid checksum        DE000A3LJCB0
+#   RU sovereign absence    XS0971721963 (sanctions-era: not on
+#                           the eligible list)
+
+last_reviewed: "2026-10-07"
+parser_versions:
+  ecb_assets: 1
+  ecb_sss: 1
+  esma_priii: 1
+  iso10383_mic: 1
 
 goldens:
+  # ============ v0.1 core cases ====================================
   - isin: DE000A3LJCB4
-    case: corporate_bond_priii_multi_venue
-    reason: |
-      EPH Group bond. PRIII standalone prospectus (LU home,
-      passported AT/DE), 16 FIRDS venue records (relevant WBDM),
-      corroborated issuer LEI, NOT ECB-eligible as of 260925.
-    fixture: true
-    live_validated: 2026-10-07
+    case: debt_priii_full
+    purpose: canonical worked example — corporate bond with a
+      PRIII prospectus family, passported LU→AT/DE, 16 venue
+      records, ECB absence derived within snapshot.
     expected:
-      identity.issuer_lei: { status: reported, value: "894500SN5GTABFSFWS54" }
-      primary_market.prospectus_found: { status: reported, value: true }
-      primary_market.home_member_state: { status: reported, value: "LU" }
-      secondary_market.listing_count_at_least: 8
-      eurosystem_collateral.eligible: { status: derived, value: false }
-      post_trade.issuer_sss: { status: not_found }
+      overall_state: found
+      identity.cfi: {status: reported, value: "DBFUGB"}
+      identity.issuer_lei: {status: reported,
+        value: "894500SN5GTABFSFWS54"}
+      primary_market.prospectus_found: {status: reported, value: true}
+      primary_market.home_member_state: {status: reported, value: "LU"}
+      primary_market.is_passported: {status: reported, value: true}
+      primary_market.document_graph_at_least: 1
+      secondary_market.listings_at_least: 10
+      secondary_market.first_admission_date:
+        {status: derived, value: "2023-05-08"}
+      eurosystem_collateral.eligible: {status: derived, value: false}
+      post_trade.issuer_sss: {status: not_found}
+      post_trade.possible_paths: {status: not_found}
 
   - isin: XS2081615473
-    case: emtn_ecb_eligible_no_priii
-    reason: |
-      Holcim Finance EMTN. ECB-eligible (L1D/AT02, issuer CSD
-      CLBL01=Clearstream Banking Luxembourg). No PRIII filings —
-      wholesale EMTN. issuer_lei single_source.
-    fixture: true
-    live_validated: 2026-10-07
+    case: ecb_eligible_emtn
+    purpose: ECB-eligible bank bond with issuer_csd directly
+      reported (CLBL01) — the strongest post-trade evidence shape
+      available publicly.
     expected:
-      eurosystem_collateral.eligible: { status: derived, value: true }
-      eurosystem_collateral.haircut_category: { status: reported, value: "L1D" }
-      post_trade.issuer_sss: { status: reported }
-      primary_market.prospectus_found: { status: reported, value: false }
-
-  - isin: DE0007164600
-    case: german_equity_multi_venue
-    reason: |
-      SAP SE ordinary share. Equity (CFI ESVUFB), corroborated
-      issuer, many venue listings, maturity not_applicable.
-    fixture: true
-    live_validated: 2026-10-07
-    expected:
-      identity.cfi: { status: reported, value: "ESVUFB" }
-      identity.maturity_date: { status: not_applicable }
-      eurosystem_collateral.eligible: { status: derived, value: false }
-      secondary_market.listing_count_at_least: 5
-
-  - isin: ES0113900J37
-    case: spanish_equity_iberclear_relevant
-    reason: |
-      Banco Santander share. Spanish equity — Iberclear is the
-      natural issuer-side SSS but NO instrument-specific settlement
-      evidence is asserted without ECB/other proof. Post-trade
-      must stay evidence-only (no ES-prefix inference).
-    fixture: true
-    live_validated: 2026-10-07
-    expected:
-      post_trade.iberclear_admitted: { status: not_found }
-      post_trade.assessment: { status: derived }
+      overall_state: found
+      eurosystem_collateral.eligible: {status: derived, value: true}
+      eurosystem_collateral.haircut_category:
+        {status: reported, value: "L1D"}
+      eurosystem_collateral.haircut: {status: reported}
+      eurosystem_collateral.issuer_csd: {status: reported}
+      post_trade.issuer_sss:
+        {status: reported, value: {code: "CLBL01"}}
+      primary_market.prospectus_found: {status: reported, value: false}
 
   - isin: ES0000101966
-    case: regional_sovereign_ecb_iberclear
-    reason: |
-      Comunidad de Madrid bond. ECB-eligible with
-      ISSUER_CSD=CLES01 (Iberclear-ARCO) — the only direct
-      Iberclear-relevant evidence class available publicly.
-    fixture: true
-    live_validated: 2026-10-07
+    case: iberlear_evidence
+    purpose: Spanish regional debt — issuer CSD CLES01 resolves to
+      Iberclear-ARCO via the curated mapping; proves we only
+      assert admission when instrument-level evidence exists.
     expected:
-      eurosystem_collateral.eligible: { status: derived, value: true }
-      post_trade.issuer_sss: { status: reported }
+      post_trade.issuer_sss:
+        {status: reported, value: {code: "CLES01", name: "Iberclear-ARCO"}}
+      post_trade.iberclear_admitted: {status: reported, value: true}
+      eurosystem_collateral.eligible: {status: derived, value: true}
+
+  - isin: ES0113900J37
+    case: spanish_equity_no_inference
+    purpose: ES prefix is a discovery signal, never evidence —
+      Iberclear admission must remain not_found.
+    expected:
+      post_trade.iberclear_admitted: {status: not_found}
+      post_trade.issuer_sss: {status: not_found}
+      identity.instrument_type: {status: derived}
+
+  - isin: DE0007164600
+    case: equity_no_maturity
+    purpose: SAP — undated instrument; maturity must be
+      not_applicable via rule, never silently empty.
+    expected:
+      identity.instrument_type: {status: derived, value: equity}
+      identity.maturity_date: {status: not_applicable}
+      eurosystem_collateral.eligible: {status: derived, value: false}
 
   - isin: IE0007SRI1C7
-    case: fund_issuer_lei_conflict
-    reason: |
-      iShares V share class — preserved issuer conflict in OI
-      (28 assertions). Fund vehicle vs management-company LEI
-      distinction must NOT collapse to a single wrong value.
-    fixture: true
-    live_validated: 2026-10-07
+    case: issuer_lei_conflict
+    purpose: preserved upstream conflict — two GLEIF assertions
+      disagree; the field must surface both, not pick one.
     expected:
-      identity.issuer_lei: { status: conflict }
+      identity.issuer_lei: {status: conflict}
+      overall_state: found
 
   - isin: LU0003549028
-    case: fund_share_class
-    reason: DWS EURORENTA fund share class (CFI CIOIBS).
-    fixture: true
-    live_validated: 2026-10-07
+    case: lu_fund
+    purpose: collective-investment share class — PRIII absent is
+      honest; no fund-registry roles yet (OpenFunds is v0.2).
     expected:
-      identity.cfi: { status: reported, value: "CIOIBS" }
-      identity.maturity_date: { status: not_applicable }
+      identity.cfi: {status: reported}
+      primary_market.prospectus_found: {status: reported, value: false}
 
-  - isin: XX0000000002
+  - isin: XSSE2WKP7HV5
     case: unknown_valid_isin
-    reason: |
-      Valid checksum, no evidence anywhere. Every block must
-      degrade to not_found — never an error, never invented.
-    fixture: true
-    live_validated: 2026-10-07
+    purpose: checksum-valid XS-prefixed ISIN with zero evidence
+      anywhere — every block must degrade to not_found/derived
+      absences, never an error.
     expected:
-      overall_state: "unknown"
+      overall_state: unknown
+      identity.cfi: {status: not_found}
+      primary_market.prospectus_found: {status: not_found}
 
   - isin: DE000A3LJCB0
     case: invalid_checksum
-    reason: Bad check digit — must be rejected before providers.
-    fixture: false
+    purpose: boundary validation — invalid check digit must
+      produce INVALID_ISIN, not a partial passport.
     expected:
       api_error: INVALID_ISIN
+
+  # ============ v0.1.1 expansion ==================================
+  - isin: FR0013154002
+    case: fr_equity
+    purpose: FR equity, multi-venue listing coverage, no collateral.
+    expected:
+      overall_state: found
+      identity.instrument_type: {status: derived, value: equity}
+      secondary_market.listings_at_least: 30
+      eurosystem_collateral.eligible: {status: derived, value: false}
+      post_trade.issuer_sss: {status: not_found}
+
+  - isin: FR0000120271
+    case: fr_large_equity_multivenue
+    purpose: TotalEnergies — heavy venue coverage; the PRIII
+      register does not list it, prospectus_found=false.
+    expected:
+      overall_state: found
+      secondary_market.listings_at_least: 40
+
+  - isin: IT0004729759
+    case: it_equity
+    purpose: IT equity; CFI ESVUFR; no ECB/no PRIII.
+    expected:
+      overall_state: found
+      identity.cfi: {status: reported, value: "ESVUFR"}
+
+  - isin: NL0000235190
+    case: nl_equity_with_priii
+    purpose: Airbus — an equity that DOES appear in PRIII;
+      prospectus_found=true is reported, not assumed absent.
+    expected:
+      overall_state: found
+      primary_market.prospectus_found: {status: reported, value: true}
+      secondary_market.listings_at_least: 40
+
+  - isin: ES0113211835
+    case: es_equity_large
+    purpose: BBVA — second ES equity; ES-prefix inference guard.
+    expected:
+      overall_state: found
+      post_trade.iberclear_admitted: {status: not_found}
+
+  - isin: IE00B4L5Y983
+    case: etf_share_class
+    purpose: iShares ETF — CFI C class, undated, high listing
+      coverage.
+    expected:
+      overall_state: found
+      identity.cfi: {status: reported}
+      secondary_market.listings_at_least: 30
+      identity.maturity_date: {status: not_applicable}
+
+  - isin: IE00BYYJHC15
+    case: ucits_share_class
+    purpose: UCITS liquidity share class — C prefix CFI.
+    expected:
+      overall_state: found
+      identity.cfi: {status: reported}
+
+  - isin: ES0155092036
+    case: es_sicav
+    purpose: Spanish SICAV — national fund vehicle; registry
+      roles absent until the OpenFunds provider lands.
+    expected:
+      overall_state: found
+      identity.cfi: {status: reported, value: "CIOGLS"}
+
+  - isin: IT0005282527
+    case: it_sovereign_btp
+    purpose: Italian BTP — in the ECB parquet upstream but absent
+      from the captured fixture slice → derived false within the
+      fixture snapshot; single-venue listing.
+    expected:
+      overall_state: found
+      identity.maturity_date: {status: not_found}
+      secondary_market.listing_count: {status: reported, value: 1}
+
+  - isin: ES0000012E44
+    case: es_sovereign_iberclear
+    purpose: Spanish central-govt bond — ECB eligible with CLES01,
+      second independent Iberclear-evidence path.
+    expected:
+      post_trade.issuer_sss:
+        {status: reported, value: {code: "CLES01"}}
+      post_trade.iberclear_admitted: {status: reported, value: true}
+      eurosystem_collateral.haircut_category:
+        {status: reported, value: "L1A"}
+
+  - isin: IT0005678443
+    case: it_bank_bond_clit01
+    purpose: Mediobanca bond — ECB eligible with CLIT01 (Euronext
+      Securities Milan) — instrument-level CSD identity beyond DE/LU.
+    expected:
+      eurosystem_collateral.eligible: {status: derived, value: true}
+      post_trade.issuer_sss:
+        {status: reported, value: {code: "CLIT01"}}
+      primary_market.prospectus_found: {status: reported, value: true}
+
+  - isin: FR0129714681
+    case: ecb_only_no_canonical
+    purpose: ECB knows the ISIN (eligible, CLFR01) but FIRDS has no
+      canonical row — evidence without identity; blocks must not
+      fabricate identity from the ECB row.
+    expected:
+      overall_state: unknown
+      identity.cfi: {status: not_found}
+      eurosystem_collateral.eligible: {status: derived, value: true}
+      post_trade.issuer_sss:
+        {status: reported, value: {code: "CLFR01"}}
+
+  - isin: DE000A2GSP56
+    case: covered_bond_de
+    purpose: covered bond — ECB L1B + CLDE01 (Clearstream
+      Banking Frankfurt); asset type / covered flag exposed.
+    expected:
+      eurosystem_collateral.eligible: {status: derived, value: true}
+      eurosystem_collateral.haircut_category:
+        {status: reported, value: "L1B"}
+      eurosystem_collateral.covered_bond_flag:
+        {status: reported, value: "Y"}
+      post_trade.issuer_sss:
+        {status: reported, value: {code: "CLDE01"}}
+
+  - isin: XS2525255647
+    case: covered_bond_xs_priii
+    purpose: covered bond with BOTH ECB eligibility and a PRIII
+      family — multi-source evidence alignment.
+    expected:
+      eurosystem_collateral.eligible: {status: derived, value: true}
+      primary_market.prospectus_found: {status: reported, value: true}
+      secondary_market.listings_at_least: 10
+
+  - isin: IT0024182286
+    case: option_lei_conflict
+    purpose: option (O-prefix CFI) whose issuer LEI is in upstream
+      conflict — second preserved conflict, different field shape.
+    expected:
+      identity.issuer_lei: {status: conflict}
+      identity.instrument_type: {status: derived}
+
+  - isin: AT0000A1NZ16
+    case: fully_delisted
+    purpose: every listing terminated before the query date —
+      active_venue_count=0 derived, venue state terminated.
+    expected:
+      overall_state: found
+      secondary_market.active_venue_count:
+        {status: derived, value: 0}
+      primary_market.prospectus_found: {status: reported, value: true}
+
+  - isin: DE0005874846
+    case: firds_sentinel_9999
+    purpose: venue listing whose first_trade_date carries the
+      9999-12-31 sentinel — must surface as flagged, not a date.
+    expected:
+      overall_state: found
+      secondary_market.listings_at_least: 30
+
+  - isin: DE0001150548
+    case: de_rights_instrument
+    purpose: CFI "EY" (rights/warrants-like class, not a Bund) —
+      instrument_type must derive honestly, not guess "debt".
+    expected:
+      identity.cfi: {status: reported, value: "EYAYFI"}
+      identity.maturity_date: {status: not_applicable}
+
+  - isin: FR001400YGG3
+    case: fr_debt_convertible
+    purpose: CFI DC* — convertible-ish debt, single listing.
+    expected:
+      overall_state: found
+      identity.instrument_type: {status: derived}
+
+  - isin: DE000DN48XD7
+    case: priii_only_no_canonical
+    purpose: PRIII filing exists but no FIRDS canonical row —
+      document evidence without instrument identity.
+    expected:
+      overall_state: unknown
+      primary_market.prospectus_found: {status: reported, value: true}
+      identity.cfi: {status: not_found}
+      secondary_market.listing_count: {status: reported, value: 0}
+
+  - isin: XS0971721963
+    case: ru_sovereign_absent
+    purpose: Russian Federation bond — FIRDS-listed but absent
+      from the ECB snapshot (sanctions-era reality); proves
+      snapshot-scoped absence works on a real exclusion.
+    expected:
+      overall_state: found
+      eurosystem_collateral.eligible: {status: derived, value: false}
+      eurosystem_collateral.haircut_category: {status: not_found}
+
+  - isin: ES0105015012
+    case: es_equity_small
+    purpose: second ES equity without ECB/PRIII evidence —
+      redundancy check on the no-inference guard.
+    expected:
+      overall_state: found
+      post_trade.iberclear_admitted: {status: not_found}

@@ -1,0 +1,104 @@
+{
+ "isin": "XS2525255647",
+ "found": true,
+ "canonical_lei": "549300M6HRHPF3NQBP83",
+ "state": "single_source",
+ "assertion_count": 18,
+ "assertions": {
+  "gleif_isin_lei": [],
+  "firds_field5": [
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "AURO",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7157"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "ICOT",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7165"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "SSOB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7169"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "MUNB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7167"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "DUSB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7160"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "MUND",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7168"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "XERE",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7173"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "XMSM",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7174"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "BTFE",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7158"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "FRAB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7162"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "HAMQ",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7164"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "STUB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7170"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "BTQE",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7159"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "FRAV",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7163"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "TWEM",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7172"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "DUSD",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7161"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "MANL",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7166"
+   },
+   {
+    "issr": "549300M6HRHPF3NQBP83",
+    "venue": "STUF",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=7171"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

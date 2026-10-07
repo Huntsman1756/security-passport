@@ -14,16 +14,6 @@
   "firds_field5": [
    {
     "issr": "529900O7DM14VGOOVM48",
-    "venue": "BTFE",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29584"
-   },
-   {
-    "issr": "529900O7DM14VGOOVM48",
-    "venue": "XPAC",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29608"
-   },
-   {
-    "issr": "529900O7DM14VGOOVM48",
     "venue": "ENTW",
     "locator": "FULINS_C_20261003_01of01.xml#RefData=29588"
    },
@@ -41,6 +31,56 @@
     "issr": "529900O7DM14VGOOVM48",
     "venue": "XGAT",
     "locator": "FULINS_C_20261003_01of01.xml#RefData=29607"
+   },
+   {
+    "issr": "529900O7DM14VGOOVM48",
+    "venue": "EBLX",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29587"
+   },
+   {
+    "issr": "529900O7DM14VGOOVM48",
+    "venue": "DUSD",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29586"
+   },
+   {
+    "issr": "529900O7DM14VGOOVM48",
+    "venue": "HAMQ",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29595"
+   },
+   {
+    "issr": "529900O7DM14VGOOVM48",
+    "venue": "MUNB",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29598"
+   },
+   {
+    "issr": "529900O7DM14VGOOVM48",
+    "venue": "BTFE",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29584"
+   },
+   {
+    "issr": "529900O7DM14VGOOVM48",
+    "venue": "XPAC",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29608"
+   },
+   {
+    "issr": "529900O7DM14VGOOVM48",
+    "venue": "FRAU",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29592"
+   },
+   {
+    "issr": "529900O7DM14VGOOVM48",
+    "venue": "ETFP",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29590"
+   },
+   {
+    "issr": "529900O7DM14VGOOVM48",
+    "venue": "MUND",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29599"
+   },
+   {
+    "issr": "529900O7DM14VGOOVM48",
+    "venue": "XPAR",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29609"
    },
    {
     "issr": "529900O7DM14VGOOVM48",
@@ -69,56 +109,6 @@
    },
    {
     "issr": "529900O7DM14VGOOVM48",
-    "venue": "XPAR",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29609"
-   },
-   {
-    "issr": "529900O7DM14VGOOVM48",
-    "venue": "ERFQ",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29589"
-   },
-   {
-    "issr": "529900O7DM14VGOOVM48",
-    "venue": "HAMN",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29594"
-   },
-   {
-    "issr": "529900O7DM14VGOOVM48",
-    "venue": "HANB",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29596"
-   },
-   {
-    "issr": "529900O7DM14VGOOVM48",
-    "venue": "ETFP",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29590"
-   },
-   {
-    "issr": "529900O7DM14VGOOVM48",
-    "venue": "MUND",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29599"
-   },
-   {
-    "issr": "529900O7DM14VGOOVM48",
-    "venue": "DUSD",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29586"
-   },
-   {
-    "issr": "529900O7DM14VGOOVM48",
-    "venue": "HAMQ",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29595"
-   },
-   {
-    "issr": "529900O7DM14VGOOVM48",
-    "venue": "MUNB",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29598"
-   },
-   {
-    "issr": "529900O7DM14VGOOVM48",
-    "venue": "FRAU",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29592"
-   },
-   {
-    "issr": "529900O7DM14VGOOVM48",
     "venue": "DUSB",
     "locator": "FULINS_C_20261003_01of01.xml#RefData=29585"
    },
@@ -144,8 +134,18 @@
    },
    {
     "issr": "529900O7DM14VGOOVM48",
-    "venue": "EBLX",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=29587"
+    "venue": "ERFQ",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29589"
+   },
+   {
+    "issr": "529900O7DM14VGOOVM48",
+    "venue": "HAMN",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29594"
+   },
+   {
+    "issr": "529900O7DM14VGOOVM48",
+    "venue": "HANB",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=29596"
    }
   ]
  },

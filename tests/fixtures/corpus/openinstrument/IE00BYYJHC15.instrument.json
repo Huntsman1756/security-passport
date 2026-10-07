@@ -1,0 +1,27 @@
+{
+ "isin": "IE00BYYJHC15",
+ "cfi": "CMXXXS",
+ "cfi_state": "single_source",
+ "fisn": "HSBC GB LQ/SHS CL-H GBP",
+ "fisn_state": "single_source",
+ "full_name": "HSBC GLOBAL LIQUIDITY FUNDS PLC Class H Shares",
+ "full_name_state": "single_source",
+ "notional_currency": "GBP",
+ "notional_currency_state": "single_source",
+ "issuer_lei": "213800OC2S4OIQVL8J89",
+ "issuer_lei_state": "single_source",
+ "issuer_lei_assertions": 2,
+ "competent_authority": "IE",
+ "competent_authority_state": "single_source",
+ "firds_snapshot": "2026-10-03",
+ "n_firds_records": 2,
+ "cfi_letter": "C",
+ "canonical_version": "1",
+ "version": 1,
+ "found": true,
+ "valid_checksum": true,
+ "versions": {
+  "canonical_model_version": "1",
+  "adjudication_version": "1"
+ }
+}

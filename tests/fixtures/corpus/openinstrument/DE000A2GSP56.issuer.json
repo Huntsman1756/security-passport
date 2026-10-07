@@ -1,0 +1,84 @@
+{
+ "isin": "DE000A2GSP56",
+ "found": true,
+ "canonical_lei": "5299004TE2DYMKEAM814",
+ "state": "corroborated",
+ "assertion_count": 14,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "5299004TE2DYMKEAM814",
+    "locator": "lei-isin-20260918T071512.csv#row=1560486"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "MANL",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18608"
+   },
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "MUNB",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18609"
+   },
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "FRAV",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18607"
+   },
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "DUSA",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18605"
+   },
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "TWEM",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18614"
+   },
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "STUF",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18613"
+   },
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "AURO",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18603"
+   },
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "MUND",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18610"
+   },
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "STUB",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18612"
+   },
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "SSOB",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18611"
+   },
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "FRAB",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18606"
+   },
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "XERE",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18615"
+   },
+   {
+    "issr": "5299004TE2DYMKEAM814",
+    "venue": "BTFE",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=18604"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

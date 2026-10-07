@@ -1,0 +1,12 @@
+{
+ "isin": "DE0001150548",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "DE0001150548",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}

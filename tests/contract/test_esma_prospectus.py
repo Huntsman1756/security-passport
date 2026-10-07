@@ -47,7 +47,7 @@ def test_deterministic_sha() -> None:
 
 def test_normalize_empty_raw() -> None:
     fam = esma_prospectus.normalize_raw(
-        {"isin": "XX0000000002", "ifii": {"docs": []},
+        {"isin": "XSSE2WKP7HV5", "ifii": {"docs": []},
          "filings": []})
     assert fam["filings"] == []
     assert fam["sha256"]

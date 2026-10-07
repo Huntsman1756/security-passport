@@ -101,7 +101,7 @@ def test_equity_maturity_not_applicable(
 
 
 def test_unknown_isin_degrades(builder: PassportBuilder) -> None:
-    d = builder.build("XX0000000002", True).to_dict()
+    d = builder.build("XSSE2WKP7HV5", True).to_dict()
     assert d["overall_state"] == "unknown"
     for blk in ("identity", "primary_market", "secondary_market",
                 "post_trade", "eurosystem_collateral"):
@@ -115,7 +115,7 @@ def test_unknown_isin_degrades(builder: PassportBuilder) -> None:
 
 def test_no_silent_nulls(builder: PassportBuilder) -> None:
     """Every contract field exists with an explicit status."""
-    d = builder.build("XX0000000002", True).to_dict()
+    d = builder.build("XSSE2WKP7HV5", True).to_dict()
     for blk in ("identity", "primary_market", "secondary_market",
                 "post_trade", "eurosystem_collateral"):
         for k, v in d[blk].items():

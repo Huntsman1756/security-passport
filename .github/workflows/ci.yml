@@ -31,6 +31,14 @@ jobs:
           SECURITY_PASSPORT_PROVIDER=fixtures \
           SECURITY_PASSPORT_FIXTURES=tests/fixtures/corpus \
             python -m security_passport.cli.main validate
+      - name: openapi compatibility (oasdiff)
+        run: |
+          go install github.com/oasdiff/oasdiff@latest
+          SECURITY_PASSPORT_PROVIDER=fixtures \
+          SECURITY_PASSPORT_FIXTURES=tests/fixtures/corpus \
+            python scripts/export_openapi.py > /tmp/openapi-current.json
+          oasdiff breaking tests/fixtures/openapi-baseline.json \
+            /tmp/openapi-current.json --fail-on ERR
 
   frontend:
     runs-on: ubuntu-latest

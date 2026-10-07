@@ -1,0 +1,154 @@
+{
+ "isin": "XS2525255647",
+ "ifii": {
+  "numFound": 1,
+  "start": 0,
+  "numFoundExact": true,
+  "docs": [
+   {
+    "id": "IFII_30144646",
+    "type_s": "child",
+    "entity_type": "isinFinInstrInfo",
+    "ifii_dbId": "30144646",
+    "ifii_isin": "XS2525255647",
+    "ifii_fisn": "SPAREBANK 1 BOL/1EMTN 20270525",
+    "ifii_cfi": "DAFNFB",
+    "ifii_denominationAmnt": "1000",
+    "ifii_denominationCurr": "EUR",
+    "ifii_consOfferedValue": "1249362500",
+    "ifii_matExpDate": "2027-05-25T00:00:00Z",
+    "ifii_securitiesType": "DWLD",
+    "ifii_securitiesTypeDesc": "Debt with denomination \u2265 \u20ac100.000",
+    "ifii_tvCharType": "RMKT",
+    "ifii_tvCharTypeDesc": "Regulated market open to all investors",
+    "ifii_offerAdmType": "IRMT",
+    "ifii_offerAdmTypeDesc": "Initial admission to trading on regulated market",
+    "ifii_docVersionDbId": "18667199",
+    "ifii_natDocId": "DOC00241684",
+    "ifii_docType": "FTWS",
+    "ifii_docTypeDesc": "Final terms, including the  summary of the individual issue annexed to them",
+    "ifii_approvalFilingDate": "2022-08-25T00:00:00Z",
+    "ifii_tradingVenue": "Link to FIRDS",
+    "_root_": "18667199",
+    "_version_": 1849836928909705222,
+    "timestamp": "2025-11-26T07:26:07.304Z"
+   }
+  ]
+ },
+ "filings": [
+  {
+   "root": "18667199",
+   "parent": {
+    "numFound": 1,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "_root_": "18667199",
+      "id": "18667199",
+      "type_s": "parent",
+      "home_member_state_code": "IE",
+      "home_member_state_descr": "IRELAND",
+      "document_type": "FTWS",
+      "document_type_descr": "Final terms, including the  summary of the individual issue annexed to them",
+      "national_document_id": "DOC00241684",
+      "document_rfss_id": "22078393,a5b77ec956a4e1e37695862ad267e213",
+      "approval_filing_date": "2022-08-25T00:00:00Z",
+      "doc_last_update_date": "2022-08-30T18:04:31Z",
+      "prospectus_type_code": "BPRO",
+      "prospectus_type_descr": "Base Prospectus",
+      "request_type": "New document record",
+      "prospetus_id_fk": "32177",
+      "party_name": "SPAREBANK 1 BOLIGKREDITT AS - 549300M6HRHPF3NQBP83",
+      "instrument_isins": "XS2525255647",
+      "related_prospectuses": "32177",
+      "document_languages": "English",
+      "is_passported": "0",
+      "_version_": 1849836928909705222,
+      "timestamp": "2025-11-26T07:26:07.304Z",
+      "national_document_id_facet": "DOC00241684"
+     }
+    ]
+   },
+   "children": {
+    "numFound": 5,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "id": "ISS_24185740",
+      "type_s": "child",
+      "issuer_name": "SPAREBANK 1 BOLIGKREDITT AS",
+      "issuer_lei": "549300M6HRHPF3NQBP83",
+      "issuer_residency": "NORWAY",
+      "issuer_residency_code": "NO",
+      "entity_type": "issuers",
+      "party_type": "ISSR",
+      "_root_": "18667199",
+      "_version_": 1849836928909705222,
+      "timestamp": "2025-11-26T07:26:07.304Z",
+      "issuer_lei_facet": "549300M6HRHPF3NQBP83",
+      "issuer_name_facet": "SPAREBANK 1 BOLIGKREDITT AS"
+     },
+     {
+      "id": "LNG_7605172",
+      "type_s": "child",
+      "document_language_descr": "English",
+      "document_language_code": "en",
+      "entity_type": "languages",
+      "_root_": "18667199",
+      "_version_": 1849836928909705222,
+      "timestamp": "2025-11-26T07:26:07.304Z"
+     },
+     {
+      "id": "PRD_18634587",
+      "type_s": "child",
+      "related_document_identifier_search": "DOC00207563",
+      "_root_": "18667199",
+      "_version_": 1849836928909705222,
+      "timestamp": "2025-11-26T07:26:07.304Z",
+      "related_document_identifier_search_facet": "DOC00207563"
+     },
+     {
+      "id": "IFII_30144646",
+      "type_s": "child",
+      "entity_type": "isinFinInstrInfo",
+      "ifii_dbId": "30144646",
+      "ifii_isin": "XS2525255647",
+      "ifii_fisn": "SPAREBANK 1 BOL/1EMTN 20270525",
+      "ifii_cfi": "DAFNFB",
+      "ifii_denominationAmnt": "1000",
+      "ifii_denominationCurr": "EUR",
+      "ifii_consOfferedValue": "1249362500",
+      "ifii_matExpDate": "2027-05-25T00:00:00Z",
+      "ifii_securitiesType": "DWLD",
+      "ifii_securitiesTypeDesc": "Debt with denomination \u2265 \u20ac100.000",
+      "ifii_tvCharType": "RMKT",
+      "ifii_tvCharTypeDesc": "Regulated market open to all investors",
+      "ifii_offerAdmType": "IRMT",
+      "ifii_offerAdmTypeDesc": "Initial admission to trading on regulated market",
+      "ifii_docVersionDbId": "18667199",
+      "ifii_natDocId": "DOC00241684",
+      "ifii_docType": "FTWS",
+      "ifii_docTypeDesc": "Final terms, including the  summary of the individual issue annexed to them",
+      "ifii_approvalFilingDate": "2022-08-25T00:00:00Z",
+      "ifii_tradingVenue": "Link to FIRDS",
+      "_root_": "18667199",
+      "_version_": 1849836928909705222,
+      "timestamp": "2025-11-26T07:26:07.304Z"
+     },
+     {
+      "id": "ISIN_30144646",
+      "type_s": "child",
+      "entity_type": "isinEntity",
+      "isin_isin": "XS2525255647",
+      "_root_": "18667199",
+      "_version_": 1849836928909705222,
+      "timestamp": "2025-11-26T07:26:07.304Z",
+      "isin_isin_facet": "XS2525255647"
+     }
+    ]
+   }
+  }
+ ]
+}

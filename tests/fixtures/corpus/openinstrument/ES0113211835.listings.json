@@ -1,0 +1,476 @@
+{
+ "isin": "ES0113211835",
+ "listings": [
+  {
+   "venue_mic": "AQEA",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2020-11-12T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101450"
+  },
+  {
+   "venue_mic": "AQED",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2022-09-05T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101451"
+  },
+  {
+   "venue_mic": "AQEU",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2020-11-12T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101452"
+  },
+  {
+   "venue_mic": "BEUP",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2019-10-01T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101453"
+  },
+  {
+   "venue_mic": "BGEM",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2023-03-27T00:01:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101454"
+  },
+  {
+   "venue_mic": "CEUD",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2019-10-01T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101455"
+  },
+  {
+   "venue_mic": "CEUO",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2019-10-01T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101456"
+  },
+  {
+   "venue_mic": "CEUX",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2019-10-01T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101457"
+  },
+  {
+   "venue_mic": "DMAD",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "true",
+   "admission_approval_date": "1998-07-13T00:00:00Z",
+   "admission_request_date": "2007-09-10T00:00:00Z",
+   "first_trade_date": "2024-12-09T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101458"
+  },
+  {
+   "venue_mic": "DUSB",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2002-06-21T08:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101459"
+  },
+  {
+   "venue_mic": "DUSD",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2011-12-20T07:30:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101460"
+  },
+  {
+   "venue_mic": "EBLX",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2022-11-11T07:30:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101461"
+  },
+  {
+   "venue_mic": "ENTW",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2024-05-22T06:30:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101462"
+  },
+  {
+   "venue_mic": "EQTB",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2015-07-09T07:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101463"
+  },
+  {
+   "venue_mic": "ERFQ",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2022-09-08T06:30:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101464"
+  },
+  {
+   "venue_mic": "ETLX",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2009-10-21T00:01:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101465"
+  },
+  {
+   "venue_mic": "FRAB",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2011-05-23T05:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101466"
+  },
+  {
+   "venue_mic": "FRAV",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2023-05-21T22:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101467"
+  },
+  {
+   "venue_mic": "HAMB",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "1998-04-09T08:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101468"
+  },
+  {
+   "venue_mic": "HAMN",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2016-08-01T07:30:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101469"
+  },
+  {
+   "venue_mic": "HAMQ",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2026-08-13T07:30:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101470"
+  },
+  {
+   "venue_mic": "HANB",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2001-01-02T08:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101471"
+  },
+  {
+   "venue_mic": "HAND",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2024-12-09T06:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101472"
+  },
+  {
+   "venue_mic": "LISZ",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2020-12-11T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101473"
+  },
+  {
+   "venue_mic": "LNEQ",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2023-05-03T08:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101474"
+  },
+  {
+   "venue_mic": "MTAH",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2018-10-09T00:01:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101475"
+  },
+  {
+   "venue_mic": "MUNB",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "1998-03-23T06:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101476"
+  },
+  {
+   "venue_mic": "MUND",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2014-07-04T06:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101477"
+  },
+  {
+   "venue_mic": "OCXE",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2026-07-06T06:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101478"
+  },
+  {
+   "venue_mic": "RFQN",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2025-07-07T12:51:00Z",
+   "termination_date": "9999-12-31T23:59:59Z",
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101479"
+  },
+  {
+   "venue_mic": "SGMU",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2020-12-21T00:01:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101480"
+  },
+  {
+   "venue_mic": "STUB",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "1998-07-13T07:30:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101481"
+  },
+  {
+   "venue_mic": "STUD",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2020-08-05T10:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101482"
+  },
+  {
+   "venue_mic": "STUF",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2022-12-14T07:30:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101483"
+  },
+  {
+   "venue_mic": "TPIR",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2021-01-19T17:16:16.283Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101484"
+  },
+  {
+   "venue_mic": "TQEA",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2020-11-30T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101485"
+  },
+  {
+   "venue_mic": "TQEM",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2020-11-30T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101486"
+  },
+  {
+   "venue_mic": "TQEX",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2020-11-30T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101487"
+  },
+  {
+   "venue_mic": "TWEM",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2021-12-03T10:04:49Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101488"
+  },
+  {
+   "venue_mic": "UBSI",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2018-03-20T06:02:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101489"
+  },
+  {
+   "venue_mic": "WBDM",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2017-10-04T08:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101490"
+  },
+  {
+   "venue_mic": "XETB",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "1998-06-08T05:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101491"
+  },
+  {
+   "venue_mic": "XETV",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2019-05-27T22:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101492"
+  },
+  {
+   "venue_mic": "XGAT",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2010-01-04T06:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101493"
+  },
+  {
+   "venue_mic": "XMAD",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "true",
+   "admission_approval_date": "1998-07-13T00:00:00Z",
+   "admission_request_date": "2007-09-10T00:00:00Z",
+   "first_trade_date": "1998-07-13T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101494"
+  },
+  {
+   "venue_mic": "XPAC",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2018-01-03T08:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101495"
+  },
+  {
+   "venue_mic": "XPOS",
+   "relevant_venue": "XMAD",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2008-10-07T08:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=101496"
+  }
+ ],
+ "count": 47
+}

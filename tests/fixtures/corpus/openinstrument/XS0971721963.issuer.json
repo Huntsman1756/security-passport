@@ -1,0 +1,34 @@
+{
+ "isin": "XS0971721963",
+ "found": true,
+ "canonical_lei": "5493004EHVGF71PDBU58",
+ "state": "single_source",
+ "assertion_count": 4,
+ "assertions": {
+  "gleif_isin_lei": [],
+  "firds_field5": [
+   {
+    "issr": "5493004EHVGF71PDBU58",
+    "venue": "TPIR",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=208569"
+   },
+   {
+    "issr": "5493004EHVGF71PDBU58",
+    "venue": "TPIO",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=208568"
+   },
+   {
+    "issr": "5493004EHVGF71PDBU58",
+    "venue": "BTFE",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=208567"
+   },
+   {
+    "issr": "5493004EHVGF71PDBU58",
+    "venue": "AURO",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=208566"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

@@ -1,0 +1,19 @@
+{
+ "isin": "IE00BYYJHC15",
+ "firds_snapshot": "2026-10-03",
+ "openfigi_campaign": "2026-09-26",
+ "firds_evidence": [
+  {
+   "artifact_sha256": "8c54b1cecf9767022fdce078cb4dc2eab530ee1c99a0491c2494da757ad6a356",
+   "source_file": "FULINS_C_20261003_01of01.xml",
+   "locator": "FULINS_C_20261003_01of01.xml#RefData=154384"
+  },
+  {
+   "artifact_sha256": "8c54b1cecf9767022fdce078cb4dc2eab530ee1c99a0491c2494da757ad6a356",
+   "source_file": "FULINS_C_20261003_01of01.xml",
+   "locator": "FULINS_C_20261003_01of01.xml#RefData=154385"
+  }
+ ],
+ "gleif_evidence": [],
+ "openfigi_evidence": []
+}

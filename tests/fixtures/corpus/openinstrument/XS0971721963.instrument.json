@@ -1,0 +1,27 @@
+{
+ "isin": "XS0971721963",
+ "cfi": "DBFTFR",
+ "cfi_state": "single_source",
+ "fisn": "RUSSIAN FEDERAT/5.875BD 20430916  G",
+ "fisn_state": "single_source",
+ "full_name": null,
+ "full_name_state": "conflict",
+ "notional_currency": "USD",
+ "notional_currency_state": "single_source",
+ "issuer_lei": "5493004EHVGF71PDBU58",
+ "issuer_lei_state": "single_source",
+ "issuer_lei_assertions": 4,
+ "competent_authority": "FR",
+ "competent_authority_state": "single_source",
+ "firds_snapshot": "2026-10-03",
+ "n_firds_records": 4,
+ "cfi_letter": "D",
+ "canonical_version": "1",
+ "version": 1,
+ "found": true,
+ "valid_checksum": true,
+ "versions": {
+  "canonical_model_version": "1",
+  "adjudication_version": "1"
+ }
+}

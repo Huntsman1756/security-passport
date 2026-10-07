@@ -1,0 +1,12 @@
+{
+ "isin": "IE00BYYJHC15",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "IE00BYYJHC15",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}

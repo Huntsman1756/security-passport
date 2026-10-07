@@ -1,0 +1,16 @@
+{
+ "isin": "IT0005678443",
+ "listings": [
+  {
+   "venue_mic": "ETLX",
+   "relevant_venue": "ETLX",
+   "issuer_requested_admission": "true",
+   "admission_approval_date": "2025-11-17T00:01:00Z",
+   "admission_request_date": null,
+   "first_trade_date": "2025-12-23T00:01:00Z",
+   "termination_date": "2030-12-18T23:59:59Z",
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=152803"
+  }
+ ],
+ "count": 1
+}

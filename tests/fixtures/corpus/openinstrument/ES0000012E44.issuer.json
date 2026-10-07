@@ -1,0 +1,59 @@
+{
+ "isin": "ES0000012E44",
+ "found": true,
+ "canonical_lei": "9598007A56S18711AH60",
+ "state": "corroborated",
+ "assertion_count": 9,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "9598007A56S18711AH60",
+    "locator": "lei-isin-20260918T071512.csv#row=7419250"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "9598007A56S18711AH60",
+    "venue": "AURO",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=359929"
+   },
+   {
+    "issr": "9598007A56S18711AH60",
+    "venue": "MCAD",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=359931"
+   },
+   {
+    "issr": "9598007A56S18711AH60",
+    "venue": "TWEM",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=359934"
+   },
+   {
+    "issr": "9598007A56S18711AH60",
+    "venue": "BTFE",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=359930"
+   },
+   {
+    "issr": "9598007A56S18711AH60",
+    "venue": "SSOB",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=359933"
+   },
+   {
+    "issr": "9598007A56S18711AH60",
+    "venue": "XNAF",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=359936"
+   },
+   {
+    "issr": "9598007A56S18711AH60",
+    "venue": "XDRF",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=359935"
+   },
+   {
+    "issr": "9598007A56S18711AH60",
+    "venue": "SEND",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=359932"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

@@ -1,0 +1,186 @@
+{
+ "isin": "IE00B4L5Y983",
+ "coverage": "ENRICHED",
+ "fund": {
+  "label": "iShares Core MSCI World UCITS ETF",
+  "umbrella": null,
+  "subfund_code": null,
+  "domicile": "Ireland",
+  "legal_form": null,
+  "fund_base_currency": null,
+  "fund_inception": null,
+  "registration_countries": null,
+  "ucits": "Yes",
+  "fund_size": null
+ },
+ "share_class": {
+  "currency": "USD",
+  "trading_currencies": null,
+  "income_treatment": "Accumulating",
+  "income_treatment_raw": "Accumulating",
+  "share_class_inception": null,
+  "min_subscription": null,
+  "nav_frequency": null
+ },
+ "investment": {
+  "benchmark": "MSCI World Index (Net)",
+  "benchmarked": null,
+  "investment_method": null,
+  "replication_method": "Physical",
+  "product_type": null,
+  "sfdr": null,
+  "recommended_holding_period": null,
+  "strategy": null
+ },
+ "risk": [],
+ "costs": [
+  {
+   "cost_type": "ongoing",
+   "cost_basis": "TER",
+   "value": "0.20%",
+   "unit": "percent",
+   "period_basis": "annual",
+   "source_artifact": "628c2ab398f70a5ff48eacb1e70c59e15b75e667b4348bd63fdb75428bff50bf",
+   "source_locator": "key_facts['Total Expense Ratio']"
+  }
+ ],
+ "roles": [
+  {
+   "role": "INVESTMENT_MANAGER",
+   "value": "BlackRock Asset Management Ireland Limited",
+   "source_artifact": "628c2ab398f70a5ff48eacb1e70c59e15b75e667b4348bd63fdb75428bff50bf",
+   "source_locator": "key_facts['Fund Manager']"
+  }
+ ],
+ "documents": [
+  {
+   "document_id": "a9c77c376b174fea573accb6",
+   "doc_type": "FACTSHEET",
+   "title": "iShares fund data download",
+   "language": "en",
+   "country": "GB",
+   "effective_date": "",
+   "update_date": "",
+   "uri": "https://www.ishares.com/varnish-api/uk-retail01-product-data/product-data/api/v1/get-fund-document?appType=PRODUCT_PAGE&appSubType=ISHARES&targetSite=ishares-uk&locale=en_GB&portfolioId=251882&component=fundDownloadV2&userType=individual",
+   "filename": "fund-download-251882.xml",
+   "currentness": "UNKNOWN",
+   "adapter": "ishares"
+  }
+ ],
+ "relationships": [],
+ "related_share_classes": [],
+ "assertions": [
+  {
+   "field": "share_class_label",
+   "value": "iShares Core MSCI World UCITS ETF",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "",
+   "source_artifact": "628c2ab398f70a5ff48eacb1e70c59e15b75e667b4348bd63fdb75428bff50bf",
+   "source_locator": "row[0]",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "share_class_currency",
+   "value": "USD",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "SHARE_CLASS_CURRENCY",
+   "source_artifact": "628c2ab398f70a5ff48eacb1e70c59e15b75e667b4348bd63fdb75428bff50bf",
+   "source_locator": "key_facts['Share Class Currency']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "benchmark",
+   "value": "MSCI World Index (Net)",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "",
+   "source_artifact": "628c2ab398f70a5ff48eacb1e70c59e15b75e667b4348bd63fdb75428bff50bf",
+   "source_locator": "key_facts['Benchmark Index']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "ter",
+   "value": "0.20%",
+   "value_type": "str",
+   "unit": "percent",
+   "qualifier": "TER",
+   "source_artifact": "628c2ab398f70a5ff48eacb1e70c59e15b75e667b4348bd63fdb75428bff50bf",
+   "source_locator": "key_facts['Total Expense Ratio']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "income_treatment",
+   "value": "Accumulating",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "",
+   "source_artifact": "628c2ab398f70a5ff48eacb1e70c59e15b75e667b4348bd63fdb75428bff50bf",
+   "source_locator": "key_facts['Use of Income']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "fund_domicile",
+   "value": "Ireland",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "",
+   "source_artifact": "628c2ab398f70a5ff48eacb1e70c59e15b75e667b4348bd63fdb75428bff50bf",
+   "source_locator": "key_facts['Domicile']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "product_structure",
+   "value": "Physical",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "",
+   "source_artifact": "628c2ab398f70a5ff48eacb1e70c59e15b75e667b4348bd63fdb75428bff50bf",
+   "source_locator": "key_facts['Product Structure']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "ucits",
+   "value": "Yes",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "",
+   "source_artifact": "628c2ab398f70a5ff48eacb1e70c59e15b75e667b4348bd63fdb75428bff50bf",
+   "source_locator": "key_facts['UCITS']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "manager",
+   "value": "BlackRock Asset Management Ireland Limited",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "INVESTMENT_MANAGER",
+   "source_artifact": "628c2ab398f70a5ff48eacb1e70c59e15b75e667b4348bd63fdb75428bff50bf",
+   "source_locator": "key_facts['Fund Manager']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  },
+  {
+   "field": "isin",
+   "value": "IE00B4L5Y983",
+   "value_type": "str",
+   "unit": "",
+   "qualifier": "SHARE_CLASS_ISIN",
+   "source_artifact": "628c2ab398f70a5ff48eacb1e70c59e15b75e667b4348bd63fdb75428bff50bf",
+   "source_locator": "key_facts['ISIN']",
+   "extractor": "ishares_fund_download",
+   "adapter": "ishares"
+  }
+ ],
+ "model_version": 1,
+ "structured": null
+}

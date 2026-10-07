@@ -1,0 +1,48 @@
+{
+ "rows": {
+  "ES0000101966": {
+   "asset_type": "AT01",
+   "climate_factor": "N",
+   "coupon_definition": "CD4",
+   "coupon_rate": "0.827",
+   "covered_bond_flag": "N",
+   "denomination_currency": "EUR",
+   "guarantor_group": "",
+   "guarantor_name": "",
+   "guarantor_residence": "",
+   "haircut": "1",
+   "haircut_category": "L1B",
+   "isin": "ES0000101966",
+   "issuance_date": "2020-05-08",
+   "issuer_csd": "CLES01",
+   "issuer_group": "IG5",
+   "issuer_name": "COMUNIDAD DE MADRID",
+   "issuer_residence": "IRES",
+   "maturity_date": "2027-07-30",
+   "reference_market": "RMES05"
+  },
+  "XS2081615473": {
+   "asset_type": "AT02",
+   "climate_factor": "Y",
+   "coupon_definition": "CD4",
+   "coupon_rate": "0.5",
+   "covered_bond_flag": "N",
+   "denomination_currency": "EUR",
+   "guarantor_group": "",
+   "guarantor_name": "",
+   "guarantor_residence": "",
+   "haircut": "11.5",
+   "haircut_category": "L1D",
+   "isin": "XS2081615473",
+   "issuance_date": "2019-11-29",
+   "issuer_csd": "CLBL01",
+   "issuer_group": "IG9",
+   "issuer_name": "Holcim Finance (Luxembg) S.A.",
+   "issuer_residence": "IRLU",
+   "maturity_date": "2026-11-29",
+   "reference_market": "RMLU01"
+  }
+ },
+ "source": "openinstrument/intelligence/ecb_eligible",
+ "version": "260925"
+}

@@ -1,0 +1,64 @@
+{
+ "isin": "FR0129714681",
+ "coverage": "REFERENCE_DATA_ONLY",
+ "fund": {
+  "label": null,
+  "umbrella": null,
+  "subfund_code": null,
+  "domicile": null,
+  "legal_form": null,
+  "fund_base_currency": null,
+  "fund_inception": null,
+  "registration_countries": null,
+  "ucits": null,
+  "fund_size": null
+ },
+ "share_class": {
+  "currency": null,
+  "trading_currencies": null,
+  "income_treatment": null,
+  "income_treatment_raw": null,
+  "share_class_inception": null,
+  "min_subscription": null,
+  "nav_frequency": null
+ },
+ "investment": {
+  "benchmark": null,
+  "benchmarked": null,
+  "investment_method": null,
+  "replication_method": null,
+  "product_type": null,
+  "sfdr": null,
+  "recommended_holding_period": null,
+  "strategy": null
+ },
+ "risk": [],
+ "costs": [],
+ "roles": [],
+ "documents": [],
+ "relationships": [],
+ "related_share_classes": [],
+ "assertions": [],
+ "model_version": 1,
+ "structured": {
+  "support_state": null,
+  "template_family": null,
+  "terms": {
+   "maturity_date": "2027-05-05",
+   "issuance_date": "2026-05-05",
+   "coupon_rate": "0",
+   "issuer_name": "Union Nationale Interprofessionnelle pour l'Emploi dans l'Industrie et le Commerce (UNEDIC)",
+   "currency": "EUR",
+   "asset_type": "AT03",
+   "reference_market": "RMFR04",
+   "collateral_haircut_category": "L1B",
+   "collateral_eligible": "true",
+   "coupon_definition": "CD1",
+   "coupon_type": "ZERO",
+   "covered_bond_flag": "N"
+  },
+  "sources": [
+   "ecb_eligible"
+  ]
+ }
+}

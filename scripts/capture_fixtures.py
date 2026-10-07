@@ -20,13 +20,41 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "tests" / "fixtures" / "corpus"
-OI = "http://127.0.0.1:8765"
+OI = __import__("os").environ.get(
+    "OPENINSTRUMENT_URL", "http://127.0.0.1:8090")
 UA = {"User-Agent": "security-passport fixture capture"}
 
 ISINS = [
+    # v0.1 corpus
     "DE000A3LJCB4", "XS2081615473", "DE0007164600", "ES0113900J37",
     "ES0000101966", "IE0007SRI1C7", "LU0003549028",
+    # expanded corpus (v0.1.1)
+    "FR0013154002",   # FR equity (Sartorius)
+    "IT0004729759",   # IT equity (Sesa)
+    "ES0155092036",   # ES SICAV (fund-ish CFI C)
+    "IE00BYYJHC15",   # IE UCITS share class
+    "DE000A2GSP56",   # covered bond (ECB, CLDE01)
+    "XS2525255647",   # covered bond (ECB, CLBL01)
+    "IT0024182286",   # option with issuer-LEI conflict
+    "AT0000A1NZ16",   # fully delisted
+    "DE0005874846",   # FIRDS sentinel first_trade_date
+    "DE0001150548",   # German Bund
+    "ES0105015012",   # ES public debt candidate
+    "FR001400YGG3",   # FR instrument
+    "DE000DN48XD7",   # DE debt candidate (PRIII-only evidence)
+    "IE00B4L5Y983",   # iShares ETF share class
+    "IT0005282527",   # IT BTP sovereign
+    "FR0000120271",   # TotalEnergies (multi-venue equity)
+    "NL0000235190",   # Airbus (NL equity)
+    "XS0971721963",   # RU sovereign (sanctions-era edge case)
+    "ES0000012E44",   # ES sovereign (CLES01 — Iberclear evidence)
+    "IT0005678443",   # IT bank bond (CLIT01 — Euronext Milan)
+    "FR0129714681",   # FR covered (CLFR01 — Euroclear France)
+    "ES0113211835",   # ES equity (BBVA)
 ]
+# ISINs whose PRIII families are captured (absence is also data —
+# an empty family file is a checked source, not a gap).
+PRIII_ISINS = ISINS
 
 OI_PATHS = [
     ("instrument", "/v1/instruments/{i}"),
@@ -99,7 +127,7 @@ def main() -> None:
     # ---- PRIII ----------------------------------------------------
     priii_dir = OUT / "priii"
     priii_dir.mkdir(exist_ok=True)
-    for isin in ("DE000A3LJCB4", "XS2081615473"):
+    for isin in PRIII_ISINS:
         fam = {"isin": isin, "ifii": solr(f'ifii_isin:"{isin}"'),
                "filings": []}
         for doc in fam["ifii"]["docs"]:
@@ -149,7 +177,7 @@ def main() -> None:
     if mcsv:
         mlines = mcsv.splitlines()
         hdr_i = next(i for i, ln in enumerate(mlines)
-                     if ln.lstrip('"').startswith("MIC,"))
+                     if ln.startswith('"MIC"'))
         kept = [ln for ln in mlines[hdr_i:]
                 if ln.split(",")[0].strip('"') in mics
                 or ln.lstrip('"').startswith("MIC,")]

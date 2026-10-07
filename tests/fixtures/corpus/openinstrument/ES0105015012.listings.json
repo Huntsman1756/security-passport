@@ -1,0 +1,36 @@
+{
+ "isin": "ES0105015012",
+ "listings": [
+  {
+   "venue_mic": "LNEQ",
+   "relevant_venue": "SCLE",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2023-05-30T08:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=100570"
+  },
+  {
+   "venue_mic": "SCLE",
+   "relevant_venue": "SCLE",
+   "issuer_requested_admission": "true",
+   "admission_approval_date": "2025-02-14T00:00:00Z",
+   "admission_request_date": "2025-02-13T00:00:00Z",
+   "first_trade_date": "2025-02-14T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=100571"
+  },
+  {
+   "venue_mic": "TPIR",
+   "relevant_venue": "SCLE",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2021-11-16T19:04:52.146Z",
+   "termination_date": null,
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=100572"
+  }
+ ],
+ "count": 3
+}

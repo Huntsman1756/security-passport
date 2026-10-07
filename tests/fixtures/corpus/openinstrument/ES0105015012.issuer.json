@@ -1,0 +1,34 @@
+{
+ "isin": "ES0105015012",
+ "found": true,
+ "canonical_lei": "9598002PHMH00MHN3741",
+ "state": "corroborated",
+ "assertion_count": 4,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "9598002PHMH00MHN3741",
+    "locator": "lei-isin-20260918T071512.csv#row=7418217"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "9598002PHMH00MHN3741",
+    "venue": "SCLE",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=100571"
+   },
+   {
+    "issr": "9598002PHMH00MHN3741",
+    "venue": "LNEQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=100570"
+   },
+   {
+    "issr": "9598002PHMH00MHN3741",
+    "venue": "TPIR",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=100572"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

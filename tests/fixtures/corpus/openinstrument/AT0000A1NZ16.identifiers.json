@@ -1,0 +1,12 @@
+{
+ "isin": "AT0000A1NZ16",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "AT0000A1NZ16",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}

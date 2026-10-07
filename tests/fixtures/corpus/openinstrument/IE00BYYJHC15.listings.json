@@ -1,0 +1,26 @@
+{
+ "isin": "IE00BYYJHC15",
+ "listings": [
+  {
+   "venue_mic": "XEYE",
+   "relevant_venue": "XMSM",
+   "issuer_requested_admission": "true",
+   "admission_approval_date": "2023-07-17T15:11:52Z",
+   "admission_request_date": null,
+   "first_trade_date": "2023-07-17T15:11:52Z",
+   "termination_date": null,
+   "locator": "FULINS_C_20261003_01of01.xml#RefData=154384"
+  },
+  {
+   "venue_mic": "XMSM",
+   "relevant_venue": "XMSM",
+   "issuer_requested_admission": "true",
+   "admission_approval_date": "2023-07-17T15:11:52Z",
+   "admission_request_date": "2023-07-17T15:11:52Z",
+   "first_trade_date": "2023-07-17T15:11:52Z",
+   "termination_date": null,
+   "locator": "FULINS_C_20261003_01of01.xml#RefData=154385"
+  }
+ ],
+ "count": 2
+}

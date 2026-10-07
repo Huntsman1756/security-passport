@@ -1,0 +1,259 @@
+{
+ "isin": "NL0000235190",
+ "found": true,
+ "canonical_lei": "MINO79WLOO247M1IL051",
+ "state": "corroborated",
+ "assertion_count": 49,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "MINO79WLOO247M1IL051",
+    "locator": "lei-isin-20260918T071512.csv#row=8718980"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "HAND",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65991"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "XETA",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66011"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "AQEU",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65972"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "HAMQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65989"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "MTAH",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65995"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "MUNB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65996"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "TPIR",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66005"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "TQEM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66007"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "XMAD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66014"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "FRAA",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65985"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "XETU",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66012"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "XPAC",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66015"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "CEUD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65975"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "HAMN",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65988"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "SGMU",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66000"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "EQTB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65982"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "STUD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66003"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "STUF",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66004"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "TQEX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66008"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "XPAR",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66016"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "CEUX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65977"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "STUB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66002"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "XGAT",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66013"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "EBLX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65980"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "ENTW",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65981"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "AQED",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65971"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "ETLX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65984"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "AQEA",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65970"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "DUSB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65978"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "FRAU",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65986"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "JBUL",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65992"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "WBDM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66010"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "BGEM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65974"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "HANB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65990"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "LISZ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65993"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "TQEA",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66006"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "BEUP",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65973"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "HAMB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65987"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "CEUO",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65976"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "ERFQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65983"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "LNEQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65994"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "OCXE",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65998"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "RFQN",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65999"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "TWEM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66009"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "XPOS",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66017"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "DUSD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65979"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "MUND",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=65997"
+   },
+   {
+    "issr": "MINO79WLOO247M1IL051",
+    "venue": "SGMV",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=66001"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

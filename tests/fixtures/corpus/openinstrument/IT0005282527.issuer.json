@@ -1,0 +1,39 @@
+{
+ "isin": "IT0005282527",
+ "found": true,
+ "canonical_lei": "815600DE60799F5A9309",
+ "state": "single_source",
+ "assertion_count": 1,
+ "assertions": {
+  "gleif_isin_lei": [],
+  "firds_field5": [
+   {
+    "issr": "815600DE60799F5A9309",
+    "venue": "CREM",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=231763"
+   }
+  ]
+ },
+ "entity": {
+  "lei": "815600DE60799F5A9309",
+  "snapshot_date": "2026-09-18",
+  "artifact_id": "lei-cdf/2026-09-18/076609e9ba872c0782ca0327a85299255d2a4e4810c0e956a86623d4e29e9cd2",
+  "locator": "20260918-gleif-concatenated-file-lei2.xml#LEIRecord=3075349",
+  "legal_name": "REPUBBLICA ITALIANA",
+  "other_names_json": "[]",
+  "legal_address_json": "{\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"ROMA\", \"country\": \"IT\", \"first_address_line\": \"XX SETTEMBRE 97\", \"postal_code\": \"00187\", \"region\": \"IT-RM\"}",
+  "headquarters_address_json": "{\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"ROMA\", \"country\": \"IT\", \"first_address_line\": \"XX SETTEMBRE 97\", \"postal_code\": \"00187\", \"region\": \"IT-RM\"}",
+  "legal_jurisdiction": "IT",
+  "entity_category": "RESIDENT_GOVERNMENT_ENTITY",
+  "entity_status": "ACTIVE",
+  "legal_form_code": "2HC6",
+  "registration_status": "ISSUED",
+  "initial_registration_date": "2017-09-20T14:43:57.000+02:00",
+  "last_update_date": "2026-07-29T09:00:08.000+02:00",
+  "next_renewal_date": "2027-09-20T14:43:57.000+02:00",
+  "managing_lou": "815600EAD78C57FCE690",
+  "raw_json": "{\"entity_category\": \"RESIDENT_GOVERNMENT_ENTITY\", \"entity_creation_date\": \"2010-06-01T00:00:00.000+02:00\", \"entity_expiration_date\": null, \"entity_status\": \"ACTIVE\", \"headquarters_address\": {\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"ROMA\", \"country\": \"IT\", \"first_address_line\": \"XX SETTEMBRE 97\", \"postal_code\": \"00187\", \"region\": \"IT-RM\"}, \"legal_address\": {\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"ROMA\", \"country\": \"IT\", \"first_address_line\": \"XX SETTEMBRE 97\", \"postal_code\": \"00187\", \"region\": \"IT-RM\"}, \"legal_form_code\": \"2HC6\", \"legal_jurisdiction\": \"IT\", \"legal_name\": \"REPUBBLICA ITALIANA\", \"legal_name_lang\": null, \"lei\": \"815600DE60799F5A9309\", \"other_legal_form\": null, \"other_names\": [], \"registration\": {\"initial_registration_date\": \"2017-09-20T14:43:57.000+02:00\", \"last_update_date\": \"2026-07-29T09:00:08.000+02:00\", \"managing_lou\": \"815600EAD78C57FCE690\", \"next_renewal_date\": \"2027-09-20T14:43:57.000+02:00\", \"registration_status\": \"ISSUED\", \"validation_authority\": {\"entity_id\": \"M_EF\", \"id\": \"RA000699\"}, \"validation_sources\": \"FULLY_CORROBORATED\"}, \"registration_authority\": {\"entity_id\": \"80415740580\", \"id\": \"RA000699\"}}",
+  "snapshot": "2026-09-18"
+ },
+ "relationships": []
+}

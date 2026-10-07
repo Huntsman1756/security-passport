@@ -43,7 +43,7 @@ def test_invalid_isin_422(client: TestClient) -> None:
 
 
 def test_unknown_isin_partial_200(client: TestClient) -> None:
-    r = client.get("/api/v1/passports/XX0000000002")
+    r = client.get("/api/v1/passports/XSSE2WKP7HV5")
     assert r.status_code == 200
     assert r.json()["overall_state"] == "unknown"
 

@@ -23,6 +23,11 @@ from security_passport.providers.base import (
     UpstreamEvidence,
 )
 
+# Minimum upstream revision: includes the dynamic-partition fix
+# for /v1/evidence (was hardcoded snapshot=2026-09-12 → 503 on
+# newer generations). Commit in Huntsman1756/openinstrument.
+MIN_OPENINSTRUMENT_COMMIT = "50e9677"
+
 PROVIDER = "openinstrument"
 
 

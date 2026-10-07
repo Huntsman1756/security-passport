@@ -39,7 +39,7 @@ def _resolve(d: dict, dotted: str):
 
 @pytest.mark.parametrize("g", GOLDENS, ids=lambda g: g["isin"])
 def test_golden(g: dict) -> None:
-    if not g.get("fixture"):
+    if g.get("fixture") is False:
         return
     isin = normalize(g["isin"])
     p = _builder.build(isin, checksum_ok=checksum_ok(isin))
@@ -61,8 +61,13 @@ def test_golden(g: dict) -> None:
             f = _resolve(d, key) or {}
             for attr, wv in (want or {}).items():
                 got = f.get(attr)
-                assert got == wv, \
-                    f"{isin}: {key}.{attr} = {got!r} != {wv!r}"
+                if attr == "value" and isinstance(wv, dict) \
+                        and isinstance(got, dict):
+                    assert all(got.get(k) == v for k, v in wv.items()), \
+                        f"{isin}: {key}.{attr} {got!r} lacks {wv!r}"
+                else:
+                    assert got == wv, \
+                        f"{isin}: {key}.{attr} = {got!r} != {wv!r}"
 
 
 def test_release_gate() -> None:

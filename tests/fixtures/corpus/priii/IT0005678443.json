@@ -1,0 +1,176 @@
+{
+ "isin": "IT0005678443",
+ "ifii": {
+  "numFound": 1,
+  "start": 0,
+  "numFoundExact": true,
+  "docs": [
+   {
+    "id": "IFII_56347541",
+    "type_s": "child",
+    "entity_type": "isinFinInstrInfo",
+    "ifii_dbId": "56347541",
+    "ifii_isin": "IT0005678443",
+    "ifii_fisn": "MEDIOBANCA/TM OB 20301223 SR14",
+    "ifii_cfi": "DTVUFB",
+    "ifii_underlyingIdOrName": "EURIBOR",
+    "ifii_denominationAmnt": "1000",
+    "ifii_denominationCurr": "EUR",
+    "ifii_volOfferedValue": "100000",
+    "ifii_priceOfferedValue": "1000",
+    "ifii_consOfferedValue": "100000000",
+    "ifii_matExpDate": "2030-12-22T00:00:00Z",
+    "ifii_securitiesType": "DWHD",
+    "ifii_securitiesTypeDesc": "Debt with denomination < \u20ac100.000",
+    "ifii_tvCharType": "MLTF",
+    "ifii_tvCharTypeDesc": "MTF which is not an SME growth market",
+    "ifii_offerAdmType": "SIRM",
+    "ifii_offerAdmTypeDesc": "Secondary issuance on regulated market or MTF",
+    "ifii_docVersionDbId": "39697099",
+    "ifii_natDocId": "IT-FT-0109324/25-000001",
+    "ifii_docType": "FTWS",
+    "ifii_docTypeDesc": "Final terms, including the  summary of the individual issue annexed to them",
+    "ifii_approvalFilingDate": "2025-11-14T00:00:00Z",
+    "ifii_tradingVenue": "Link to FIRDS",
+    "_root_": "39697099",
+    "_version_": 1849906559170117632,
+    "timestamp": "2025-11-27T01:52:51.893Z"
+   }
+  ]
+ },
+ "filings": [
+  {
+   "root": "39697099",
+   "parent": {
+    "numFound": 1,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "_root_": "39697099",
+      "id": "39697099",
+      "type_s": "parent",
+      "home_member_state_code": "IT",
+      "home_member_state_descr": "ITALY",
+      "document_type": "FTWS",
+      "document_type_descr": "Final terms, including the  summary of the individual issue annexed to them",
+      "national_document_id": "IT-FT-0109324/25-000001",
+      "document_rfss_id": "44348024,74a7cdfb9b11aa92871ea65697de5290",
+      "approval_filing_date": "2025-11-14T00:00:00Z",
+      "doc_last_update_date": "2025-11-14T15:03:57Z",
+      "prospectus_type_code": "BPRO",
+      "prospectus_type_descr": "Base Prospectus",
+      "request_type": "New document record",
+      "document_comment": "Issue of up to EUR 100,000,000 Floater to Fixed Unsecured Notes due 22 December 2030",
+      "prospetus_id_fk": "39477",
+      "party_name": "MEDIOBANCA - BANCA DI CREDITO FINANZIARIO S.P.A. - PSNL19R2RXX5U3QWHI44",
+      "instrument_isins": "IT0005678443",
+      "related_prospectuses": "39477",
+      "document_languages": "Italian",
+      "is_passported": "0",
+      "_version_": 1849906559170117632,
+      "timestamp": "2025-11-27T01:52:51.893Z",
+      "national_document_id_facet": "IT-FT-0109324/25-000001"
+     }
+    ]
+   },
+   "children": {
+    "numFound": 6,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "id": "ISS_62434046",
+      "type_s": "child",
+      "issuer_name": "MEDIOBANCA - BANCA DI CREDITO FINANZIARIO S.P.A.",
+      "issuer_lei": "PSNL19R2RXX5U3QWHI44",
+      "issuer_residency": "ITALY",
+      "issuer_residency_code": "IT",
+      "entity_type": "issuers",
+      "party_type": "ISSR",
+      "_root_": "39697099",
+      "_version_": 1849906559170117632,
+      "timestamp": "2025-11-27T01:52:51.893Z",
+      "issuer_lei_facet": "PSNL19R2RXX5U3QWHI44",
+      "issuer_name_facet": "MEDIOBANCA - BANCA DI CREDITO FINANZIARIO S.P.A."
+     },
+     {
+      "id": "OFF_62434047",
+      "type_s": "child",
+      "offeror_name": "MEDIOBANCA - BANCA DI CREDITO FINANZIARIO S.P.A.",
+      "offeror_lei": "PSNL19R2RXX5U3QWHI44",
+      "offeror_residency": "ITALY",
+      "offeror_residency_code": "IT",
+      "entity_type": "offerors",
+      "party_type": "OFFR",
+      "_root_": "39697099",
+      "_version_": 1849906559170117632,
+      "timestamp": "2025-11-27T01:52:51.893Z",
+      "offeror_name_facet": "MEDIOBANCA - BANCA DI CREDITO FINANZIARIO S.P.A.",
+      "offeror_lei_facet": "PSNL19R2RXX5U3QWHI44"
+     },
+     {
+      "id": "LNG_28809559",
+      "type_s": "child",
+      "document_language_descr": "Italian",
+      "document_language_code": "it",
+      "entity_type": "languages",
+      "_root_": "39697099",
+      "_version_": 1849906559170117632,
+      "timestamp": "2025-11-27T01:52:51.893Z"
+     },
+     {
+      "id": "PRD_39841771",
+      "type_s": "child",
+      "related_document_identifier_search": "IT-SP-0114591/24-000001",
+      "_root_": "39697099",
+      "_version_": 1849906559170117632,
+      "timestamp": "2025-11-27T01:52:51.893Z",
+      "related_document_identifier_search_facet": "IT-SP-0114591/24-000001"
+     },
+     {
+      "id": "IFII_56347541",
+      "type_s": "child",
+      "entity_type": "isinFinInstrInfo",
+      "ifii_dbId": "56347541",
+      "ifii_isin": "IT0005678443",
+      "ifii_fisn": "MEDIOBANCA/TM OB 20301223 SR14",
+      "ifii_cfi": "DTVUFB",
+      "ifii_underlyingIdOrName": "EURIBOR",
+      "ifii_denominationAmnt": "1000",
+      "ifii_denominationCurr": "EUR",
+      "ifii_volOfferedValue": "100000",
+      "ifii_priceOfferedValue": "1000",
+      "ifii_consOfferedValue": "100000000",
+      "ifii_matExpDate": "2030-12-22T00:00:00Z",
+      "ifii_securitiesType": "DWHD",
+      "ifii_securitiesTypeDesc": "Debt with denomination < \u20ac100.000",
+      "ifii_tvCharType": "MLTF",
+      "ifii_tvCharTypeDesc": "MTF which is not an SME growth market",
+      "ifii_offerAdmType": "SIRM",
+      "ifii_offerAdmTypeDesc": "Secondary issuance on regulated market or MTF",
+      "ifii_docVersionDbId": "39697099",
+      "ifii_natDocId": "IT-FT-0109324/25-000001",
+      "ifii_docType": "FTWS",
+      "ifii_docTypeDesc": "Final terms, including the  summary of the individual issue annexed to them",
+      "ifii_approvalFilingDate": "2025-11-14T00:00:00Z",
+      "ifii_tradingVenue": "Link to FIRDS",
+      "_root_": "39697099",
+      "_version_": 1849906559170117632,
+      "timestamp": "2025-11-27T01:52:51.893Z"
+     },
+     {
+      "id": "ISIN_56347541",
+      "type_s": "child",
+      "entity_type": "isinEntity",
+      "isin_isin": "IT0005678443",
+      "_root_": "39697099",
+      "_version_": 1849906559170117632,
+      "timestamp": "2025-11-27T01:52:51.893Z",
+      "isin_isin_facet": "IT0005678443"
+     }
+    ]
+   }
+  }
+ ]
+}

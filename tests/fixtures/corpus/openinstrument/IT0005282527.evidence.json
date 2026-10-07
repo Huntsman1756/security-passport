@@ -1,0 +1,14 @@
+{
+ "isin": "IT0005282527",
+ "firds_snapshot": "2026-10-03",
+ "openfigi_campaign": "2026-09-26",
+ "firds_evidence": [
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=231763"
+  }
+ ],
+ "gleif_evidence": [],
+ "openfigi_evidence": []
+}

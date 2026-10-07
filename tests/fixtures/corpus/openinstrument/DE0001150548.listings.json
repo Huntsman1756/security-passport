@@ -1,0 +1,46 @@
+{
+ "isin": "DE0001150548",
+ "listings": [
+  {
+   "venue_mic": "FRAB",
+   "relevant_venue": "STUB",
+   "issuer_requested_admission": "true",
+   "admission_approval_date": "2003-05-16T07:00:00Z",
+   "admission_request_date": null,
+   "first_trade_date": "2003-05-19T05:00:00Z",
+   "termination_date": "2098-01-13T22:59:59Z",
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=212577"
+  },
+  {
+   "venue_mic": "STUB",
+   "relevant_venue": "STUB",
+   "issuer_requested_admission": "true",
+   "admission_approval_date": "2003-05-13T09:00:00Z",
+   "admission_request_date": null,
+   "first_trade_date": "2003-05-14T09:00:00Z",
+   "termination_date": "2027-08-27T20:00:00Z",
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=212578"
+  },
+  {
+   "venue_mic": "STUH",
+   "relevant_venue": "STUB",
+   "issuer_requested_admission": "true",
+   "admission_approval_date": "2025-10-24T10:19:42Z",
+   "admission_request_date": null,
+   "first_trade_date": "2025-10-27T09:00:00Z",
+   "termination_date": "2027-08-27T20:00:00Z",
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=212579"
+  },
+  {
+   "venue_mic": "WBAH",
+   "relevant_venue": "STUB",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2004-08-12T00:00:00Z",
+   "termination_date": "9999-12-23T23:59:59Z",
+   "locator": "FULINS_E_20261003_01of02.xml#RefData=212580"
+  }
+ ],
+ "count": 4
+}

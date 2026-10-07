@@ -1,0 +1,12 @@
+{
+ "isin": "XS0971721963",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "XS0971721963",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}

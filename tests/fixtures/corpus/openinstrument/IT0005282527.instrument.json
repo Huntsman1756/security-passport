@@ -1,0 +1,27 @@
+{
+ "isin": "IT0005282527",
+ "cfi": "DBFUFB",
+ "cfi_state": "single_source",
+ "fisn": "ITALIA/1.45 BTP 20241115",
+ "fisn_state": "single_source",
+ "full_name": "BTPS 1.450 11/24 ITALY",
+ "full_name_state": "single_source",
+ "notional_currency": "EUR",
+ "notional_currency_state": "single_source",
+ "issuer_lei": "815600DE60799F5A9309",
+ "issuer_lei_state": "single_source",
+ "issuer_lei_assertions": 1,
+ "competent_authority": "IT",
+ "competent_authority_state": "single_source",
+ "firds_snapshot": "2026-10-03",
+ "n_firds_records": 1,
+ "cfi_letter": "D",
+ "canonical_version": "1",
+ "version": 1,
+ "found": true,
+ "valid_checksum": true,
+ "versions": {
+  "canonical_model_version": "1",
+  "adjudication_version": "1"
+ }
+}

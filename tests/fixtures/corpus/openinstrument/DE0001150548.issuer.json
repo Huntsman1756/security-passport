@@ -1,0 +1,84 @@
+{
+ "isin": "DE0001150548",
+ "found": true,
+ "canonical_lei": "BFM8T61CT2L1QCEMIK50",
+ "state": "corroborated",
+ "assertion_count": 5,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "BFM8T61CT2L1QCEMIK50",
+    "locator": "lei-isin-20260918T071512.csv#row=7995818"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "BFM8T61CT2L1QCEMIK50",
+    "venue": "FRAB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=212577"
+   },
+   {
+    "issr": "BFM8T61CT2L1QCEMIK50",
+    "venue": "STUB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=212578"
+   },
+   {
+    "issr": "BFM8T61CT2L1QCEMIK50",
+    "venue": "STUH",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=212579"
+   },
+   {
+    "issr": "BFM8T61CT2L1QCEMIK50",
+    "venue": "WBAH",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=212580"
+   }
+  ]
+ },
+ "entity": {
+  "lei": "BFM8T61CT2L1QCEMIK50",
+  "snapshot_date": "2026-09-18",
+  "artifact_id": "lei-cdf/2026-09-18/076609e9ba872c0782ca0327a85299255d2a4e4810c0e956a86623d4e29e9cd2",
+  "locator": "20260918-gleif-concatenated-file-lei2.xml#LEIRecord=2359360",
+  "legal_name": "UBS AG",
+  "other_names_json": "[{\"lang\": null, \"name\": \"UBS INC.\", \"type\": \"TRADING_OR_OPERATING_NAME\"}, {\"lang\": null, \"name\": \"UBS SA\", \"type\": \"TRADING_OR_OPERATING_NAME\"}, {\"lang\": null, \"name\": \"SBC AG\", \"type\": \"PREVIOUS_LEGAL_NAME\"}]",
+  "legal_address_json": "{\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"Zurich\", \"country\": \"CH\", \"first_address_line\": \"Bahnhofstrasse 45\", \"postal_code\": \"8001\", \"region\": \"CH-ZH\"}",
+  "headquarters_address_json": "{\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"Zurich\", \"country\": \"CH\", \"first_address_line\": \"Bahnhofstrasse 45\", \"postal_code\": \"8001\", \"region\": \"CH-ZH\"}",
+  "legal_jurisdiction": "CH",
+  "entity_category": "GENERAL",
+  "entity_status": "ACTIVE",
+  "legal_form_code": "MVII",
+  "registration_status": "ISSUED",
+  "initial_registration_date": "2012-06-06T15:54:00.000Z",
+  "last_update_date": "2025-12-29T12:02:04.778Z",
+  "next_renewal_date": "2027-01-12T00:00:00.000Z",
+  "managing_lou": "5493001KJTIIGC8Y1R12",
+  "raw_json": "{\"entity_category\": \"GENERAL\", \"entity_creation_date\": \"1978-02-28T00:00:00.000Z\", \"entity_expiration_date\": null, \"entity_status\": \"ACTIVE\", \"headquarters_address\": {\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"Zurich\", \"country\": \"CH\", \"first_address_line\": \"Bahnhofstrasse 45\", \"postal_code\": \"8001\", \"region\": \"CH-ZH\"}, \"legal_address\": {\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"Zurich\", \"country\": \"CH\", \"first_address_line\": \"Bahnhofstrasse 45\", \"postal_code\": \"8001\", \"region\": \"CH-ZH\"}, \"legal_form_code\": \"MVII\", \"legal_jurisdiction\": \"CH\", \"legal_name\": \"UBS AG\", \"legal_name_lang\": null, \"lei\": \"BFM8T61CT2L1QCEMIK50\", \"other_legal_form\": null, \"other_names\": [{\"lang\": null, \"name\": \"UBS INC.\", \"type\": \"TRADING_OR_OPERATING_NAME\"}, {\"lang\": null, \"name\": \"UBS SA\", \"type\": \"TRADING_OR_OPERATING_NAME\"}, {\"lang\": null, \"name\": \"SBC AG\", \"type\": \"PREVIOUS_LEGAL_NAME\"}], \"registration\": {\"initial_registration_date\": \"2012-06-06T15:54:00.000Z\", \"last_update_date\": \"2025-12-29T12:02:04.778Z\", \"managing_lou\": \"5493001KJTIIGC8Y1R12\", \"next_renewal_date\": \"2027-01-12T00:00:00.000Z\", \"registration_status\": \"ISSUED\", \"validation_authority\": {\"entity_id\": \"CHE-101.329.561\", \"id\": \"RA000549\"}, \"validation_sources\": \"FULLY_CORROBORATED\"}, \"registration_authority\": {\"entity_id\": \"CHE-101.329.561\", \"id\": \"RA000549\"}}",
+  "snapshot": "2026-09-18"
+ },
+ "relationships": [
+  {
+   "start_lei": "BFM8T61CT2L1QCEMIK50",
+   "relationship_type": "IS_DIRECTLY_CONSOLIDATED_BY",
+   "end_lei": "549300SZJ9VS8SGXAN81",
+   "status": "ACTIVE",
+   "snapshot_date": "2026-09-18",
+   "locator": "20260918-gleif-concatenated-file-rr.xml#RelationshipRecord=469593"
+  },
+  {
+   "start_lei": "BFM8T61CT2L1QCEMIK50",
+   "relationship_type": "IS_ULTIMATELY_CONSOLIDATED_BY",
+   "end_lei": "549300SZJ9VS8SGXAN81",
+   "status": "ACTIVE",
+   "snapshot_date": "2026-09-18",
+   "locator": "20260918-gleif-concatenated-file-rr.xml#RelationshipRecord=469594"
+  },
+  {
+   "start_lei": "E58DKGMJYYYJLN8C3868",
+   "relationship_type": "IS_DIRECTLY_CONSOLIDATED_BY",
+   "end_lei": "BFM8T61CT2L1QCEMIK50",
+   "status": "ACTIVE",
+   "snapshot_date": "2026-09-18",
+   "locator": "20260918-gleif-concatenated-file-rr.xml#RelationshipRecord=470221"
+  }
+ ]
+}

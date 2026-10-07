@@ -1,0 +1,27 @@
+{
+ "isin": "IT0024182286",
+ "cfi": "OCESPS",
+ "cfi_state": "single_source",
+ "fisn": "CCG/O 20290614 C E BMPS 44",
+ "fisn_state": "single_source",
+ "full_name": "Banca MPS Eur Ph OPTN PHYS EURO JUN 2029 44 CALL",
+ "full_name_state": "single_source",
+ "notional_currency": "EUR",
+ "notional_currency_state": "single_source",
+ "issuer_lei": null,
+ "issuer_lei_state": "conflict",
+ "issuer_lei_assertions": 2,
+ "competent_authority": "IT",
+ "competent_authority_state": "single_source",
+ "firds_snapshot": "2026-10-03",
+ "n_firds_records": 1,
+ "cfi_letter": "O",
+ "canonical_version": "1",
+ "version": 1,
+ "found": true,
+ "valid_checksum": true,
+ "versions": {
+  "canonical_model_version": "1",
+  "adjudication_version": "1"
+ }
+}

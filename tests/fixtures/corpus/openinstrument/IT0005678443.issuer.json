@@ -1,0 +1,24 @@
+{
+ "isin": "IT0005678443",
+ "found": true,
+ "canonical_lei": "PSNL19R2RXX5U3QWHI44",
+ "state": "corroborated",
+ "assertion_count": 2,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "PSNL19R2RXX5U3QWHI44",
+    "locator": "lei-isin-20260918T071512.csv#row=8867276"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "PSNL19R2RXX5U3QWHI44",
+    "venue": "ETLX",
+    "locator": "FULINS_D_20261003_04of04.xml#RefData=152803"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

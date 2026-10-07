@@ -316,7 +316,7 @@ def validate(
     failures: list[str] = []
     for g in spec.get("goldens") or []:
         isin = g["isin"]
-        if not g.get("fixture"):
+        if g.get("fixture") is False:
             continue
         p = PassportBuilder(prov, store).build(
             normalize(isin), checksum_ok=checksum_ok(isin))
@@ -339,7 +339,14 @@ def validate(
             f = (d.get(blk) or {}).get(fld) or {}
             for attr, wv in (want or {}).items():
                 got = f.get(attr)
-                if attr == "value" and got != wv:
+                if attr == "value" and isinstance(wv, dict) \
+                        and isinstance(got, dict):
+                    if not all(got.get(k) == v
+                               for k, v in wv.items()):
+                        failures.append(
+                            f"{isin}: {key} value {got!r} "
+                            f"lacks {wv!r}")
+                elif attr == "value" and got != wv:
                     failures.append(
                         f"{isin}: {key} value {got!r} != {wv!r}")
                 elif attr == "status" and got != wv:
@@ -361,6 +368,13 @@ def doctor() -> None:
     """Environment check — provider, store, generation."""
     s = load()
     typer.echo(f"security-passport {__version__}")
+    if s.provider == "openinstrument_api":
+        from security_passport.providers.openinstrument.api import (
+            MIN_OPENINSTRUMENT_COMMIT,
+        )
+        typer.echo(f"min upstream  : openinstrument "
+                   f"{MIN_OPENINSTRUMENT_COMMIT} "
+                   f"(/v1/evidence partition fix)")
     typer.echo(f"provider mode : {s.provider}")
     typer.echo(f"data root     : {s.data_root}")
     typer.echo(f"fixtures      : {s.fixtures_dir} "

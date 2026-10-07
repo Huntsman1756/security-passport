@@ -1,0 +1,136 @@
+{
+ "isin": "DE000A2GSP56",
+ "listings": [
+  {
+   "venue_mic": "AURO",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2020-07-03T00:00:00Z",
+   "termination_date": "2028-03-22T23:59:59Z",
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18603"
+  },
+  {
+   "venue_mic": "BTFE",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2019-11-08T09:22:45.621Z",
+   "termination_date": "2028-03-22T23:59:59.999Z",
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18604"
+  },
+  {
+   "venue_mic": "DUSA",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "true",
+   "admission_approval_date": "2018-03-20T14:20:00Z",
+   "admission_request_date": "2018-03-20T14:20:00Z",
+   "first_trade_date": "2018-03-22T08:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18605"
+  },
+  {
+   "venue_mic": "FRAB",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2018-03-23T06:00:00Z",
+   "termination_date": "2028-03-17T22:59:59Z",
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18606"
+  },
+  {
+   "venue_mic": "FRAV",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2023-05-21T22:00:00Z",
+   "termination_date": "2028-03-17T22:59:59Z",
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18607"
+  },
+  {
+   "venue_mic": "MANL",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2019-09-03T08:51:36Z",
+   "termination_date": null,
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18608"
+  },
+  {
+   "venue_mic": "MUNB",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2018-03-19T06:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18609"
+  },
+  {
+   "venue_mic": "MUND",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2018-03-19T06:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18610"
+  },
+  {
+   "venue_mic": "SSOB",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2018-03-20T07:00:00Z",
+   "termination_date": "2028-03-20T17:50:00Z",
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18611"
+  },
+  {
+   "venue_mic": "STUB",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2018-03-26T07:30:00Z",
+   "termination_date": "2028-03-17T22:00:00Z",
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18612"
+  },
+  {
+   "venue_mic": "STUF",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2025-09-08T07:30:00Z",
+   "termination_date": "2028-03-17T22:00:00Z",
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18613"
+  },
+  {
+   "venue_mic": "TWEM",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2019-06-21T13:29:14Z",
+   "termination_date": "2028-03-22T23:59:59Z",
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18614"
+  },
+  {
+   "venue_mic": "XERE",
+   "relevant_venue": "DUSA",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2018-07-06T06:00:00Z",
+   "termination_date": "2028-03-15T23:59:59Z",
+   "locator": "FULINS_D_20261003_04of04.xml#RefData=18615"
+  }
+ ],
+ "count": 13
+}

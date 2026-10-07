@@ -15,11 +15,12 @@ FIXTURE = Path(__file__).resolve().parent.parent / \
 
 def test_parse_real_slice() -> None:
     rows = ecb_assets.parse(FIXTURE.read_bytes())
-    assert len(rows) == 4
+    assert len(rows) >= 8   # slice grows with the golden corpus
     by_isin = {r["ISIN_CODE"]: r for r in rows}
     assert "XS2081615473" in by_isin
     assert "ES0000101966" in by_isin
     assert by_isin["ES0000101966"]["ISSUER_CSD"] == "CLES01"
+    assert by_isin["XS2081615473"]["HAIRCUT_CATEGORY"] == "L1D"
 
 
 def test_normalize_dates_and_fields() -> None:

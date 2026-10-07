@@ -1,0 +1,12 @@
+{
+ "isin": "FR001400YGG3",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "FR001400YGG3",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}

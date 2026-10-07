@@ -1,3 +1,114 @@
 {
- "_capture_error": "HTTPError: HTTP Error 503: Service Unavailable"
+ "isin": "ES0000101966",
+ "firds_snapshot": "2026-10-03",
+ "openfigi_campaign": "2026-09-26",
+ "firds_evidence": [
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182703"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182686"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182691"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182696"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182688"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182699"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182693"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182704"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182689"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182705"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182690"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182698"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182687"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182695"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182701"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182697"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182692"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182694"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182700"
+  },
+  {
+   "artifact_sha256": "a256f4aa312bb56430f1a376084ff28320b6785a5dcd6cef0062b4145a4e38e0",
+   "source_file": "FULINS_D_20261003_01of04.xml",
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=182702"
+  }
+ ],
+ "gleif_evidence": [
+  {
+   "artifact_sha256": "f75c6668e8eed5bebc51cc0478e572b53510d5985e48126867fc379c28f93e1e",
+   "locator": "lei-isin-20260918T071512.csv#row=7421916"
+  }
+ ],
+ "openfigi_evidence": []
 }

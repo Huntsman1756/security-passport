@@ -1,0 +1,204 @@
+{
+ "isin": "IT0004729759",
+ "found": true,
+ "canonical_lei": "81560005C031D4E76707",
+ "state": "corroborated",
+ "assertion_count": 38,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "81560005C031D4E76707",
+    "locator": "lei-isin-20260918T071512.csv#row=6783553"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "EQTB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125588"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "LNEQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125598"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "OCXE",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125602"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "FRAV",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125591"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "MUNB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125600"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "SGMV",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125604"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "TQEA",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125607"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "TQEM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125608"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "BEUP",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125580"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "DUSB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125584"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "TQEX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125609"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "XPOS",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125613"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "AQEA",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125577"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "EBLX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125586"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "FRAB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125590"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "HAMB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125592"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "STUD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125606"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "DUSD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125585"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "HAMQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125594"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "TWEM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125610"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "AQEU",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125579"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "HANB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125595"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "AQED",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125578"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "CEUD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125581"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "HAMN",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125593"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "MUND",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125601"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "CEUO",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125582"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "MTAA",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125599"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "SGMU",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125603"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "CEUX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125583"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "ENTW",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125587"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "LISZ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125597"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "XGAT",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125611"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "STUB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125605"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "ERFQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125589"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "HAND",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125596"
+   },
+   {
+    "issr": "81560005C031D4E76707",
+    "venue": "XPAC",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=125612"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

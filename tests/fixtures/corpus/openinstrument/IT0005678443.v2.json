@@ -1,0 +1,64 @@
+{
+ "isin": "IT0005678443",
+ "coverage": "REFERENCE_DATA_ONLY",
+ "fund": {
+  "label": null,
+  "umbrella": null,
+  "subfund_code": null,
+  "domicile": null,
+  "legal_form": null,
+  "fund_base_currency": null,
+  "fund_inception": null,
+  "registration_countries": null,
+  "ucits": null,
+  "fund_size": null
+ },
+ "share_class": {
+  "currency": null,
+  "trading_currencies": null,
+  "income_treatment": null,
+  "income_treatment_raw": null,
+  "share_class_inception": null,
+  "min_subscription": null,
+  "nav_frequency": null
+ },
+ "investment": {
+  "benchmark": null,
+  "benchmarked": null,
+  "investment_method": null,
+  "replication_method": null,
+  "product_type": null,
+  "sfdr": null,
+  "recommended_holding_period": null,
+  "strategy": null
+ },
+ "risk": [],
+ "costs": [],
+ "roles": [],
+ "documents": [],
+ "relationships": [],
+ "related_share_classes": [],
+ "assertions": [],
+ "model_version": 1,
+ "structured": {
+  "support_state": null,
+  "template_family": null,
+  "terms": {
+   "maturity_date": "2030-12-22",
+   "issuance_date": "2025-12-22",
+   "coupon_rate": "2.92",
+   "issuer_name": "MEDIOBANCA SPA",
+   "currency": "EUR",
+   "asset_type": "AT01",
+   "reference_market": "RMIT08",
+   "collateral_haircut_category": "L1D",
+   "collateral_eligible": "true",
+   "coupon_definition": "CD4",
+   "coupon_type": "FIXED",
+   "covered_bond_flag": "N"
+  },
+  "sources": [
+   "ecb_eligible"
+  ]
+ }
+}

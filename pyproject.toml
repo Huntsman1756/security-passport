@@ -32,6 +32,7 @@ dependencies = [
     "pydantic>=2.7",
     "beautifulsoup4>=4.12",
     "pyyaml>=6.0",
+    "python-stdnum>=2.2",
 ]
 
 [project.optional-dependencies]
@@ -41,6 +42,7 @@ dev = [
     "ruff>=0.5",
     "mypy>=1.10",
     "pytest-cov>=5",
+    "schemathesis>=4.0",
 ]
 
 [project.scripts]
@@ -76,6 +78,8 @@ ignore = ["S101"]
 "src/security_passport/providers/ecb_sss.py" = ["S310"]
 "src/security_passport/providers/esma_prospectus.py" = ["S310"]
 "src/security_passport/providers/mic.py" = ["S310"]
+"src/security_passport/evidence/__init__.py" = ["S310"]
+"tests/integration/test_schemathesis.py" = ["E402"]
 
 [tool.mypy]
 python_version = "3.11"

@@ -134,74 +134,111 @@ def run_update(
             if not url:
                 raise UpdateError(
                     "ECB download area: no ea_csv link found")
-            raw, sha = ecb_assets.download(url)
-            art = evidence.archive_raw(
-                data_root, "ecb_eligible_assets", raw, "csv.gz")
+            raw, art = evidence.capture_fetch(
+                data_root, url=url, provider="ecb",
+                source_family="ecb_eligible_assets", period=snap,
+                parser_version=ecb_assets.PARSER)
             ecb_rows = [ecb_assets.normalize(r, snap,
                                            evidence.utcnow())
                         for r in ecb_assets.parse(raw)]
             meta["ecb_eligible_assets"] = {
-                "url": url, "snapshot": snap, "sha256": sha,
+                "url": url, "snapshot": snap,
+                "sha256": art.sha256, "raw_state": "raw_available",
+                "raw_source_id": art.source_id,
                 "rows": len(ecb_rows),
-                "retrieved_at": art["retrieved_at"]}
+                "retrieved_at": art.retrieved_at}
             evidence.append_observation(
                 data_root, "ecb_eligible_assets",
-                {"snapshot": snap, "sha256": sha,
+                {"snapshot": snap, "sha256": art.sha256,
                  "rows": len(ecb_rows)})
             fetched["ecb_rows"] = ecb_rows
 
             # ---- ECB SSS + links ------------------------------------
-            sss_html, sss_sha = ecb_sss.fetch(ecb_sss.SSS_PAGE)
-            links_html, links_sha = ecb_sss.fetch(ecb_sss.LINKS_PAGE)
-            evidence.archive_raw(data_root, "ecb_sss_links",
-                                 sss_html.encode(), "html")
-            evidence.archive_raw(data_root, "ecb_sss_links",
-                                 links_html.encode(), "html")
+            sss_b, sss_art = evidence.capture_fetch(
+                data_root, url=ecb_sss.SSS_PAGE, provider="ecb",
+                source_family="ecb_sss_links",
+                period=evidence.today(),
+                parser_version=ecb_sss.PARSER)
+            links_b, links_art = evidence.capture_fetch(
+                data_root, url=ecb_sss.LINKS_PAGE, provider="ecb",
+                source_family="ecb_sss_links",
+                period=evidence.today(),
+                parser_version=ecb_sss.PARSER)
+            sss_html = sss_b.decode("utf-8", "replace")
+            links_html = links_b.decode("utf-8", "replace")
             sss_payload = ecb_sss.parse_pages(sss_html, links_html)
             sss_payload["observed_at"] = evidence.utcnow()
             meta["ecb_sss_links"] = {
                 "sss_page_stamp": sss_payload["sss_page_stamp"],
                 "links_page_stamp": sss_payload["links_page_stamp"],
+                "raw_state": "raw_available",
+                "raw_source_ids": [sss_art.source_id,
+                                   links_art.source_id],
                 "n_sss": len(sss_payload["sss"]),
                 "n_links": len(sss_payload["links"])}
             evidence.append_observation(
                 data_root, "ecb_sss_links",
-                {"sss_sha": sss_sha, "links_sha": links_sha,
+                {"sss_sha": sss_art.sha256,
+                 "links_sha": links_art.sha256,
                  "sss_page_stamp": sss_payload["sss_page_stamp"],
                  "links_page_stamp":
                      sss_payload["links_page_stamp"]})
             fetched["sss_payload"] = sss_payload
 
             # ---- MIC registry -----------------------------------------
-            mic_bytes = mic.download()
-            evidence.archive_raw(data_root, "iso10383_mic",
-                                 mic_bytes, "csv")
+            mic_bytes, mic_art = evidence.capture_fetch(
+                data_root, url=mic.MIC_URL, provider="iso10383",
+                source_family="iso10383_mic",
+                period=evidence.today(),
+                parser_version=mic.PARSER)
             fetched["mic_rows"] = mic.parse(
                 mic.decode_csv(mic_bytes))
             meta["iso10383_mic"] = {
-                "rows": len(fetched["mic_rows"])}
+                "rows": len(fetched["mic_rows"]),
+                "raw_state": "raw_available",
+                "raw_source_id": mic_art.source_id,
+                "sha256": mic_art.sha256}
 
             # ---- PRIII observed corpus ---------------------------------
             payloads: list[dict[str, Any]] = []
             for isin in sorted(set(
                     priii_isins or DEFAULT_PRIII_CORPUS)):
-                fam = (priii_fn or
-                       esma_prospectus.family_for_isin)(isin)
+                raw_payload = (priii_fn or
+                               esma_prospectus.fetch_raw)(isin)
+                raw_bytes = json.dumps(
+                    raw_payload, sort_keys=True,
+                    ensure_ascii=False).encode()
+                fam = esma_prospectus.normalize_raw(raw_payload)
                 fam["observed_at"] = evidence.utcnow()
+                fam["raw_sha256"] = None  # set below
+                art_info = evidence.archive_raw(
+                    data_root, "esma_priii", raw_bytes, "json",
+                    period=isin,
+                    source_family="esma_priii",
+                    source_locator=(
+                        f"priii:{isin}"),
+                    parser_version=esma_prospectus.PARSER)
+                fam["raw_sha256"] = art_info["sha256"]
                 payloads.append(fam)
-                evidence.archive_raw(
-                    data_root, "esma_priii",
-                    json.dumps(fam, sort_keys=True,
-                               ensure_ascii=False).encode(), "json")
                 evidence.append_observation(
                     data_root, "esma_priii",
                     {"isin": isin, "sha256": fam.get("sha256"),
+                     "raw_sha256": art_info["sha256"],
                      "n_filings": len(fam.get("filings") or [])})
-            meta["esma_priii"] = {"isin_count": len(payloads)}
+            meta["esma_priii"] = {
+                "isin_count": len(payloads),
+                "raw_state": "raw_available"}
             fetched["priii_payloads"] = payloads
         else:
             fetched = dict(fetch_fn())
             meta.update(fetched.pop("meta", {}) or {})
+            # fixture/test path: payloads were captured previously —
+            # declare normalized_only, never pretend raw bytes exist
+            for key in ("ecb_eligible_assets", "ecb_sss_links",
+                        "iso10383_mic", "esma_priii"):
+                m = meta.get(key)
+                if isinstance(m, dict):
+                    m.setdefault("raw_state", "normalized_only")
 
         meta["openinstrument_generation"] = upstream_generation
 

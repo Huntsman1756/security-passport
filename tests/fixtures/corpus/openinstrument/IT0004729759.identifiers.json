@@ -1,0 +1,12 @@
+{
+ "isin": "IT0004729759",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "IT0004729759",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}

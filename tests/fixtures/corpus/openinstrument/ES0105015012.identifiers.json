@@ -1,0 +1,12 @@
+{
+ "isin": "ES0105015012",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "ES0105015012",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}

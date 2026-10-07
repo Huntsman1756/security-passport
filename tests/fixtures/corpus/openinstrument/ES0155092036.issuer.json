@@ -1,0 +1,24 @@
+{
+ "isin": "ES0155092036",
+ "found": true,
+ "canonical_lei": "549300Z08W7BN1HBZP77",
+ "state": "corroborated",
+ "assertion_count": 2,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "549300Z08W7BN1HBZP77",
+    "locator": "lei-isin-20260918T071512.csv#row=5836859"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "549300Z08W7BN1HBZP77",
+    "venue": "MABX",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=132614"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

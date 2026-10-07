@@ -16,7 +16,7 @@ from security_passport.domain.isin import (
 VALID = [
     "DE000A3LJCB4", "XS2081615473", "DE0007164600", "ES0113900J37",
     "ES0000101966", "IE0007SRI1C7", "LU0003549028", "US0378331005",
-    "XX0000000002",
+    "XSSE2WKP7HV5",
 ]
 INVALID = [
     "DE000A3LJCB0",   # bad check digit

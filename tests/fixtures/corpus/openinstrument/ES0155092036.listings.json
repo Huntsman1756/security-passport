@@ -1,0 +1,16 @@
+{
+ "isin": "ES0155092036",
+ "listings": [
+  {
+   "venue_mic": "MABX",
+   "relevant_venue": "MABX",
+   "issuer_requested_admission": "true",
+   "admission_approval_date": "2006-12-01T00:00:00Z",
+   "admission_request_date": "2006-11-30T00:00:00Z",
+   "first_trade_date": "2006-12-01T00:00:00Z",
+   "termination_date": null,
+   "locator": "FULINS_C_20261003_01of01.xml#RefData=132614"
+  }
+ ],
+ "count": 1
+}

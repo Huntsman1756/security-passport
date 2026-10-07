@@ -1,0 +1,16 @@
+{
+ "isin": "IT0005282527",
+ "listings": [
+  {
+   "venue_mic": "CREM",
+   "relevant_venue": "CREM",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2019-03-11T00:00:01Z",
+   "termination_date": null,
+   "locator": "FULINS_D_20261003_01of04.xml#RefData=231763"
+  }
+ ],
+ "count": 1
+}

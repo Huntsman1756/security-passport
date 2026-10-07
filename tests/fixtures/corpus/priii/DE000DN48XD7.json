@@ -1,0 +1,146 @@
+{
+ "isin": "DE000DN48XD7",
+ "ifii": {
+  "numFound": 1,
+  "start": 0,
+  "numFoundExact": true,
+  "docs": [
+   {
+    "id": "IFII_65238842",
+    "type_s": "child",
+    "entity_type": "isinFinInstrInfo",
+    "ifii_dbId": "65238842",
+    "ifii_isin": "DE000DN48XD7",
+    "ifii_fisn": "DZ BANK AG/COS NASDAQ DYN UNL VKB",
+    "ifii_cfi": "RFITCB",
+    "ifii_denominationCurr": "EUR",
+    "ifii_consOfferedValue": "220000",
+    "ifii_securitiesType": "DERV",
+    "ifii_securitiesTypeDesc": "Derivative securities",
+    "ifii_offerAdmType": "IOWA",
+    "ifii_offerAdmTypeDesc": "Initial offer without admission to trading/listing",
+    "ifii_docVersionDbId": "46614515",
+    "ifii_natDocId": "DE000DN48XD7",
+    "ifii_docType": "FTWS",
+    "ifii_docTypeDesc": "Final terms, including the  summary of the individual issue annexed to them",
+    "ifii_approvalFilingDate": "2026-09-03T00:00:00Z",
+    "ifii_tradingVenue": "Link to FIRDS",
+    "_root_": "46614515",
+    "_version_": 1875459949054656527,
+    "timestamp": "2026-09-05T03:13:04.848Z"
+   }
+  ]
+ },
+ "filings": [
+  {
+   "root": "46614515",
+   "parent": {
+    "numFound": 1,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "_root_": "46614515",
+      "id": "46614515",
+      "type_s": "parent",
+      "home_member_state_code": "DE",
+      "home_member_state_descr": "GERMANY",
+      "document_type": "FTWS",
+      "document_type_descr": "Final terms, including the  summary of the individual issue annexed to them",
+      "national_document_id": "DE000DN48XD7",
+      "document_rfss_id": "51891863,061fffb929d2a86fccd3e3b52c97ac72",
+      "approval_filing_date": "2026-09-03T00:00:00Z",
+      "doc_last_update_date": "2026-09-03T23:35:03Z",
+      "prospectus_type_code": "BPRO",
+      "prospectus_type_descr": "Base Prospectus",
+      "request_type": "New document record",
+      "prospetus_id_fk": "43630",
+      "party_name": "DZ BANK AG Deutsche Zentral-Genossenschaftsbank, Frankfurt am Main - 529900HNOAA1KXQJUQ27",
+      "instrument_isins": "DE000DN48XD7",
+      "related_prospectuses": "43630",
+      "document_languages": "German",
+      "is_passported": "0",
+      "_version_": 1875459949054656527,
+      "timestamp": "2026-09-05T03:13:04.848Z",
+      "national_document_id_facet": "DE000DN48XD7"
+     }
+    ]
+   },
+   "children": {
+    "numFound": 5,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "id": "ISS_75765687",
+      "type_s": "child",
+      "issuer_name": "DZ BANK AG Deutsche Zentral-Genossenschaftsbank, Frankfurt am Main",
+      "issuer_lei": "529900HNOAA1KXQJUQ27",
+      "issuer_residency": "GERMANY",
+      "issuer_residency_code": "DE",
+      "entity_type": "issuers",
+      "party_type": "ISSR",
+      "_root_": "46614515",
+      "_version_": 1875459949054656527,
+      "timestamp": "2026-09-05T03:13:04.848Z",
+      "issuer_lei_facet": "529900HNOAA1KXQJUQ27",
+      "issuer_name_facet": "DZ BANK AG Deutsche Zentral-Genossenschaftsbank, Frankfurt am Main"
+     },
+     {
+      "id": "LNG_35788754",
+      "type_s": "child",
+      "document_language_descr": "German",
+      "document_language_code": "de",
+      "entity_type": "languages",
+      "_root_": "46614515",
+      "_version_": 1875459949054656527,
+      "timestamp": "2026-09-05T03:13:04.848Z"
+     },
+     {
+      "id": "PRD_46748211",
+      "type_s": "child",
+      "related_document_identifier_search": "75843017",
+      "_root_": "46614515",
+      "_version_": 1875459949054656527,
+      "timestamp": "2026-09-05T03:13:04.848Z",
+      "related_document_identifier_search_facet": "75843017"
+     },
+     {
+      "id": "IFII_65238842",
+      "type_s": "child",
+      "entity_type": "isinFinInstrInfo",
+      "ifii_dbId": "65238842",
+      "ifii_isin": "DE000DN48XD7",
+      "ifii_fisn": "DZ BANK AG/COS NASDAQ DYN UNL VKB",
+      "ifii_cfi": "RFITCB",
+      "ifii_denominationCurr": "EUR",
+      "ifii_consOfferedValue": "220000",
+      "ifii_securitiesType": "DERV",
+      "ifii_securitiesTypeDesc": "Derivative securities",
+      "ifii_offerAdmType": "IOWA",
+      "ifii_offerAdmTypeDesc": "Initial offer without admission to trading/listing",
+      "ifii_docVersionDbId": "46614515",
+      "ifii_natDocId": "DE000DN48XD7",
+      "ifii_docType": "FTWS",
+      "ifii_docTypeDesc": "Final terms, including the  summary of the individual issue annexed to them",
+      "ifii_approvalFilingDate": "2026-09-03T00:00:00Z",
+      "ifii_tradingVenue": "Link to FIRDS",
+      "_root_": "46614515",
+      "_version_": 1875459949054656527,
+      "timestamp": "2026-09-05T03:13:04.848Z"
+     },
+     {
+      "id": "ISIN_65238842",
+      "type_s": "child",
+      "entity_type": "isinEntity",
+      "isin_isin": "DE000DN48XD7",
+      "_root_": "46614515",
+      "_version_": 1875459949054656527,
+      "timestamp": "2026-09-05T03:13:04.848Z",
+      "isin_isin_facet": "DE000DN48XD7"
+     }
+    ]
+   }
+  }
+ ]
+}

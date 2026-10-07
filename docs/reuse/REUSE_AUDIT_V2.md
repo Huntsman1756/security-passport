@@ -1,0 +1,69 @@
+# REUSE AUDIT V2 — second pass (post-v0.1.0)
+
+Audited: 2026-10-07. Repo pins are the local worktree HEADs verified
+during this audit; licenses checked from each repo's own file.
+
+Decision classes: `ADOPT` (runtime dependency), `WRAP` (adapter over a
+live service/API), `PORT_SMALL_CODE` (copy with provenance note),
+`PORT_PATTERN` (re-implement the concept, no code copied),
+`REFERENCE` (prior art/semantic oracle only), `REJECT`, `CUSTOM`
+(no adequate donor — genuine product logic).
+
+## Owner repositories
+
+| repo | local path / pin | license | capability audited | decision | reason |
+|---|---|---|---|---|---|
+| openinstrument | `F:\_Proyectos\openinstrument` `v0.4.0-18-gb6b5ace` | MIT | reference master, FIRDS history, GLEIF, artifacts store, ECB adapter, PRIII adapter, generations, API | **ADOPT (upstream service)** + **PORT_SMALL_CODE** for `artifacts/store.py` | Already pinned as upstream authority. The artifacts store is provider-agnostic and the exact gap in our `data/raw/`. |
+| openbloomb (OpenVenue) | `F:\_Proyectos\openbloomb` `v0.2.0-21-gba7bc96` | MIT | `venues.py` MIC registry w/ operating↔segment reconciliation via registry's own OPERATING MIC column; rulebook family map; `/venues/{mic}`, `/instruments/{id}/operational-dossier`, `/instruments/{isin}/history`, `/rules/{sha256}` | **WRAP (optional provider)** + **REJECT our own MIC parser** | Runs offline from local data; distinguishes OPRT/SGMT correctly; rulebook corpus exists (`rules/registry.yaml`). Our 2,883-row MIC re-ingest duplicates it with less semantics. |
+| posttrade-europe | `F:\_Proyectos\posttrade-europe` `d0f440a` | Apache-2.0 | `capture/` — blob store `sha256/hh/` + `RetrievalAttempt` (status/etag/last-modified/redirect chain, failures as data) + `BlobRecord` + `DiscoveryEdge` + hashed run manifests; CSD/SSS/T2S identity semantics | **PORT_PATTERN** now; **WRAP later** when gates stable | Self-declared experimental/pre-release — no runtime dep. But its capture discipline is strictly better than ours (attempts-as-data, redirect chains, response metadata). Pattern donor for our artifact layer. |
+| emisiones-es | `F:\_Proyectos\emisiones-es` `p0-final-fail-4-gb14451e` | Apache-2.0 | CNMV acquisition, identity resolution, canonical model, document graph, conservative linkage | **WRAP (optional, validated parts only)** | P0 formally falsified its contractual extraction — do not re-enable. Acquisition/identity/document-graph passed their gates; usable as CNMV corroboration for ES instruments in v0.2. |
+| OpenFunds (`cnmv_iic`) | `F:\_Proyectos\OpenFunds` `v0.1.0-2-gf538c3e` | MIT | CNMV fund registry: `Entidad(Gestora, Depositario)/Compartimento/Clase(ISIN)`; identity resolution `exact_share_class/exact_compartment/exact_fund/invalid/ambiguous` | **WRAP (optional provider)** | The authority for ES IIC roles — vehicle/manager/depositary. Never a replacement issuer LEI. v0.2 integration. |
+| venue-rule-diff | `F:\_Proyectos\venue-rule-diff` `v0.1.0-2-gd50385f` | MIT | rulebook capture + PDF diff engine | **REFERENCE** (via OpenVenue rulebook refs) | Precomputed rulebook version/provenance only; never a per-request diff runtime. |
+| OpenCNMV | `F:\_Proyectos\OpenCNMV` `g1-model-frozen-88-gb76073c` | MIT | CNMV issuer/entity reporting | **REJECT (runtime)** | Issuer reporting ≠ instrument passport; would blur scope. |
+| corporate_actions | `F:\_Proyectos\corporate_actions` `v0.0.1-2-gd3e5e0b` | Apache-2.0 | lifecycle events | **REJECT (runtime)** / REFERENCE for vocabulary | Out of v0.2 scope. |
+| finreg-es | `F:\_Proyectos\finreg-es` `v0.6.0-44-gf9878e72b` | MIT | ES regulatory corpus | **REJECT** | Regulatory text, not instrument evidence. |
+| owership_radar | `F:\_Proyectos\owership_radar` `v0.1.0-alpha.2` | MIT | ownership | **REJECT** | Out of scope. |
+
+## External OSS
+
+| candidate | version | license | capability | decision | reason |
+|---|---|---|---|---|---|
+| `python-stdnum` | 2.2 | LGPL-2.1+ | ISIN (ISO 6166) + LEI (ISO 17442) validation incl. checksum | **ADOPT** | Our custom Luhn had a real parity bug (doubled wrong indices). stdnum is the reference implementation; LGPL obligations: dynamic linking is fine — we use it as a library, do not copy code, document in `docs/legal/attribution.md`. |
+| `schemathesis` | latest | MIT | property-based API testing from OpenAPI | **ADOPT (CI)** | Detects 500s, schema mismatches, invalid-input acceptance without hand-written cases. |
+| `oasdiff` | latest | Apache-2.0 | OpenAPI contract diff | **ADOPT (CI)** | Blocks unapproved breaking changes vs release baseline. |
+| FINOS Common Domain Model | — | Apache-2.0 | reference model | **REFERENCE** | semantic nomenclature oracle only; no runtime dep for a 5-block passport. |
+| OpenGamma Strata / QuantLib | — | Apache-2.0 / BSD | calc engines | **REFERENCE** | convention oracles; never providers. |
+| FINOS secref-data | — | — | security reference | **REJECT** | archived project. |
+| OpenFIGI / pygleif direct | — | — | live lookups | **REJECT** | OpenInstrument already integrates both as bulk evidence; live lookup would bypass its adjudication. |
+| esma_data_py | — | EUPL-1.2 | FIRDS download/parse | **REJECT (runtime)** | FIRDS parsing is upstream-owned; prior art only. |
+
+## Code eliminated / absorbed by reuse
+
+| removed | replaced by | why |
+|---|---|---|
+| `domain/isin.py` custom Luhn checksum | `python-stdnum` isin/lei | parity bug found; reference impl exists |
+| `providers/mic.py` ingest + MIC store | OpenVenue `/venues/{mic}` provider (optional) + ISO registry provenance | OpenVenue reconciles OPRT/SGMT correctly; third MIC implementation had less semantics |
+| `data/raw/` normalized-payload pretending | artifact store ported from `openinstrument/artifacts/store.py` + posttrade capture discipline | byte-immutable, content-addressed, observation ledger |
+
+## Duplications that remain (justified)
+
+- **ECB eligible-assets adapter** — OpenInstrument has `ecb_ea.py`,
+  but Security Passport needs haircut/absence semantics as
+  passport-level *derived* fields with snapshot scoping; OI stores
+  rows as assertions. Differential tests (FASE 14) gate drift.
+- **PRIII normalization** — OI has a PRIII adapter for debt
+  intelligence; ours normalizes the document graph to the passport
+  shape. Same justification: different output contract.
+- **ECB SSS/links parser** — no upstream equivalent exposes
+  topology; stays own-source but moves onto the artifact store.
+
+## Wrapped services (adapters, not code)
+
+- `OpenInstrumentApiProvider` — upstream reference master.
+- `VenueContextProvider` → `OpenVenueProvider` — optional;
+  absence degrades MIC detail, never the passport.
+- `PostTradeEvidenceProvider` — designed now, connected when
+  posttrade-europe has a stable output contract; until then a thin
+  direct adapter over official instrument-level artifacts.
+- `FundRolesProvider` → OpenFunds (`cnmv_iic`) — optional, ES IIC.
+- `CnmvDocsProvider` → emisiones-es — optional, ES issuance docs.

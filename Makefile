@@ -21,6 +21,18 @@ typecheck:
 check: lint typecheck test
 	cd $(WEB) && pnpm build
 
+openapi-baseline:
+	SECURITY_PASSPORT_PROVIDER=fixtures \
+	SECURITY_PASSPORT_FIXTURES=tests/fixtures/corpus \
+		$(PY) scripts/export_openapi.py > tests/fixtures/openapi-baseline.json
+
+openapi-check:
+	SECURITY_PASSPORT_PROVIDER=fixtures \
+	SECURITY_PASSPORT_FIXTURES=tests/fixtures/corpus \
+		$(PY) scripts/export_openapi.py > .openapi-current.json
+	oasdiff breaking tests/fixtures/openapi-baseline.json \
+		.openapi-current.json --fail-on ERR
+
 dev-api:
 	$(PY) -m uvicorn security_passport.api.app:app --reload --host 127.0.0.1 --port 8000
 

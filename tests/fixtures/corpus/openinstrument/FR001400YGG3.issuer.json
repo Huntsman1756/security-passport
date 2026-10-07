@@ -1,0 +1,24 @@
+{
+ "isin": "FR001400YGG3",
+ "found": true,
+ "canonical_lei": "959800HHEE9W4TZA8627",
+ "state": "corroborated",
+ "assertion_count": 2,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "959800HHEE9W4TZA8627",
+    "locator": "lei-isin-20260918T071512.csv#row=7421462"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "959800HHEE9W4TZA8627",
+    "venue": "POSE",
+    "locator": "FULINS_D_20261003_01of04.xml#RefData=366662"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

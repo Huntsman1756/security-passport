@@ -1,0 +1,27 @@
+{
+ "isin": "ES0155092036",
+ "cfi": "CIOGLS",
+ "cfi_state": "single_source",
+ "fisn": "INVERPOLO.21/AC 12.80",
+ "fisn_state": "single_source",
+ "full_name": "ACCIONES INVERPOLO VEINTIUNO,SICAV,S.A.",
+ "full_name_state": "single_source",
+ "notional_currency": "EUR",
+ "notional_currency_state": "single_source",
+ "issuer_lei": "549300Z08W7BN1HBZP77",
+ "issuer_lei_state": "corroborated",
+ "issuer_lei_assertions": 2,
+ "competent_authority": "ES",
+ "competent_authority_state": "single_source",
+ "firds_snapshot": "2026-10-03",
+ "n_firds_records": 1,
+ "cfi_letter": "C",
+ "canonical_version": "1",
+ "version": 1,
+ "found": true,
+ "valid_checksum": true,
+ "versions": {
+  "canonical_model_version": "1",
+  "adjudication_version": "1"
+ }
+}

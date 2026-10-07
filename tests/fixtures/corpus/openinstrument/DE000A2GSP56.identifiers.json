@@ -1,0 +1,12 @@
+{
+ "isin": "DE000A2GSP56",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "DE000A2GSP56",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}

@@ -1,0 +1,256 @@
+{
+ "isin": "IE00B4L5Y983",
+ "found": true,
+ "canonical_lei": "549300QS4Q1IT6XCA514",
+ "state": "single_source",
+ "assertion_count": 41,
+ "assertions": {
+  "gleif_isin_lei": [],
+  "firds_field5": [
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "CEUO",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55774"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "FRAU",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55781"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "LNEQ",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55789"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "SGMU",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55793"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "XAMS",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55801"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "AQEA",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55768"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "BEUP",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55771"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "BTFE",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55772"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "RFQN",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55792"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "XPOS",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55808"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "STUF",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55797"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "XETU",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55804"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "AQEU",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55770"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "CEUD",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55773"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "JBUL",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55787"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "DUSB",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55776"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "FRAA",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55780"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "HANB",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55785"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "MUNB",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55790"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "MUND",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55791"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "SGMV",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55794"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "ETFP",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55779"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "AQED",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55769"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "EQTB",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55778"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "TWEM",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55800"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "XETA",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55803"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "DUSD",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55777"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "STUB",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55795"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "XEMA",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55802"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "XGAT",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55805"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "HAMQ",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55784"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "TPIR",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55799"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "CEUX",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55775"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "STUD",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55796"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "TPEE",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55798"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "HAMN",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55783"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "XGLO",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55806"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "HAMB",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55782"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "HAND",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55786"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "LISZ",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55788"
+   },
+   {
+    "issr": "549300QS4Q1IT6XCA514",
+    "venue": "XPAC",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=55807"
+   }
+  ]
+ },
+ "entity": {
+  "lei": "549300QS4Q1IT6XCA514",
+  "snapshot_date": "2026-09-18",
+  "artifact_id": "lei-cdf/2026-09-18/076609e9ba872c0782ca0327a85299255d2a4e4810c0e956a86623d4e29e9cd2",
+  "locator": "20260918-gleif-concatenated-file-lei2.xml#LEIRecord=1009322",
+  "legal_name": "iShares Core MSCI World UCITS ETF",
+  "other_names_json": "[]",
+  "legal_address_json": "{\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"Dublin\", \"country\": \"IE\", \"first_address_line\": \"J.P. MORGAN, 200 CAPITAL DOCK, 79 SIR JOHN ROGERSONS QUAY, DUBLIN 2\", \"postal_code\": \"D02 RK57\", \"region\": \"IE-L\"}",
+  "headquarters_address_json": "{\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"Dublin\", \"country\": \"IE\", \"first_address_line\": \"c/o BLACKROCK ASSET MANAGEMENT IRELAND LIMITED, 3rd Floor, Glencar House, 20 Merrion Road, Dublin 4\", \"postal_code\": \"D04 T9F3\", \"region\": \"IE-L\"}",
+  "legal_jurisdiction": "IE",
+  "entity_category": "FUND",
+  "entity_status": "ACTIVE",
+  "legal_form_code": "8888",
+  "registration_status": "ISSUED",
+  "initial_registration_date": "2013-04-05T16:02:00+02:00",
+  "last_update_date": "2025-12-02T11:01:26+01:00",
+  "next_renewal_date": "2027-01-19T11:18:22+01:00",
+  "managing_lou": "5299000J2N45DDNE4Y28",
+  "raw_json": "{\"entity_category\": \"FUND\", \"entity_creation_date\": \"2009-07-03T00:00:00+02:00\", \"entity_expiration_date\": null, \"entity_status\": \"ACTIVE\", \"headquarters_address\": {\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"Dublin\", \"country\": \"IE\", \"first_address_line\": \"c/o BLACKROCK ASSET MANAGEMENT IRELAND LIMITED, 3rd Floor, Glencar House, 20 Merrion Road, Dublin 4\", \"postal_code\": \"D04 T9F3\", \"region\": \"IE-L\"}, \"legal_address\": {\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"Dublin\", \"country\": \"IE\", \"first_address_line\": \"J.P. MORGAN, 200 CAPITAL DOCK, 79 SIR JOHN ROGERSONS QUAY, DUBLIN 2\", \"postal_code\": \"D02 RK57\", \"region\": \"IE-L\"}, \"legal_form_code\": \"8888\", \"legal_jurisdiction\": \"IE\", \"legal_name\": \"iShares Core MSCI World UCITS ETF\", \"legal_name_lang\": null, \"lei\": \"549300QS4Q1IT6XCA514\", \"other_legal_form\": \"Undertakings for Collective Investment in Transferrable Securities (UCITS)\", \"other_names\": [], \"registration\": {\"initial_registration_date\": \"2013-04-05T16:02:00+02:00\", \"last_update_date\": \"2025-12-02T11:01:26+01:00\", \"managing_lou\": \"5299000J2N45DDNE4Y28\", \"next_renewal_date\": \"2027-01-19T11:18:22+01:00\", \"registration_status\": \"ISSUED\", \"validation_authority\": {\"entity_id\": \"C53867\", \"id\": \"RA000404\"}, \"validation_sources\": \"FULLY_CORROBORATED\"}, \"registration_authority\": {\"entity_id\": \"C53867\", \"id\": \"RA000404\"}}",
+  "snapshot": "2026-09-18"
+ },
+ "relationships": [
+  {
+   "start_lei": "549300QS4Q1IT6XCA514",
+   "relationship_type": "IS_FUND-MANAGED_BY",
+   "end_lei": "5493004330BCAPB3GT42",
+   "status": "ACTIVE",
+   "snapshot_date": "2026-09-18",
+   "locator": "20260918-gleif-concatenated-file-rr.xml#RelationshipRecord=245012"
+  },
+  {
+   "start_lei": "549300QS4Q1IT6XCA514",
+   "relationship_type": "IS_SUBFUND_OF",
+   "end_lei": "549300PZLRJB7M8H1057",
+   "status": "ACTIVE",
+   "snapshot_date": "2026-09-18",
+   "locator": "20260918-gleif-concatenated-file-rr.xml#RelationshipRecord=245013"
+  }
+ ]
+}

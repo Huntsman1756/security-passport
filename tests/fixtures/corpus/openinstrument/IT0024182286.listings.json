@@ -1,0 +1,16 @@
+{
+ "isin": "IT0024182286",
+ "listings": [
+  {
+   "venue_mic": "XDMI",
+   "relevant_venue": "XDMI",
+   "issuer_requested_admission": "false",
+   "admission_approval_date": null,
+   "admission_request_date": null,
+   "first_trade_date": "2025-06-02T00:00:00Z",
+   "termination_date": "2029-06-14T16:30:00Z",
+   "locator": "FULINS_O_20261003_02of03.xml#RefData=88370"
+  }
+ ],
+ "count": 1
+}

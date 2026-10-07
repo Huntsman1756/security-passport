@@ -1,0 +1,206 @@
+{
+ "isin": "AT0000A1NZ16",
+ "ifii": {
+  "numFound": 1,
+  "start": 0,
+  "numFoundExact": true,
+  "docs": [
+   {
+    "id": "IFII_18043550",
+    "type_s": "child",
+    "entity_type": "isinFinInstrInfo",
+    "ifii_dbId": "18043550",
+    "ifii_isin": "AT0000A1NZ16",
+    "ifii_docVersionDbId": "5591417",
+    "ifii_natDocId": "7035_12196",
+    "ifii_docType": "FTWS",
+    "ifii_docTypeDesc": "Final terms, including the  summary of the individual issue annexed to them",
+    "ifii_approvalFilingDate": "2016-09-28T00:00:00Z",
+    "ifii_tradingVenue": "Link to FIRDS",
+    "_root_": "5591417",
+    "_version_": 1849795398958317571,
+    "timestamp": "2025-11-25T20:26:01.238Z"
+   }
+  ]
+ },
+ "filings": [
+  {
+   "root": "5591417",
+   "parent": {
+    "numFound": 1,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "_root_": "5591417",
+      "id": "5591417",
+      "type_s": "parent",
+      "home_member_state_code": "AT",
+      "home_member_state_descr": "AUSTRIA",
+      "document_type": "FTWS",
+      "document_type_descr": "Final terms, including the  summary of the individual issue annexed to them",
+      "national_document_id": "7035_12196",
+      "document_rfss_id": "399751,ead37bbe9d944a90b906f9f3d4b27f59",
+      "approval_filing_date": "2016-09-28T00:00:00Z",
+      "doc_last_update_date": "2016-09-28T06:25:30Z",
+      "prospectus_type_code": "BPRO",
+      "prospectus_type_descr": "Base Prospectus",
+      "request_type": "New document record",
+      "prospetus_id_fk": "13687",
+      "party_name": "Raiffeisen Centrobank Aktiengesellschaft -  ",
+      "instrument_isins": "AT0000A1NZ16",
+      "member_states": "CROATIA,CZECHIA,GERMANY,HUNGARY,ITALY,POLAND,ROMANIA,SLOVAKIA,SLOVENIA",
+      "related_prospectuses": "13687",
+      "is_passported": "1",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z",
+      "national_document_id_facet": "7035_12196"
+     }
+    ]
+   },
+   "children": {
+    "numFound": 13,
+    "start": 0,
+    "numFoundExact": true,
+    "docs": [
+     {
+      "id": "ISS_12807324",
+      "type_s": "child",
+      "issuer_name": "Raiffeisen Centrobank Aktiengesellschaft",
+      "entity_type": "issuers",
+      "party_type": "ISSR",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z",
+      "issuer_name_facet": "Raiffeisen Centrobank Aktiengesellschaft"
+     },
+     {
+      "id": "PRD_8612796",
+      "type_s": "child",
+      "related_document_identifier_search": "7035",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z",
+      "related_document_identifier_search_facet": "7035"
+     },
+     {
+      "id": "IFII_18043550",
+      "type_s": "child",
+      "entity_type": "isinFinInstrInfo",
+      "ifii_dbId": "18043550",
+      "ifii_isin": "AT0000A1NZ16",
+      "ifii_docVersionDbId": "5591417",
+      "ifii_natDocId": "7035_12196",
+      "ifii_docType": "FTWS",
+      "ifii_docTypeDesc": "Final terms, including the  summary of the individual issue annexed to them",
+      "ifii_approvalFilingDate": "2016-09-28T00:00:00Z",
+      "ifii_tradingVenue": "Link to FIRDS",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z"
+     },
+     {
+      "id": "PSCN_12557",
+      "type_s": "child",
+      "entity_type": "passportCountry",
+      "pscn_country_code": "HR",
+      "pscn_country_name": "CROATIA",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z"
+     },
+     {
+      "id": "PSCN_12608",
+      "type_s": "child",
+      "entity_type": "passportCountry",
+      "pscn_country_code": "CZ",
+      "pscn_country_name": "CZECHIA",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z"
+     },
+     {
+      "id": "PSCN_14174",
+      "type_s": "child",
+      "entity_type": "passportCountry",
+      "pscn_country_code": "DE",
+      "pscn_country_name": "GERMANY",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z"
+     },
+     {
+      "id": "PSCN_14235",
+      "type_s": "child",
+      "entity_type": "passportCountry",
+      "pscn_country_code": "HU",
+      "pscn_country_name": "HUNGARY",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z"
+     },
+     {
+      "id": "PSCN_14314",
+      "type_s": "child",
+      "entity_type": "passportCountry",
+      "pscn_country_code": "IT",
+      "pscn_country_name": "ITALY",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z"
+     },
+     {
+      "id": "PSCN_17745",
+      "type_s": "child",
+      "entity_type": "passportCountry",
+      "pscn_country_code": "PL",
+      "pscn_country_name": "POLAND",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z"
+     },
+     {
+      "id": "PSCN_17827",
+      "type_s": "child",
+      "entity_type": "passportCountry",
+      "pscn_country_code": "RO",
+      "pscn_country_name": "ROMANIA",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z"
+     },
+     {
+      "id": "PSCN_17878",
+      "type_s": "child",
+      "entity_type": "passportCountry",
+      "pscn_country_code": "SK",
+      "pscn_country_name": "SLOVAKIA",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z"
+     },
+     {
+      "id": "PSCN_17929",
+      "type_s": "child",
+      "entity_type": "passportCountry",
+      "pscn_country_code": "SI",
+      "pscn_country_name": "SLOVENIA",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z"
+     },
+     {
+      "id": "ISIN_18043550",
+      "type_s": "child",
+      "entity_type": "isinEntity",
+      "isin_isin": "AT0000A1NZ16",
+      "_root_": "5591417",
+      "_version_": 1849795398958317571,
+      "timestamp": "2025-11-25T20:26:01.238Z",
+      "isin_isin_facet": "AT0000A1NZ16"
+     }
+    ]
+   }
+  }
+ ]
+}

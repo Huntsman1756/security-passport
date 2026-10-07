@@ -9,6 +9,11 @@
   "firds_field5": [
    {
     "issr": "549300HXCBZYNNORGQ47",
+    "venue": "FRAV",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=136919"
+   },
+   {
+    "issr": "549300HXCBZYNNORGQ47",
     "venue": "DUSB",
     "locator": "FULINS_C_20261003_01of01.xml#RefData=136916"
    },
@@ -16,21 +21,6 @@
     "issr": "549300HXCBZYNNORGQ47",
     "venue": "STUF",
     "locator": "FULINS_C_20261003_01of01.xml#RefData=136929"
-   },
-   {
-    "issr": "549300HXCBZYNNORGQ47",
-    "venue": "DUSD",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=136917"
-   },
-   {
-    "issr": "549300HXCBZYNNORGQ47",
-    "venue": "STUB",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=136927"
-   },
-   {
-    "issr": "549300HXCBZYNNORGQ47",
-    "venue": "HANB",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=136923"
    },
    {
     "issr": "549300HXCBZYNNORGQ47",
@@ -44,13 +34,23 @@
    },
    {
     "issr": "549300HXCBZYNNORGQ47",
-    "venue": "FRAB",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=136918"
+    "venue": "HAMQ",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=136922"
    },
    {
     "issr": "549300HXCBZYNNORGQ47",
-    "venue": "STUD",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=136928"
+    "venue": "XGAT",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=136930"
+   },
+   {
+    "issr": "549300HXCBZYNNORGQ47",
+    "venue": "DUSD",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=136917"
+   },
+   {
+    "issr": "549300HXCBZYNNORGQ47",
+    "venue": "STUB",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=136927"
    },
    {
     "issr": "549300HXCBZYNNORGQ47",
@@ -64,23 +64,23 @@
    },
    {
     "issr": "549300HXCBZYNNORGQ47",
-    "venue": "HAMQ",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=136922"
-   },
-   {
-    "issr": "549300HXCBZYNNORGQ47",
-    "venue": "XGAT",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=136930"
-   },
-   {
-    "issr": "549300HXCBZYNNORGQ47",
-    "venue": "FRAV",
-    "locator": "FULINS_C_20261003_01of01.xml#RefData=136919"
-   },
-   {
-    "issr": "549300HXCBZYNNORGQ47",
     "venue": "HAND",
     "locator": "FULINS_C_20261003_01of01.xml#RefData=136924"
+   },
+   {
+    "issr": "549300HXCBZYNNORGQ47",
+    "venue": "HANB",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=136923"
+   },
+   {
+    "issr": "549300HXCBZYNNORGQ47",
+    "venue": "FRAB",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=136918"
+   },
+   {
+    "issr": "549300HXCBZYNNORGQ47",
+    "venue": "STUD",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=136928"
    }
   ]
  },

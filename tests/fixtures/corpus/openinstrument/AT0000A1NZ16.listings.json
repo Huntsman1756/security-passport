@@ -1,0 +1,16 @@
+{
+ "isin": "AT0000A1NZ16",
+ "listings": [
+  {
+   "venue_mic": "WETP",
+   "relevant_venue": "WETP",
+   "issuer_requested_admission": "true",
+   "admission_approval_date": "2016-10-19T00:00:00Z",
+   "admission_request_date": "2016-10-19T00:00:00Z",
+   "first_trade_date": "2016-10-19T00:00:00Z",
+   "termination_date": "2026-10-05T23:59:59.999Z",
+   "locator": "FULINS_R_20261003_06of19.xml#RefData=65407"
+  }
+ ],
+ "count": 1
+}

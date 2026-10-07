@@ -1,0 +1,299 @@
+{
+ "isin": "ES0113211835",
+ "found": true,
+ "canonical_lei": "K8MS7FD7N5Z2WQ51AZ71",
+ "state": "corroborated",
+ "assertion_count": 48,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "K8MS7FD7N5Z2WQ51AZ71",
+    "locator": "lei-isin-20260918T071512.csv#row=8665784"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "AQEU",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101452"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "CEUD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101455"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "HAMB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101468"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "AQED",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101451"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "BGEM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101454"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "DMAD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101458"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "EBLX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101461"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "HAMQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101470"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "OCXE",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101478"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "XETV",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101492"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "DUSD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101460"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "LNEQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101474"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "TQEA",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101485"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "STUB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101481"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "EQTB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101463"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "FRAV",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101467"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "WBDM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101490"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "BEUP",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101453"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "ETLX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101465"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "TWEM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101488"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "XGAT",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101493"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "FRAB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101466"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "MUNB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101476"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "SGMU",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101480"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "STUF",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101483"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "UBSI",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101489"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "CEUO",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101456"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "DUSB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101459"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "ENTW",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101462"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "HANB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101471"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "HAND",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101472"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "TQEX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101487"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "ERFQ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101464"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "LISZ",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101473"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "MUND",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101477"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "RFQN",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101479"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "XETB",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101491"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "XPAC",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101495"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "AQEA",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101450"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "XMAD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101494"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "TPIR",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101484"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "TQEM",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101486"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "XPOS",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101496"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "HAMN",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101469"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "MTAH",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101475"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "STUD",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101482"
+   },
+   {
+    "issr": "K8MS7FD7N5Z2WQ51AZ71",
+    "venue": "CEUX",
+    "locator": "FULINS_E_20261003_01of02.xml#RefData=101457"
+   }
+  ]
+ },
+ "entity": {
+  "lei": "K8MS7FD7N5Z2WQ51AZ71",
+  "snapshot_date": "2026-09-18",
+  "artifact_id": "lei-cdf/2026-09-18/076609e9ba872c0782ca0327a85299255d2a4e4810c0e956a86623d4e29e9cd2",
+  "locator": "20260918-gleif-concatenated-file-lei2.xml#LEIRecord=286706",
+  "legal_name": "BANCO BILBAO VIZCAYA ARGENTARIA SOCIEDAD ANONIMA",
+  "other_names_json": "[{\"lang\": null, \"name\": \"BANCO BILBAO VIZCAYA SA\", \"type\": \"PREVIOUS_LEGAL_NAME\"}]",
+  "legal_address_json": "{\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"BILBAO\", \"country\": \"ES\", \"first_address_line\": \"PLAZA DE SAN NICOL\\u00c1S, 4\", \"postal_code\": \"48005\", \"region\": \"ES-BI\"}",
+  "headquarters_address_json": "{\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"BILBAO\", \"country\": \"ES\", \"first_address_line\": \"PLAZA DE SAN NICOL\\u00c1S, 4\", \"postal_code\": \"48005\", \"region\": \"ES-BI\"}",
+  "legal_jurisdiction": "ES",
+  "entity_category": "GENERAL",
+  "entity_status": "ACTIVE",
+  "legal_form_code": "5RDO",
+  "registration_status": "ISSUED",
+  "initial_registration_date": "2012-06-06T15:54:00Z",
+  "last_update_date": "2026-07-28T09:30:31.850Z",
+  "next_renewal_date": "2027-09-09T00:00:00Z",
+  "managing_lou": "213800WAVVOPS85N2205",
+  "raw_json": "{\"entity_category\": \"GENERAL\", \"entity_creation_date\": \"2012-06-06T00:00:00Z\", \"entity_expiration_date\": null, \"entity_status\": \"ACTIVE\", \"headquarters_address\": {\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"BILBAO\", \"country\": \"ES\", \"first_address_line\": \"PLAZA DE SAN NICOL\\u00c1S, 4\", \"postal_code\": \"48005\", \"region\": \"ES-BI\"}, \"legal_address\": {\"additional_address_line\": null, \"additional_address_line2\": null, \"additional_address_line3\": null, \"city\": \"BILBAO\", \"country\": \"ES\", \"first_address_line\": \"PLAZA DE SAN NICOL\\u00c1S, 4\", \"postal_code\": \"48005\", \"region\": \"ES-BI\"}, \"legal_form_code\": \"5RDO\", \"legal_jurisdiction\": \"ES\", \"legal_name\": \"BANCO BILBAO VIZCAYA ARGENTARIA SOCIEDAD ANONIMA\", \"legal_name_lang\": null, \"lei\": \"K8MS7FD7N5Z2WQ51AZ71\", \"other_legal_form\": null, \"other_names\": [{\"lang\": null, \"name\": \"BANCO BILBAO VIZCAYA SA\", \"type\": \"PREVIOUS_LEGAL_NAME\"}], \"registration\": {\"initial_registration_date\": \"2012-06-06T15:54:00Z\", \"last_update_date\": \"2026-07-28T09:30:31.850Z\", \"managing_lou\": \"213800WAVVOPS85N2205\", \"next_renewal_date\": \"2027-09-09T00:00:00Z\", \"registration_status\": \"ISSUED\", \"validation_authority\": {\"entity_id\": \"A48265169\", \"id\": \"RA000535\"}, \"validation_sources\": \"FULLY_CORROBORATED\"}, \"registration_authority\": {\"entity_id\": \"A48265169\", \"id\": \"RA000535\"}}",
+  "snapshot": "2026-09-18"
+ },
+ "relationships": [
+  {
+   "start_lei": "95980020140005542272",
+   "relationship_type": "IS_DIRECTLY_CONSOLIDATED_BY",
+   "end_lei": "K8MS7FD7N5Z2WQ51AZ71",
+   "status": "ACTIVE",
+   "snapshot_date": "2026-09-18",
+   "locator": "20260918-gleif-concatenated-file-rr.xml#RelationshipRecord=603241"
+  },
+  {
+   "start_lei": "95980020140005542272",
+   "relationship_type": "IS_ULTIMATELY_CONSOLIDATED_BY",
+   "end_lei": "K8MS7FD7N5Z2WQ51AZ71",
+   "status": "ACTIVE",
+   "snapshot_date": "2026-09-18",
+   "locator": "20260918-gleif-concatenated-file-rr.xml#RelationshipRecord=603242"
+  },
+  {
+   "start_lei": "9598004U729Z0ULJQS48",
+   "relationship_type": "IS_DIRECTLY_CONSOLIDATED_BY",
+   "end_lei": "K8MS7FD7N5Z2WQ51AZ71",
+   "status": "INACTIVE",
+   "snapshot_date": "2026-09-18",
+   "locator": "20260918-gleif-concatenated-file-rr.xml#RelationshipRecord=606927"
+  }
+ ]
+}

@@ -1,0 +1,24 @@
+{
+ "isin": "IE00BYYJHC15",
+ "found": true,
+ "canonical_lei": "213800OC2S4OIQVL8J89",
+ "state": "single_source",
+ "assertion_count": 2,
+ "assertions": {
+  "gleif_isin_lei": [],
+  "firds_field5": [
+   {
+    "issr": "213800OC2S4OIQVL8J89",
+    "venue": "XEYE",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=154384"
+   },
+   {
+    "issr": "213800OC2S4OIQVL8J89",
+    "venue": "XMSM",
+    "locator": "FULINS_C_20261003_01of01.xml#RefData=154385"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

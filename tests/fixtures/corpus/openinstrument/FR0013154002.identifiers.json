@@ -1,0 +1,12 @@
+{
+ "isin": "FR0013154002",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "FR0013154002",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}

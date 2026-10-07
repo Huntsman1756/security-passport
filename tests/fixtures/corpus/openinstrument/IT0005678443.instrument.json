@@ -1,0 +1,27 @@
+{
+ "isin": "IT0005678443",
+ "cfi": "DTVUFB",
+ "cfi_state": "single_source",
+ "fisn": "MEDIOBANCA/TM OB 20301222 SR14",
+ "fisn_state": "single_source",
+ "full_name": "MEDIOBANCA MC DEC30 EUR",
+ "full_name_state": "single_source",
+ "notional_currency": "EUR",
+ "notional_currency_state": "single_source",
+ "issuer_lei": "PSNL19R2RXX5U3QWHI44",
+ "issuer_lei_state": "corroborated",
+ "issuer_lei_assertions": 2,
+ "competent_authority": "IT",
+ "competent_authority_state": "single_source",
+ "firds_snapshot": "2026-10-03",
+ "n_firds_records": 1,
+ "cfi_letter": "D",
+ "canonical_version": "1",
+ "version": 1,
+ "found": true,
+ "valid_checksum": true,
+ "versions": {
+  "canonical_model_version": "1",
+  "adjudication_version": "1"
+ }
+}

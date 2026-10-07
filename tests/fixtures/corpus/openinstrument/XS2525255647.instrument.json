@@ -1,0 +1,27 @@
+{
+ "isin": "XS2525255647",
+ "cfi": "DAFNGB",
+ "cfi_state": "single_source",
+ "fisn": "SPAREBANK 1 BOL/1.75EMTN FM WC",
+ "fisn_state": "single_source",
+ "full_name": null,
+ "full_name_state": "conflict",
+ "notional_currency": "EUR",
+ "notional_currency_state": "single_source",
+ "issuer_lei": "549300M6HRHPF3NQBP83",
+ "issuer_lei_state": "single_source",
+ "issuer_lei_assertions": 18,
+ "competent_authority": "NO",
+ "competent_authority_state": "single_source",
+ "firds_snapshot": "2026-10-03",
+ "n_firds_records": 18,
+ "cfi_letter": "D",
+ "canonical_version": "1",
+ "version": 1,
+ "found": true,
+ "valid_checksum": true,
+ "versions": {
+  "canonical_model_version": "1",
+  "adjudication_version": "1"
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "isin": "IT0024182286",
+ "found": true,
+ "canonical_lei": null,
+ "state": "conflict",
+ "assertion_count": 2,
+ "assertions": {
+  "gleif_isin_lei": [
+   {
+    "lei": "8156006407E264D2C725",
+    "locator": "lei-isin-20260918T071512.csv#row=6813945"
+   }
+  ],
+  "firds_field5": [
+   {
+    "issr": "8156005391EE905D3124",
+    "venue": "XDMI",
+    "locator": "FULINS_O_20261003_02of03.xml#RefData=88370"
+   }
+  ]
+ },
+ "entity": null,
+ "relationships": []
+}

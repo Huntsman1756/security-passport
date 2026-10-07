@@ -1,0 +1,12 @@
+{
+ "isin": "XS2525255647",
+ "identifiers": [
+  {
+   "level": "instrument",
+   "scheme": "ISIN",
+   "value": "XS2525255647",
+   "observations": 1,
+   "provider": "anna_nna"
+  }
+ ]
+}
