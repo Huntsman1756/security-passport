@@ -1,8 +1,14 @@
 """Builder integration — passports over the fixture corpus."""
 from __future__ import annotations
 
-import pytest
+from pathlib import Path
+from typing import Any
 
+import pytest
+import yaml
+
+from security_passport.domain.isin import checksum_ok, normalize
+from security_passport.domain.status import FieldStatus
 from security_passport.providers.fixtures import (
     FixtureInstrumentProvider,
     FixturePassportStore,
@@ -47,8 +53,9 @@ def test_eph_bond_passport(builder: PassportBuilder) -> None:
         "eurosystem_eligibility"
     pt = d["post_trade"]
     assert pt["issuer_csd"]["status"] == "not_found"
-    assert d["post_trade"]["route_assessments"][0][
-        "state"] == "not_assessable"
+    ra = d["post_trade"]["route_assessments"][0]
+    assert ra["assessment"] == "not_assessable"
+    assert ra["status"] == "not_found"
     assert pt["assessment"]["status"] == "derived"
 
 
@@ -137,3 +144,41 @@ def test_determinism(builder: PassportBuilder) -> None:
     a.pop("generated_at")
     b.pop("generated_at")
     assert a == b
+
+
+def test_closed_status_taxonomy(builder: PassportBuilder) -> None:
+    """No provider or builder may invent a new status — the public
+    taxonomy is closed. Scan every field AND every collection
+    entry, recursively, in all corpus passports."""
+    allowed = {s.value for s in FieldStatus}
+    verdicts = {"not_assessable", "topology_only"}
+
+    def scan(node: Any, path: str, errs: list[str]) -> None:
+        if isinstance(node, dict):
+            st = node.get("status")
+            if st is not None and st not in allowed:
+                errs.append(f"{path}: status={st!r}")
+            for k, v in node.items():
+                scan(v, f"{path}.{k}", errs)
+        elif isinstance(node, list):
+            for i, v in enumerate(node):
+                scan(v, f"{path}[{i}]", errs)
+
+    spec = yaml.safe_load(
+        Path("tests/fixtures/goldens.yaml").read_text(
+            encoding="utf-8"))
+    errs: list[str] = []
+    verdict_errs: list[str] = []
+    for g in spec.get("goldens") or []:
+        isin = g["isin"]
+        d = builder.build(
+            normalize(isin),
+            checksum_ok=checksum_ok(isin)).to_dict()
+        scan(d, isin, errs)
+        for a in (d.get("post_trade") or {}).get(
+                "route_assessments") or []:
+            if a.get("assessment") not in verdicts:
+                verdict_errs.append(
+                    f"{isin}: verdict={a.get('assessment')!r}")
+    assert errs == []
+    assert verdict_errs == []

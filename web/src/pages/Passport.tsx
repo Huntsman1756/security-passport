@@ -267,7 +267,7 @@ export function PassportPage() {
                     {a.from_sss && a.to_sss
                       ? `${a.from_sss} → ${a.to_sss}: `
                       : ""}
-                    [{a.state}] {a.assessment}
+                    [{a.assessment}] {a.explanation}
                   </li>
                 ))}
               </ul>

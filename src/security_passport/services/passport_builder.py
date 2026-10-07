@@ -967,15 +967,15 @@ class PassportBuilder:
                 assessments.append({
                     "from_sss": lnk.investor_sss,
                     "to_sss": lnk.issuer_sss,
-                    "state": "inferred",
-                    "assessment": ("topology exists — usable for "
-                                   "THIS ISIN only if the ISIN is "
-                                   "additionally admitted at the "
-                                   "investor SSS, which is not "
-                                   "evidenced"),
+                    "status": "inferred",
+                    "assessment": "topology_only",
+                    "explanation": ("topology exists — usable for "
+                                    "THIS ISIN only if the ISIN is "
+                                    "additionally admitted at the "
+                                    "investor SSS, which is not "
+                                    "evidenced"),
                     "rule": "settlement_path.v1",
                     "limitations": LIMITATION_TEXT,
-                    "status": "inferred",
                     "evidence": _sss_ev(
                         f"{lnk.investor_sss}->{lnk.issuer_sss}",
                         "eligible_links", lnk.page_stamp,
@@ -983,15 +983,15 @@ class PassportBuilder:
         if not assessments:
             assessments.append({
                 "from_sss": None, "to_sss": None,
-                "state": "not_assessable",
-                "assessment": ("no route asserted — settlement-path "
-                               "assessment requires (a) a reported "
-                               "issuer/settlement CSD and (b) "
-                               "instrument-specific admission "
-                               "evidence at an investor SSS"),
+                "status": "not_found",
+                "assessment": "not_assessable",
+                "explanation": ("no route asserted — settlement-path "
+                                "assessment requires (a) a reported "
+                                "issuer/settlement CSD and (b) "
+                                "instrument-specific admission "
+                                "evidence at an investor SSS"),
                 "rule": "settlement_path.v1",
                 "limitations": LIMITATION_TEXT,
-                "status": "inferred",
                 "evidence": None})
         b.collections["route_assessments"] = assessments
         # assessment — derived statement of what evidence exists

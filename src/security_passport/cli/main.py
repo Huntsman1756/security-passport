@@ -169,8 +169,8 @@ def _print_passport(d: dict[str, Any]) -> None:
             continue
         pair = (f"{a['from_sss']} -> {a['to_sss']}: "
                 if a.get("from_sss") and a.get("to_sss") else "")
-        print(f"  route [{a.get('state','')}]: {pair}"
-              f"{a.get('assessment','')[:120]}")
+        print(f"  route [{a.get('assessment','')}]: {pair}"
+              f"{a.get('explanation','')[:120]}")
     asm = pt.get("assessment") or {}
     if asm.get("value"):
         print(f"  assessment: {asm['value']}")

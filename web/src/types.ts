@@ -146,8 +146,9 @@ const Block = z
     }[];
     route_assessments?: {
       from_sss: string | null; to_sss: string | null;
-      state: string; assessment: string; rule: string;
-      limitations: string; status: string;
+      status: string; assessment: string;
+      explanation: string; rule: string;
+      limitations: string;
       evidence?: EvidenceRef | null;
     }[];
     temporal?: z.infer<typeof Temporal>;
