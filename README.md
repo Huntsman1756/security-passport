@@ -36,10 +36,16 @@ Given one ISIN it answers, with per-field provenance:
   approval authority, home and passporting states.
 - **SECONDARY MARKET** — where it is admitted to trading, at
   ISIN×MIC granularity, with admission/termination state.
-- **POST-TRADE** — what is actually known about its settlement
-  infrastructure: issuer SSS (when directly reported), the
-  Eurosystem eligible-SSS/link topology, and an honest assessment
-  of what the evidence does *not* establish.
+- **POST-TRADE** — four separate claims, never merged:
+  - **issuer CSD/SSS** — where directly reported (ECB collateral
+    reference);
+  - **settlement locations** — instrument-level admission
+    evidence, potentially multiple per ISIN, with
+    `source_published_at` ≠ `effective_from`;
+  - **link topology** — CSD↔CSD infrastructure relationships,
+    never treated as instrument routes;
+  - **route assessments** — evidence-bounded deterministic
+    assessments with explicit limitations.
 - **EUROSYSTEM COLLATERAL** — whether the asset is on the ECB
   eligible list, its haircut category and inputs, and the snapshot
   that claim comes from.
@@ -81,6 +87,9 @@ Release gate: `unsupported_assertions = 0`.
 | ECB eligible marketable assets | collateral eligibility, haircut inputs, reported issuer CSD |
 | ECB eligible SSSs / eligible links | settlement-system topology |
 | ISO 10383 MIC list | venue naming |
+| OpenVenue | venue/operator context + captured rulebook references |
+| Euronext Securities Milan / France | instrument-level settlement-location evidence |
+| cnmv_iic (OpenFunds) | Spanish fund/share-class/manager/depositary roles |
 | Iberclear public documentation | SSS identity only (no instrument claims) |
 
 Attribution and reuse basis per source: `docs/legal/`.
@@ -92,7 +101,8 @@ or BME/Iberclear.
 ## Quickstart
 
 ```console
-git clone <repo> && cd security-passport
+git clone https://github.com/Huntsman1756/security-passport.git
+cd security-passport
 make setup                     # python deps + web deps
 security-passport doctor       # verify environment
 security-passport DE000A3LJCB4 # fixture mode works offline
