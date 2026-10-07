@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+*.whl
+
+# Data (never commit datasets)
+data/raw/
+data/normalized/
+data/assertions/
+data/read/
+data/generations/
+data/observations/
+*.parquet
+!tests/fixtures/**/*.parquet
+
+# Node / frontend
+node_modules/
+web/node_modules/
+web/dist/
+*.local
+
+# Env / secrets
+.env
+*.pem
+*.key
+
+# OS / editors
+.DS_Store
+Thumbs.db
+nul
+.vscode/
+.idea/
+
+# Test / coverage artifacts
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage/
+playwright-report/
+test-results/
