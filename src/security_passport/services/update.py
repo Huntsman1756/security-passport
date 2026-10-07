@@ -125,6 +125,12 @@ def build_stores(
                         "rows": esmil_rows},
                        sort_keys=True, ensure_ascii=False, indent=1),
             encoding="utf-8")
+    fund_roles = meta.pop("_fund_roles", None)
+    if fund_roles is not None:
+        (stores / "fund_roles.json").write_text(
+            json.dumps(fund_roles, sort_keys=True,
+                       ensure_ascii=False, indent=1),
+            encoding="utf-8")
     (stores / "meta.json").write_text(
         json.dumps(meta, sort_keys=True, ensure_ascii=False,
                    indent=1), encoding="utf-8")
@@ -158,6 +164,58 @@ def _fetch_esmil_workbook(
     raise OSError(
         f"euronext_esmil: no workbook found in last 45d "
         f"({len(tried)} attempts recorded)")
+
+
+def _load_openfunds_registry() -> tuple[dict[str, Any],
+                                        dict[str, Any]]:
+    """Latest share_classes+funds snapshot from the upstream
+    cnmv_iic dataset — role rows keyed by ISIN. The dataset
+    itself stays upstream-owned; we extract a thin role
+    projection."""
+    import glob
+    import os
+
+    root = os.environ.get("OPENFUNDS_DATASET")
+    if not root:
+        raise OSError("OPENFUNDS_DATASET not configured")
+    try:
+        import duckdb
+    except ImportError:
+        raise OSError("duckdb not installed") from None
+    con = duckdb.connect()
+    sc_files = sorted(glob.glob(
+        os.path.join(root, "share_classes", "period=*",
+                     "part-0.parquet")))
+    fu_files = sorted(glob.glob(
+        os.path.join(root, "funds", "period=*",
+                     "part-0.parquet")))
+    if not sc_files or not fu_files:
+        raise OSError(f"openfunds dataset incomplete at {root}")
+    sc_p, fu_p = sc_files[-1], fu_files[-1]
+    period = os.path.basename(os.path.dirname(sc_p)).split("=")[-1]
+    rows = con.execute(
+        f"""select s.period, s.isin_raw isin, s.share_class_key,
+          s.fund_key, s.compartment_key, s.entity_type,
+          s.denominacion_clase share_class_name,
+          s.denominacion_compartimento compartment_name,
+          s.source_artifact_id, f.denominacion fund_name,
+          f.gestora_denominacion manager_name,
+          f.depositario_denominacion depositary_name,
+          cast(f.gestora_numero_registro as varchar)
+            manager_reg_number,
+          cast(f.depositario_numero_registro as varchar)
+            depositary_reg_number
+        from read_parquet('{sc_p}') s
+        join read_parquet('{fu_p}') f
+        using(fund_key)""").fetchall()  # noqa: S608
+    cols = [d[0] for d in con.description]
+    return ({"source": "openfunds-cnmv_iic-share_classes+funds",
+             "period": period,
+             "rows": [dict(zip(cols, r, strict=False))
+                      for r in rows]},
+            {"raw_state": "upstream_artifact_reference",
+             "upstream_dataset": root, "period": period,
+             "rows": len(rows)})
 
 
 def _fetch_frs_workbook(
@@ -369,6 +427,14 @@ def run_update(
                     "file": frs_name, "rows": len(frs_rows)}
             except OSError as e:
                 meta["euronext_frs"] = {
+                    "raw_state": "unavailable", "error": str(e)}
+            # ---- cnmv_iic (OpenFunds) registry — upstream dataset -----
+            try:
+                fr, fr_meta = _load_openfunds_registry()
+                meta["_fund_roles"] = fr
+                meta["openfunds_cnmv_iic"] = fr_meta
+            except (OSError, ImportError) as e:
+                meta["openfunds_cnmv_iic"] = {
                     "raw_state": "unavailable", "error": str(e)}
         else:
             fetched = dict(fetch_fn())

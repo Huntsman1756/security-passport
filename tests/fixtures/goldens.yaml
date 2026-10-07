@@ -357,3 +357,20 @@ goldens:
     expected:
       overall_state: found
       post_trade.iberclear_admitted: {status: not_found}
+
+  - isin: ES0105321030
+    case: es_iic_share_class_fund_roles
+    purpose: listed ES ETF share class — CNMV IIC registry gives
+      fund/compartment/share-class + gestora + depositario as
+      roles; never issuer identity.
+    expected:
+      overall_state: found
+      identity.cfi: {status: reported}
+      primary_market.fund_vehicle:
+        {status: reported, value: "ACCION EUROSTOXX 50 ETF, FI COTIZADO ARMONIZADO"}
+      primary_market.fund_share_class: {status: reported}
+      primary_market.management_company:
+        {status: reported, value: {name: "BBVA ASSET MANAGEMENT, S.A., SGIIC"}}
+      primary_market.depositary:
+        {status: reported, value: {name: "BANCO BILBAO VIZCAYA ARGENTARIA, S.A."}}
+      primary_market.fund_roles_at_least: 1

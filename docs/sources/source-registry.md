@@ -17,6 +17,7 @@ Canonical list of providers Security Passport consumes. Every
 | `gleif` | `isin_lei + golden` | via openinstrument | ISIN↔LEI + entity master | `reconstructed` | role semantics matter — see entity roles |
 | `iso10383_mic` | `mic.csv` | HTTPS public CSV / `PUBLIC_MACHINE_READABLE` | market identifier code registry | `observed_history` | venue naming only |
 | `iberclear` | curated | none (facts doc) | SSS identity only | `current_only` | no instrument-level claims v0.1 |
+| `openfunds_cnmv_iic` | `share_classes+funds` | `OPENFUNDS_DATASET` upstream dataset | CNMV IIC registry roles (vehicle/compartment/class/manager/depositary) | `observed_history` (monthly period) | roles are roles — never issuer LEI |
 | `clearstream_eligible` | securities list | `PREMIUM` — **not ingested** | eligible-securities list exists per Clearstream docs | — | never silently scraped; `PROBED_RESTRICTED` |
 | `euroclear_isin_lookup` | isin_codes.html | `AUTH_REQUIRED` — **not ingested** | guest lookup for Euroclear Bank/ESES | — | corroboration only via manual research; no crawler |
 

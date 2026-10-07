@@ -127,6 +127,11 @@ def _print_passport(d: dict[str, Any]) -> None:
         print(f"    doc: {doc['document_type_descr'] or doc['document_type']}"
               f"  {doc['national_document_id']}"
               f"  approved {doc['approval_filing_date']}")
+    for fr in pm.get("fund_roles") or []:
+        print(f"    fund: {fr['fund_name']} [{fr['entity_type']}]"
+              f" | {fr['share_class_name']} ({fr['share_class_key']})")
+        print(f"          gestora: {fr['management_company']} "
+              f"| depositario: {fr['depositary']}")
     sm = d["secondary_market"]
     print()
     print("SECONDARY MARKET")

@@ -173,3 +173,24 @@ actually shipped and the provenance of every port/adaptation.
   10383 registry OpenVenue wraps — `VenueContextProvider` remains
   the v0.2 boundary for the rulebook/dossier layer that the ISO
   file does not carry.
+
+## v0.1.2b — OpenFunds wrapped; emisiones-es stays deferred
+
+- `providers/openfunds.py` + `PassportStore.iic_roles` —
+  cnmv_iic registry wrapped at the dataset boundary:
+  `_load_openfunds_registry()` reads latest
+  `share_classes`+`funds` period from `OPENFUNDS_DATASET` into
+  `stores/fund_roles.json` (`upstream_artifact_reference`).
+  Builder projects `fund_vehicle`, `fund_share_class`,
+  `management_company`, `depositary` fields + `fund_roles`
+  collection into `primary_market`. Roles are roles —
+  gestora/depositario never become issuer identity, so a
+  role-vs-issuer LEI difference is never a false conflict.
+  Golden: `ES0105321030` (BBVA Eurostoxx 50 ETF — live ISIN
+  present in both OI canonical and CNMV registry).
+- `emisiones-es` — audited again: validated document-graph
+  output is not yet a published machine-readable artifact
+  (`.work/` is acquisition scratch; current product line is a
+  human-facing browser). Stays WRAP-deferred until it exposes a
+  stable bundle; its rejected extraction stack remains
+  permanently off.

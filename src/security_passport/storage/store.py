@@ -22,6 +22,7 @@ import duckdb
 
 from security_passport.providers.base import (
     EcbAssetFact,
+    FundRoleFact,
     MicFact,
     PriiiDocument,
     PriiiFacts,
@@ -49,10 +50,15 @@ class GenerationStore:
             self._dictionary = json.loads(
                 dp.read_text(encoding="utf-8"))
         self._esmil: list[dict[str, Any]] = []
+        self._fund_roles: list[dict[str, Any]] = []
         ep = self._stores / "esmil.json"
         if ep.exists():
             self._esmil = json.loads(
                 ep.read_text(encoding="utf-8")).get("rows") or []
+        fr = self._stores / "fund_roles.json"
+        if fr.exists():
+            self._fund_roles = json.loads(
+                fr.read_text(encoding="utf-8")).get("rows") or []
 
     def generation(self) -> str:
         return self._root.name
@@ -225,6 +231,31 @@ class GenerationStore:
 
     def dictionary_section(self, name: str) -> dict[str, str]:
         return dict(self._dictionary.get(name) or {})
+
+    # ---- ES IIC fund roles ---------------------------------------------
+    def iic_roles(self, isin: str) -> FundRoleFact | None:
+        for r in self._fund_roles:
+            if r.get("isin") == isin:
+                return FundRoleFact(
+                    isin=r["isin"],
+                    share_class_key=r.get("share_class_key") or "",
+                    fund_key=r.get("fund_key") or "",
+                    compartment_key=r.get("compartment_key") or "",
+                    entity_type=r.get("entity_type") or "",
+                    fund_name=r.get("fund_name") or "",
+                    share_class_name=r.get("share_class_name") or "",
+                    compartment_name=r.get(
+                        "compartment_name") or "",
+                    manager_name=r.get("manager_name") or "",
+                    depositary_name=r.get("depositary_name") or "",
+                    manager_reg_number=r.get(
+                        "manager_reg_number") or "",
+                    depositary_reg_number=r.get(
+                        "depositary_reg_number") or "",
+                    period=r.get("period") or "",
+                    source_artifact_id=r.get(
+                        "source_artifact_id") or "")
+        return None
 
     # ---- instrument-level settlement locations (Euronext Milan) --------
     def settlement_locations(

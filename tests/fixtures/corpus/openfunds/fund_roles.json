@@ -1,0 +1,38 @@
+{
+ "source": "openfunds-cnmv_iic-share_classes+funds",
+ "period": "2026-05",
+ "rows": [
+  {
+   "isin": "ES0105336038",
+   "period": "2026-05",
+   "share_class_key": "FI:3499:0:0",
+   "fund_key": "FI:3499",
+   "compartment_key": "FI:3499:0",
+   "entity_type": "FI",
+   "share_class_name": "CLASE 0",
+   "compartment_name": "COMPARTIMENTO 0",
+   "fund_name": "ACCION IBEX 35 ETF, FI COTIZADO ARMONIZADO",
+   "manager_name": "BBVA ASSET MANAGEMENT, S.A., SGIIC",
+   "depositary_name": "BANCO BILBAO VIZCAYA ARGENTARIA, S.A.",
+   "manager_reg_number": "14",
+   "depositary_reg_number": "19",
+   "source_artifact_id": "cnmv-iic-zip/2026-05/ad2203b724b06dd1fcf2a00d992a53854d2ae99a7bbdf41d9998d4229fd83df0"
+  },
+  {
+   "isin": "ES0105321030",
+   "period": "2026-05",
+   "share_class_key": "FI:3596:0:0",
+   "fund_key": "FI:3596",
+   "compartment_key": "FI:3596:0",
+   "entity_type": "FI",
+   "share_class_name": "CLASE 0",
+   "compartment_name": "COMPARTIMENTO 0",
+   "fund_name": "ACCION EUROSTOXX 50 ETF, FI COTIZADO ARMONIZADO",
+   "manager_name": "BBVA ASSET MANAGEMENT, S.A., SGIIC",
+   "depositary_name": "BANCO BILBAO VIZCAYA ARGENTARIA, S.A.",
+   "manager_reg_number": "14",
+   "depositary_reg_number": "19",
+   "source_artifact_id": "cnmv-iic-zip/2026-05/ad2203b724b06dd1fcf2a00d992a53854d2ae99a7bbdf41d9998d4229fd83df0"
+  }
+ ]
+}

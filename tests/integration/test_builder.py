@@ -124,6 +124,7 @@ def test_no_silent_nulls(builder: PassportBuilder) -> None:
                      "entity_roles", "identifiers",
                      "eligible_sss", "link_topology",
                      "settlement_locations", "route_assessments",
+                     "fund_roles",
                      "temporal", "warnings"):
                 continue
             assert "status" in v, f"{blk}.{k} has no status"

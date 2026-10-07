@@ -168,6 +168,7 @@ class PassportBuilder:
         identity = self._identity(isin, searched_oi, checksum_ok)
         secondary = self._secondary(isin, searched_oi)
         primary = self._primary(isin)
+        self._iic_roles(isin, primary)
         ecb = self._collateral(isin)
         post = self._post_trade(isin, ecb)
 
@@ -554,6 +555,54 @@ class PassportBuilder:
             "status": "reported",
             "observed_at": pr.observed_at,
         }
+
+    def _iic_roles(self, isin: str, b: PassportBlock) -> None:
+        """cnmv_iic registry roles for ES IIC share classes —
+        fund/compartment/share-class + gestora/depositario as
+        ROLES, never promoted to issuer identity."""
+        r = self._s.iic_roles(isin)
+        if r is None:
+            b.collections["fund_roles"] = []
+            return
+        ev = EvidenceRef(
+            provider="openfunds_cnmv_iic",
+            dataset="share_classes+funds",
+            record_id=r.share_class_key,
+            artifact_id=r.source_artifact_id,
+            published_at=r.period,
+            parser_version="cnmv_iic.adapters.fondregistro/0.1.0")
+        b.collections["fund_roles"] = [{
+            "fund_key": r.fund_key,
+            "compartment_key": r.compartment_key,
+            "share_class_key": r.share_class_key,
+            "entity_type": r.entity_type,
+            "fund_name": r.fund_name,
+            "share_class_name": r.share_class_name,
+            "compartment_name": r.compartment_name,
+            "management_company": r.manager_name,
+            "depositary": r.depositary_name,
+            "management_company_reg": r.manager_reg_number,
+            "depositary_reg": r.depositary_reg_number,
+            "period": r.period,
+            "status": "reported",
+            "evidence": ev.to_dict()}]
+        b.fields["fund_vehicle"] = PassportField.reported(
+            "fund_vehicle", r.fund_name, [ev])
+        b.fields["fund_share_class"] = PassportField.reported(
+            "fund_share_class",
+            f"{r.share_class_name} ({r.share_class_key})", [ev])
+        b.fields["management_company"] = PassportField.reported(
+            "management_company",
+            {"name": r.manager_name,
+             "reg_number": r.manager_reg_number}, [ev],
+            explanation=("CNMV IIC registry role — never an "
+                         "issuer identifier."))
+        b.fields["depositary"] = PassportField.reported(
+            "depositary",
+            {"name": r.depositary_name,
+             "reg_number": r.depositary_reg_number}, [ev],
+            explanation=("CNMV IIC registry role — never an "
+                         "issuer identifier."))
 
     # ================= SECONDARY MARKET ================================
 

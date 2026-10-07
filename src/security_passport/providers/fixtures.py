@@ -25,6 +25,7 @@ from security_passport.providers import (
 )
 from security_passport.providers.base import (
     EcbAssetFact,
+    FundRoleFact,
     MicFact,
     PriiiDocument,
     PriiiFacts,
@@ -245,6 +246,17 @@ class FixturePassportStore:
             dp.read_text(encoding="utf-8",
                          errors="replace")).get(
                              "issuer_csd") or {}
+
+    # ---- ES IIC fund roles (cnmv_iic registry) --------------------------
+    def iic_roles(self, isin: str) -> FundRoleFact | None:
+        p = self._dir / "openfunds" / "fund_roles.json"
+        if not p.exists():
+            return None
+        for r in json.loads(
+                p.read_text(encoding="utf-8")).get("rows", []):
+            if r.get("isin") == isin:
+                return FundRoleFact(**r)
+        return None
 
     # ---- instrument-level settlement locations -------------------------
     def settlement_locations(

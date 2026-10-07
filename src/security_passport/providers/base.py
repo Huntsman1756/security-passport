@@ -257,6 +257,28 @@ class PassportStore(Protocol):
     def csd_codes(self) -> dict[str, str]: ...
     def settlement_locations(
         self, isin: str) -> list[SettlementLocationFact]: ...
+    def iic_roles(self, isin: str) -> FundRoleFact | None: ...
+
+
+@dataclass(frozen=True)
+class FundRoleFact:
+    """cnmv_iic registry roles for an ES IIC share class. Roles
+    are roles — a gestora/depositario identity is never an
+    issuer."""
+    isin: str
+    share_class_key: str
+    fund_key: str
+    compartment_key: str
+    entity_type: str
+    fund_name: str
+    share_class_name: str
+    compartment_name: str
+    manager_name: str
+    depositary_name: str
+    manager_reg_number: str
+    depositary_reg_number: str
+    period: str
+    source_artifact_id: str
 
 
 # ---- errors ---------------------------------------------------------------
