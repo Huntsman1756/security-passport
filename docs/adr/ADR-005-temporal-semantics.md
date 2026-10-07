@@ -38,3 +38,26 @@ per-block coverage honesty that is scheduled for v0.2.
 Mixing publication time, effective time, and retrieval time is the
 most common way reference-data systems lie. We name the semantics
 on every field instead.
+
+## v0.2.0 amendment — `--as-of` shipped
+
+The temporal engine shipped with the admissibility contract:
+`as_of(T)` selects evidence admissible at T *per block*, then
+re-runs the same deterministic adjudication. Blocks answer
+according to their declared `TemporalBasis` — this mixes
+valid-time and knowledge-time **by design, transparently**:
+
+- `observed_history` → "what we could sustain from observations
+  at T" (knowledge-time);
+- `reconstructed` → "what provider-dated validity says at T"
+  (valid-time, left-censored);
+- `current_only` → "the held snapshot's window only".
+- `native_history` → "the source's own history".
+
+> `--as-of` is evidence-aware, not omniscient. Each block answers
+> according to its declared temporal basis; unavailable
+> historical evidence is never replaced with current knowledge.
+
+No future version may silently redefine `--as-of` as if all
+blocks were bitemporal — sources that are not must keep
+reporting `outside_coverage`.

@@ -146,12 +146,29 @@ Own-source stores publish through generations
 (`build → validate → CURRENT` atomically); a failed update never
 moves the pointer.
 
-## Temporal honesty
+## Temporal honesty — `--as-of`
 
-Each block declares its basis: `reconstructed` (FIRDS
-publication-time, left-censored), `observed_history` (PRIII / ECB
-pages), `current_only`. `--as-of` is deliberately absent from
-v0.1.0 — see `docs/domain/temporal-semantics.md`.
+Each block declares its temporal basis (`native_history`,
+`reconstructed`, `observed_history`, `current_only`) and an
+`answer_state` (`available`, `partial`, `outside_coverage`,
+`unavailable`) when queried at a date. `as_of(T)` selects
+admissible evidence at T first, then re-runs adjudication — it
+never filters a current passport afterwards.
+
+> `--as-of` is evidence-aware, not omniscient. Each block answers
+> according to its declared temporal basis; unavailable
+> historical evidence is never replaced with current knowledge.
+
+```console
+$ security-passport IE00B4L5Y983 --as-of 2026-09-19
+# Milan file published 09-18 → designated settlement location
+# known but NOT yet effective (effective_from 09-21)
+
+$ security-passport IE00B4L5Y983 --as-of 2026-09-21
+# same evidence set → designation now effective
+```
+
+See `docs/adr/ADR-005-temporal-semantics.md`.
 
 ## QA
 

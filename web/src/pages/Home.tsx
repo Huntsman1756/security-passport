@@ -3,11 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { status } from "../api";
 
-const EXAMPLES = [
-  "DE000A3LJCB4",
-  "XS2081615473",
-  "ES0000101966",
-  "IE0007SRI1C7",
+const EXAMPLES: { isin: string; label: string; asOf?: string }[] = [
+  { isin: "IE00B4L5Y983", label: "temporal/post-trade",
+    asOf: "2026-09-19" },
+  { isin: "DE000A3LJCB4", label: "equity passport" },
+  { isin: "IE0007SRI1C7", label: "issuer-LEI conflict" },
+  { isin: "ES0105321030", label: "CNMV fund roles" },
+  { isin: "FR0129714681", label: "ECB-only unknown" },
 ];
 
 export function Home() {
@@ -51,13 +53,17 @@ export function Home() {
       </form>
 
       <div className="mt-4 flex flex-wrap justify-center gap-2">
-        {EXAMPLES.map((i) => (
+        {EXAMPLES.map((e) => (
           <button
-            key={i}
-            onClick={() => nav(`/isin/${i}`)}
+            key={e.isin}
+            onClick={() =>
+              nav(`/isin/${e.isin}` +
+                  (e.asOf ? `?as_of=${e.asOf}` : ""))}
+            title={e.label}
             className="mono rounded border border-[var(--line)] px-2.5 py-1 text-[11.5px] text-[var(--ink-2)] hover:border-[var(--accent)] hover:text-[var(--ink)]"
           >
-            {i}
+            {e.isin}
+            {e.asOf ? `·${e.asOf.slice(5)}` : ""}
           </button>
         ))}
       </div>

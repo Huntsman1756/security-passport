@@ -1,5 +1,21 @@
 # Runbooks
 
+## Deployment (single VPS)
+
+```bash
+docker compose up -d --build
+# env: PUBLIC_BASE_URL=passport.h1756.es
+#      OPENINSTRUMENT_URL=http://<oi-service>:8000
+#      DATA_ROOT=/srv/security-passport/data
+#      OPENVENUE_URL= optional — rulebook context
+```
+
+Caddy terminates TLS and proxies `/api/*` + `/health/*` to the
+API container; the SPA is served with history-fallback. The API
+publishes no port — the web edge is the only public surface.
+`security-passport update` runs via
+`infra/systemd/security-passport-update.timer`.
+
 ## Daily update (production)
 
 ```bash
