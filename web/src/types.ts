@@ -129,10 +129,26 @@ const Block = z
       name: string; country: string; status: string;
       evidence?: EvidenceRef;
     }[];
-    relevant_links?: {
-      investor_sss: string; issuer_sss: string;
-      intermediaries: string[]; operated_by: string;
-      status: string; evidence?: EvidenceRef;
+    link_topology?: {
+      investor_csd: string; issuer_csd: string;
+      link_type: string; intermediaries: string[];
+      operated_by: string; status: string;
+      evidence?: EvidenceRef;
+    }[];
+    settlement_locations?: {
+      csd: string; csd_code: string | null;
+      relationship: string; mic: string; market: string;
+      settlement_currency: string;
+      source_published_at: string;
+      effective_from: string | null; note: string | null;
+      status: string; provider: string;
+      evidence?: EvidenceRef;
+    }[];
+    route_assessments?: {
+      from_sss: string | null; to_sss: string | null;
+      state: string; assessment: string; rule: string;
+      limitations: string; status: string;
+      evidence?: EvidenceRef | null;
     }[];
     temporal?: z.infer<typeof Temporal>;
     warnings?: string[];

@@ -207,30 +207,67 @@ export function PassportPage() {
 
         {/* POST-TRADE */}
         <Block title="Post-trade" temporal={pt.temporal}>
-          <Field label="Issuer SSS" name="post_trade.issuer_sss"
-            field={F(pt, "issuer_sss")} onOpen={open} />
+          <Field label="Issuer CSD" name="post_trade.issuer_csd"
+            field={F(pt, "issuer_csd")} onOpen={open} />
+          <Field label="Settlement locations"
+            name="post_trade.settlement_location_count"
+            field={F(pt, "settlement_location_count")} onOpen={open} />
           <Field label="Iberclear admitted" name="post_trade.iberclear_admitted"
             field={F(pt, "iberclear_admitted")} onOpen={open} />
           <Field label="Eligible SSSs" name="post_trade.eligible_sss_count"
             field={F(pt, "eligible_sss_count")} onOpen={open} />
-          <Field label="Possible paths" name="post_trade.possible_paths"
-            field={F(pt, "possible_paths")} onOpen={open} />
           <Field label="Assessment" name="post_trade.assessment"
             field={F(pt, "assessment")} onOpen={open} />
-          {(pt.relevant_links ?? []).length ? (
+          {(pt.settlement_locations ?? []).length ? (
             <div className="mt-2 px-2">
               <div className="text-[11px] uppercase tracking-wider text-[var(--ink-2)]">
-                Eligible links touching the issuer SSS
+                Settlement locations (instrument-level)
               </div>
               <ul className="mono mt-1 space-y-0.5 text-[12px] text-[var(--ink-2)]">
-                {(pt.relevant_links ?? []).slice(0, 12).map((l, i) => (
+                {(pt.settlement_locations ?? []).map((l, i) => (
                   <li key={i}>
-                    {l.investor_sss}
-                    {l.intermediaries.length
+                    {l.csd} — {l.relationship}
+                    {l.mic ? ` via ${l.mic}` : ""}
+                    {l.effective_from
+                      ? ` (from ${l.effective_from})`
+                      : ""}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {(pt.link_topology ?? []).length ? (
+            <div className="mt-2 px-2">
+              <div className="text-[11px] uppercase tracking-wider text-[var(--ink-2)]">
+                Link topology (infrastructure, not routes)
+              </div>
+              <ul className="mono mt-1 space-y-0.5 text-[12px] text-[var(--ink-2)]">
+                {(pt.link_topology ?? []).slice(0, 12).map((l, i) => (
+                  <li key={i}>
+                    {l.investor_csd}
+                    {(l.intermediaries ?? []).length
                       ? ` via ${l.intermediaries.join(" → ")}`
                       : ""}{" "}
-                    → {l.issuer_sss}
+                    → {l.issuer_csd}
+                    {l.link_type ? ` [${l.link_type}]` : ""}
                     {l.operated_by ? ` (${l.operated_by})` : ""}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ) : null}
+          {(pt.route_assessments ?? []).length ? (
+            <div className="mt-2 px-2">
+              <div className="text-[11px] uppercase tracking-wider text-[var(--ink-2)]">
+                Route assessments (inferred)
+              </div>
+              <ul className="mono mt-1 space-y-0.5 text-[12px] text-[var(--ink-2)]">
+                {(pt.route_assessments ?? []).map((a, i) => (
+                  <li key={i}>
+                    {a.from_sss && a.to_sss
+                      ? `${a.from_sss} → ${a.to_sss}: `
+                      : ""}
+                    [{a.state}] {a.assessment}
                   </li>
                 ))}
               </ul>

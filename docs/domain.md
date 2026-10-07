@@ -50,3 +50,14 @@ ids. Current rules: `instrument_type`, `dated_instrument_scope`,
 `venue_state`, `first_admission`, `eurosystem_eligibility`,
 `settlement_path`, `issuer_lei_adjudication`, `entity_role`,
 `haircut_display`.
+
+## POST-TRADE model (v0.1.2)
+
+Four separate assertions that must never merge:
+
+| concept | field/collection | semantics |
+|---|---|---|
+| issuer CSD | `issuer_csd` (field) | ECB `ISSUER_CSD` — collateral-reference semantics, `scope: eurosystem_collateral_reference`. Only valid in the ECB dataset's own sense. |
+| settlement locations | `settlement_locations` (collection) | Instrument-level CSD admission — a CSD-published file listing this ISIN. Multi-valued: `issuer_csd` / `current_place_of_settlement` / `designated_place_of_settlement` / `alternative_settlement_system`, each with `source_published_at` and `effective_from` (publication ≠ go-live). |
+| link topology | `link_topology` (collection) | Eurosystem CSD↔CSD links touching the issuer CSD — infrastructure context, never a route for this ISIN. |
+| route assessments | `route_assessments` (collection) | `inferred`/`not_assessable` statements over the above; every entry carries `rule`, `limitations` and explicit conditions. |

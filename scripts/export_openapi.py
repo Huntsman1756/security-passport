@@ -13,8 +13,8 @@ os.environ.setdefault("SECURITY_PASSPORT_PROVIDER", "fixtures")
 os.environ.setdefault("SECURITY_PASSPORT_FIXTURES",
                       "tests/fixtures/corpus")
 
-from security_passport.api.app import create_app  # noqa: E402
-from security_passport.config import load  # noqa: E402
+from security_passport.api.app import create_app
+from security_passport.config import load
 
 
 def main() -> None:

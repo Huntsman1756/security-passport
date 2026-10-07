@@ -208,29 +208,39 @@ class MicFact:
     oprt_sgmt: str
     country: str
     status: str
+    lei: str = ""
+    legal_entity: str = ""
+    market_category: str = ""
 
 
 @dataclass(frozen=True)
-class InstrumentCsdEvidence:
-    """Instrument-level CSD admission evidence — reported
+class SettlementLocationFact:
+    """One instrument-level settlement location — reported
     membership, never topology-derived.
 
-    Currently: Euronext Securities Milan "ISINs eligible for
-    settlement" workbook. Deliberately distinct from
-    ``issuer_sss`` (which is an ECB-reported code): this row is
-    what the CSD itself publishes."""
+    Euronext Securities Milan "ISINs eligible for settlement"
+    workbook: a single ISIN may legitimately carry several
+    locations — the issuer CSD, the pre-migration place, the
+    designated post-go-live place, and any alternatives. Each is
+    a separate reported assertion, never merged."""
     isin: str
     provider: str
-    issuer_csd_name: str
-    issuer_csd_code: str | None
+    csd_name: str
+    csd_code: str | None
+    relationship: str            # issuer_csd | current_place_of_settlement |
+                                 # designated_place_of_settlement |
+                                 # alternative_settlement_system
     market: str
     mic: str
     other_mic: str
     settlement_currency: str
     sheet: str
+    scope: str
+    effective_from: str
+    source_published_at: str
     observed_at: str
     artifact_sha256: str
-    file_date: str
+    note: str = ""
 
 
 class PassportStore(Protocol):
@@ -245,8 +255,8 @@ class PassportStore(Protocol):
     def eligible_links(self) -> list[SssLinkFact]: ...
     def mic(self, mic: str) -> MicFact | None: ...
     def csd_codes(self) -> dict[str, str]: ...
-    def instrument_csd_evidence(
-        self, isin: str) -> list[InstrumentCsdEvidence]: ...
+    def settlement_locations(
+        self, isin: str) -> list[SettlementLocationFact]: ...
 
 
 # ---- errors ---------------------------------------------------------------

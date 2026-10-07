@@ -71,7 +71,9 @@ class FixtureVenueProvider:
     def instrument_dossier(self, isin: str) -> dict[str, Any]:
         p = self._dir / f"{isin}.dossier.json"
         if p.exists():
-            return json.loads(p.read_text(encoding="utf-8"))
+            body: dict[str, Any] = json.loads(
+                p.read_text(encoding="utf-8"))
+            return body
         return {}
 
 
@@ -92,7 +94,7 @@ class OpenVenueProvider:
             if r.status_code != 200:
                 return None
             d = r.json()
-        except Exception:  # noqa: BLE001 — provider degrades, never raises
+        except Exception:
             return None
         return VenueContext(
             mic=mic,
@@ -110,5 +112,5 @@ class OpenVenueProvider:
             r = self._c.get(
                 f"/instruments/{isin}/operational-dossier")
             return r.json() if r.status_code == 200 else {}
-        except Exception:  # noqa: BLE001
+        except Exception:
             return {}

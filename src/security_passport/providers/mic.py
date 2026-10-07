@@ -32,6 +32,8 @@ class MicRow:
     city: str
     status: str
     lei: str
+    legal_entity: str
+    market_category: str
 
 
 def download() -> bytes:
@@ -79,5 +81,9 @@ def parse(csv_text: str) -> dict[str, MicRow]:
                 "ISO COUNTRY CODE (ISO 3166)", "").strip(),
             city=rec.get("CITY", "").strip(),
             status=rec.get("STATUS", "").strip(),
-            lei=rec.get("LEI", "").strip())
+            lei=rec.get("LEI", "").strip(),
+            legal_entity=rec.get(
+                "LEGAL ENTITY NAME", "").strip(),
+            market_category=rec.get(
+                "MARKET CATEGORY CODE", "").strip())
     return out

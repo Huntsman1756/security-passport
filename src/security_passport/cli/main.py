@@ -145,12 +145,27 @@ def _print_passport(d: dict[str, Any]) -> None:
     pt = d["post_trade"]
     print()
     print("POST-TRADE")
-    for k, label in (("issuer_sss", "Issuer SSS"),
-                     ("iberclear_admitted", "Iberclear"),
-                     ("possible_paths", "Possible paths")):
+    for k, label in (("issuer_csd", "Issuer CSD"),
+                     ("settlement_location_count",
+                      "Settlement locs"),
+                     ("iberclear_admitted", "Iberclear")):
         f = pt.get(k)
         if f:
             _print_field(label, f)
+    for loc in (pt.get("settlement_locations") or [])[:6]:
+        if not isinstance(loc, dict):
+            continue
+        eff = (f" (from {loc['effective_from']})"
+               if loc.get("effective_from") else "")
+        print(f"  {loc.get('csd','')} — {loc.get('relationship','')}"
+              f"{eff} [{loc.get('status','')}]")
+    for a in (pt.get("route_assessments") or [])[:3]:
+        if not isinstance(a, dict):
+            continue
+        pair = (f"{a['from_sss']} -> {a['to_sss']}: "
+                if a.get("from_sss") and a.get("to_sss") else "")
+        print(f"  route [{a.get('state','')}]: {pair}"
+              f"{a.get('assessment','')[:120]}")
     asm = pt.get("assessment") or {}
     if asm.get("value"):
         print(f"  assessment: {asm['value']}")

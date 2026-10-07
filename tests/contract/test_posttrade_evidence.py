@@ -24,18 +24,55 @@ def test_dictionary_issuer_csd_codebook() -> None:
     assert d["issuer_group"]["IG1"] == "Central Bank"
 
 
-def test_esmil_workbook_parse() -> None:
-    """The captured workbook slice proves instrument-level
-    evidence exists in the corpus."""
+def test_esmil_settlement_locations() -> None:
+    """Multi-location model: one ISIN legitimately carries
+    issuer / designated / alternative settlement CSDs."""
     import json
 
     rows = json.loads(
         (CORPUS / "esmil" / "rows.json").read_text(
             encoding="utf-8"))["rows"]
-    assert len(rows) == 5
-    by_isin = {r["isin"]: r for r in rows}
-    assert by_isin["FR0000120271"]["issuer_csd_name"] == \
-        "Euroclear France"
-    assert by_isin["FR0000120271"]["issuer_csd_code"] == "CLFR01"
-    assert by_isin["IE00B4L5Y983"]["issuer_csd_code"] == "CLBE02"
+    assert rows
+    by_isin: dict[str, list[dict]] = {}
+    for r in rows:
+        by_isin.setdefault(r["isin"], []).append(r)
     assert all(r["state"] == "reported" for r in rows)
+    # TotalEnergies: issuer Euroclear France + designated Euronext
+    # Securities Milan (effective go-live) + alternatives
+    locs = by_isin["FR0000120271"]
+    rels = {r["relationship"]: r["csd_name"] for r in locs}
+    assert rels["issuer_csd"] == "Euroclear France"
+    assert rels["designated_place_of_settlement"] == \
+        "Euronext Securities"
+    # publication date (file) vs effective go-live date differ —
+    # the temporal golden
+    des = next(r for r in locs
+               if r["relationship"] ==
+               "designated_place_of_settlement")
+    assert des["source_published_at"] == "2026-09-18"
+    assert des["effective_from"] == "2026-09-21"
+    # multi-alternative case — the ETF has 2 alternatives
+    ie = by_isin["IE00B4L5Y983"]
+    alts = [r["csd_name"] for r in ie
+            if r["relationship"] ==
+            "alternative_settlement_system"]
+    assert set(alts) == {"Euroclear Bank", "Euroclear Nederland"}
+
+
+def test_parse_workbook_full_width() -> None:
+    """Workbook parses designated/alternative columns; formulas
+    never leak as evidence."""
+    from security_passport.providers import euronext_esmil
+
+    rows = euronext_esmil.parse_workbook(
+        Path("tests/fixtures/corpus/esmil_workbook.xlsx")
+        .read_bytes()) if Path(
+            "tests/fixtures/corpus/esmil_workbook.xlsx") \
+        .exists() else None
+    if rows is None:
+        import pytest
+        pytest.skip("full workbook not captured as fixture")
+    for r in rows:
+        assert not str(r.get("designated", "")).startswith("=")
+        assert all(not a.startswith("=")
+                   for a in r.get("alternatives") or [])

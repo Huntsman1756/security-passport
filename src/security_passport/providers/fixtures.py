@@ -25,11 +25,11 @@ from security_passport.providers import (
 )
 from security_passport.providers.base import (
     EcbAssetFact,
-    InstrumentCsdEvidence,
     MicFact,
     PriiiDocument,
     PriiiFacts,
     ProviderError,
+    SettlementLocationFact,
     SssFact,
     SssLinkFact,
 )
@@ -228,7 +228,9 @@ class FixturePassportStore:
         return MicFact(mic=r.mic, market_name=r.market_name,
                        operating_mic=r.operating_mic,
                        oprt_sgmt=r.oprt_sgmt, country=r.country,
-                       status=r.status)
+                       status=r.status, lei=r.lei,
+                       legal_entity=r.legal_entity,
+                       market_category=r.market_category)
 
     def meta(self) -> dict[str, Any]:
         return {"mode": "fixtures"}
@@ -244,22 +246,26 @@ class FixturePassportStore:
                          errors="replace")).get(
                              "issuer_csd") or {}
 
-    # ---- instrument-level CSD evidence ----------------------------------
-    def instrument_csd_evidence(
-            self, isin: str) -> list[InstrumentCsdEvidence]:
+    # ---- instrument-level settlement locations -------------------------
+    def settlement_locations(
+            self, isin: str) -> list[SettlementLocationFact]:
         ep = self._dir / "esmil" / "rows.json"
         if not ep.exists():
             return []
         rows = json.loads(ep.read_text(encoding="utf-8"))
-        return [InstrumentCsdEvidence(
+        return [SettlementLocationFact(
             isin=r["isin"], provider=r["provider"],
-            issuer_csd_name=r.get("issuer_csd_name", ""),
-            issuer_csd_code=r.get("issuer_csd_code"),
+            csd_name=r.get("csd_name", ""),
+            csd_code=r.get("csd_code"),
+            relationship=r.get("relationship", ""),
             market=r.get("market", ""), mic=r.get("mic", ""),
             other_mic=r.get("other_mic", ""),
             settlement_currency=r.get("settlement_currency", ""),
             sheet=r.get("sheet", ""),
+            scope=r.get("scope", ""),
+            effective_from=r.get("effective_from", ""),
+            source_published_at=r.get("source_published_at", ""),
             observed_at=r.get("observed_at", ""),
             artifact_sha256=r.get("artifact_sha256", ""),
-            file_date=r.get("file_date", ""))
+            note=r.get("note", ""))
             for r in rows.get("rows", []) if r.get("isin") == isin]

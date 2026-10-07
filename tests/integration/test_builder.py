@@ -46,8 +46,9 @@ def test_eph_bond_passport(builder: PassportBuilder) -> None:
     assert ec["eligible"]["rule"]["rule_id"] == \
         "eurosystem_eligibility"
     pt = d["post_trade"]
-    assert pt["issuer_sss"]["status"] == "not_found"
-    assert pt["possible_paths"]["status"] == "not_found"
+    assert pt["issuer_csd"]["status"] == "not_found"
+    assert d["post_trade"]["route_assessments"][0][
+        "state"] == "not_assessable"
     assert pt["assessment"]["status"] == "derived"
 
 
@@ -58,9 +59,9 @@ def test_ecb_eligible_emtn(builder: PassportBuilder) -> None:
     assert ec["haircut_category"]["value"] == "L1D"
     assert ec["haircut"]["value"] == "11.5"
     pt = d["post_trade"]
-    assert pt["issuer_sss"]["status"] == "reported"
-    assert pt["issuer_sss"]["value"]["code"] == "CLBL01"
-    assert "Clearstream" in pt["issuer_sss"]["value"]["name"]
+    assert pt["issuer_csd"]["status"] == "reported"
+    assert pt["issuer_csd"]["value"]["code"] == "CLBL01"
+    assert "Clearstream" in pt["issuer_csd"]["value"]["name"]
     pm = d["primary_market"]
     assert pm["prospectus_found"]["value"] is False
     assert pm["prospectus_found"]["status"] == "reported"
@@ -69,8 +70,8 @@ def test_ecb_eligible_emtn(builder: PassportBuilder) -> None:
 def test_iberclear_evidence(builder: PassportBuilder) -> None:
     d = builder.build("ES0000101966", True).to_dict()
     pt = d["post_trade"]
-    assert pt["issuer_sss"]["value"]["code"] == "CLES01"
-    assert pt["issuer_sss"]["value"]["name"] == "Iberclear (ARCO)"
+    assert pt["issuer_csd"]["value"]["code"] == "CLES01"
+    assert pt["issuer_csd"]["value"]["name"] == "Iberclear (ARCO)"
     assert pt["iberclear_admitted"]["value"] is True
     assert pt["iberclear_admitted"]["status"] == "reported"
 
@@ -81,7 +82,7 @@ def test_no_iberclear_inference_for_spanish_equity(
     d = builder.build("ES0113900J37", True).to_dict()
     pt = d["post_trade"]
     assert pt["iberclear_admitted"]["status"] == "not_found"
-    assert pt["issuer_sss"]["status"] == "not_found"
+    assert pt["issuer_csd"]["status"] == "not_found"
 
 
 def test_preserved_issuer_conflict(builder: PassportBuilder) -> None:
@@ -121,8 +122,8 @@ def test_no_silent_nulls(builder: PassportBuilder) -> None:
         for k, v in d[blk].items():
             if k in ("listings", "document_graph",
                      "entity_roles", "identifiers",
-                     "eligible_sss", "relevant_links",
-                     "instrument_csd_evidence",
+                     "eligible_sss", "link_topology",
+                     "settlement_locations", "route_assessments",
                      "temporal", "warnings"):
                 continue
             assert "status" in v, f"{blk}.{k} has no status"

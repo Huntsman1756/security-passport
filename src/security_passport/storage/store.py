@@ -22,10 +22,10 @@ import duckdb
 
 from security_passport.providers.base import (
     EcbAssetFact,
-    InstrumentCsdEvidence,
     MicFact,
     PriiiDocument,
     PriiiFacts,
+    SettlementLocationFact,
     SssFact,
     SssLinkFact,
 )
@@ -211,7 +211,10 @@ class GenerationStore:
             operating_mic=r.get("operating_mic") or "",
             oprt_sgmt=r.get("oprt_sgmt") or "",
             country=r.get("country") or "",
-            status=r.get("status") or "")
+            status=r.get("status") or "",
+            lei=r.get("lei") or "",
+            legal_entity=r.get("legal_entity") or "",
+            market_category=r.get("market_category") or "")
 
     def meta(self) -> dict[str, Any]:
         return self._meta
@@ -223,22 +226,27 @@ class GenerationStore:
     def dictionary_section(self, name: str) -> dict[str, str]:
         return dict(self._dictionary.get(name) or {})
 
-    # ---- instrument-level CSD evidence (Euronext Milan) -----------------
-    def instrument_csd_evidence(
-            self, isin: str) -> list[InstrumentCsdEvidence]:
-        return [InstrumentCsdEvidence(
+    # ---- instrument-level settlement locations (Euronext Milan) --------
+    def settlement_locations(
+            self, isin: str) -> list[SettlementLocationFact]:
+        return [SettlementLocationFact(
             isin=str(r.get("isin") or ""),
             provider=str(r.get("provider") or ""),
-            issuer_csd_name=str(r.get("issuer_csd_name") or ""),
-            issuer_csd_code=(str(r["issuer_csd_code"])
-                             if r.get("issuer_csd_code") else None),
+            csd_name=str(r.get("csd_name") or ""),
+            csd_code=(str(r["csd_code"])
+                      if r.get("csd_code") else None),
+            relationship=str(r.get("relationship") or ""),
             market=str(r.get("market") or ""),
             mic=str(r.get("mic") or ""),
             other_mic=str(r.get("other_mic") or ""),
             settlement_currency=str(
                 r.get("settlement_currency") or ""),
             sheet=str(r.get("sheet") or ""),
+            scope=str(r.get("scope") or ""),
+            effective_from=str(r.get("effective_from") or ""),
+            source_published_at=str(
+                r.get("source_published_at") or ""),
             observed_at=str(r.get("observed_at") or ""),
             artifact_sha256=str(r.get("artifact_sha256") or ""),
-            file_date=str(r.get("file_date") or ""))
+            note=str(r.get("note") or ""))
             for r in self._esmil if r.get("isin") == isin]

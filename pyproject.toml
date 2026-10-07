@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "security-passport"
-version = "0.1.1"
+version = "0.1.2"
 description = "An evidence-backed operational passport for European financial instruments."
 readme = "README.md"
 requires-python = ">=3.11"
@@ -81,6 +81,7 @@ ignore = ["S101"]
 "src/security_passport/evidence/__init__.py" = ["S310"]
 "src/security_passport/providers/ecb_dictionary.py" = ["S310"]
 "tests/integration/test_schemathesis.py" = ["E402"]
+"scripts/capture_fixtures.py" = ["S310"]
 
 [tool.mypy]
 python_version = "3.11"

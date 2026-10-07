@@ -645,6 +645,9 @@ class PassportBuilder:
         micf = self._s.mic(li.venue_mic)
         relf = self._s.mic(li.relevant_venue) \
             if li.relevant_venue else None
+        opf = (self._s.mic(micf.operating_mic)
+               if micf and micf.operating_mic != micf.mic
+               else None)
         flags = []
         for nd in (adm, req, trd, term):
             for f in nd.flags:
@@ -655,6 +658,16 @@ class PassportBuilder:
             "venue_name": micf.market_name if micf else "",
             "venue_mic_status": micf.status if micf else "",
             "oprt_sgmt": micf.oprt_sgmt if micf else "",
+            "operating_mic": (micf.operating_mic if micf else ""),
+            "operator": ((opf.legal_entity or opf.market_name)
+                         if opf else
+                         (micf.legal_entity or micf.market_name)
+                         if micf else ""),
+            "operator_lei": ((opf.lei if opf else
+                             (micf.lei if micf else "")) or
+                             (micf.lei if micf else "")),
+            "market_category": (micf.market_category
+                                if micf else ""),
             "relevant_venue": li.relevant_venue,
             "relevant_venue_name": relf.market_name if relf else "",
             "issuer_requested_admission":
@@ -754,8 +767,15 @@ class PassportBuilder:
             basis=TemporalBasis.OBSERVED_HISTORY,
             source_time_semantics=SourceTimeSemantics.RETRIEVAL_TIME)
         searched = ["ecb_eligible_assets", "ecb_sss_links",
-                    "iberclear (public documentation)"]
-        # issuer SSS — only via a directly reported ECB issuer_csd
+                    "iberclear (public documentation)",
+                    "euronext_esmil", "euronext_frs"]
+        # four separate assertions that must never merge:
+        #   issuer CSD (ECB collateral-reference semantics)
+        #   CSDs that admit this ISIN (instrument-level)
+        #   CSD↔CSD links (infrastructure topology)
+        #   route assessments (inference over the above)
+
+        # ---- issuer CSD — ECB collateral-reference semantics ----------
         issuer_sss_name = ""
         issuer_sss_code = ""
         row = self._s.ecb_asset(isin)
@@ -774,21 +794,24 @@ class PassportBuilder:
             ev = _ecb_ev(isin, row.snapshot,
                          row.retrieved_at or self._s.ecb_retrieved_at(),
                          raw={"ISSUER_CSD": code})
+            scope = "eurosystem_collateral_reference"
             if mapped:
                 issuer_sss_name = mapped["name"]
-                b.fields["issuer_sss"] = PassportField.reported(
-                    "issuer_sss",
+                b.fields["issuer_csd"] = PassportField.reported(
+                    "issuer_csd",
                     {"code": code, "name": mapped["name"],
-                     "country": mapped["country"]}, [ev])
+                     "country": mapped["country"],
+                     "scope": scope}, [ev])
             else:
-                b.fields["issuer_sss"] = PassportField.reported(
-                    "issuer_sss", {"code": code, "name": ""}, [ev],
+                b.fields["issuer_csd"] = PassportField.reported(
+                    "issuer_csd",
+                    {"code": code, "name": "", "scope": scope}, [ev],
                     quality_flags=[
                         QualityFlag.POSSIBLE_SOURCE_DEFAULT])
                 issuer_sss_name = code
         else:
-            b.fields["issuer_sss"] = PassportField.not_found(
-                "issuer_sss", searched_sources=searched,
+            b.fields["issuer_csd"] = PassportField.not_found(
+                "issuer_csd", searched_sources=searched,
                 explanation=("No instrument-specific issuer-CSD "
                              "evidence. The ECB list only reports "
                              "issuer CSD for eligible assets; an "
@@ -798,14 +821,14 @@ class PassportBuilder:
         if issuer_sss_code in IBERCLEAR_CODES:
             b.fields["iberclear_admitted"] = PassportField.reported(
                 "iberclear_admitted", True,
-                b.fields["issuer_sss"].evidence,
+                b.fields["issuer_csd"].evidence,
                 explanation=("ECB eligible-assets reports "
                              "ISSUER_CSD=CLES01 (Iberclear-ARCO)."))
         else:
             b.fields["iberclear_admitted"] = PassportField.not_found(
                 "iberclear_admitted", searched_sources=searched,
                 explanation=LIMITATION_TEXT)
-        # topology — verbatim eligible SSSs + links (collections)
+        # ---- infrastructure topology ------------------------------------
         sss = self._s.eligible_sss()
         links = self._s.eligible_links()
         stamp = (sss[0].page_stamp if sss else "") or (
@@ -819,14 +842,16 @@ class PassportBuilder:
                  s.name, "eligible_sss", s.page_stamp,
                  s.observed_at).to_dict()}
             for s in sss]
-        # links touching the issuer SSS — context only
+        # links touching the issuer CSD — context, never routes
         relevant = [lnk for lnk in links
                     if issuer_sss_name and (
                         issuer_sss_name in lnk.issuer_sss
                         or issuer_sss_name in lnk.investor_sss)]
-        b.collections["relevant_links"] = [
-            {"investor_sss": lnk.investor_sss,
-             "issuer_sss": lnk.issuer_sss,
+        b.collections["link_topology"] = [
+            {"investor_csd": lnk.investor_sss,
+             "issuer_csd": lnk.issuer_sss,
+             "link_type": "direct" if not lnk.intermediaries
+             else "relayed",
              "intermediaries": list(lnk.intermediaries),
              "operated_by": lnk.operated_by,
              "status": "reported",
@@ -843,53 +868,83 @@ class PassportBuilder:
         else:
             b.fields["eligible_sss_count"] = PassportField.not_found(
                 "eligible_sss_count", searched_sources=searched)
-        # ---- instrument-level CSD admission evidence ------------------
-        ice = self._s.instrument_csd_evidence(isin)
-        searched.append("euronext_esmil")
-        b.collections["instrument_csd_evidence"] = [
-            {"provider": r.provider,
-             "issuer_csd_name": r.issuer_csd_name,
-             "issuer_csd_code": r.issuer_csd_code,
-             "market": r.market, "mic": r.mic,
-             "other_mic": r.other_mic,
+        # ---- instrument-level settlement locations ----------------------
+        locs = self._s.settlement_locations(isin)
+        b.collections["settlement_locations"] = [
+            {"csd": r.csd_name,
+             "csd_code": r.csd_code,
+             "relationship": r.relationship,
+             "mic": r.other_mic or r.mic,
+             "market": r.market,
              "settlement_currency": r.settlement_currency,
-             "file_date": r.file_date,
-             "state": "reported",
+             "scope": r.scope,
+             "source_published_at": r.source_published_at,
+             "effective_from": r.effective_from or None,
+             "note": r.note or None,
+             "status": "reported",
+             "provider": r.provider,
              "evidence": _artifact_ev(
-                 f"esmil:{r.isin}", r.provider,
-                 r.file_date, r.observed_at,
+                 f"{r.provider}:{r.isin}:{r.relationship}",
+                 r.provider,
+                 r.source_published_at, r.observed_at,
                  artifact_sha=r.artifact_sha256).to_dict()}
-            for r in ice]
-        if ice:
-            csds = sorted({r.issuer_csd_name for r in ice
-                           if r.issuer_csd_name})
-            b.fields["csd_admission"] = PassportField.reported(
-                "csd_admission",
-                {"admitted": True, "issuer_csds": csds,
-                 "file_date": ice[0].file_date},
-                [_artifact_ev(f"esmil:{isin}",
-                              ice[0].provider, ice[0].file_date,
-                              ice[0].observed_at,
-                              ice[0].artifact_sha256)],
-                searched_sources=searched,
-                explanation=("Instrument appears verbatim in a "
-                             "CSD-published eligibility file "
-                             "(Euronext Securities Milan)."))
+            for r in locs]
+        if locs:
+            b.fields["settlement_location_count"] = \
+                PassportField.reported(
+                    "settlement_location_count", len(locs),
+                    [_artifact_ev(f"esmil:{isin}", locs[0].provider,
+                                  locs[0].source_published_at,
+                                  locs[0].observed_at,
+                                  locs[0].artifact_sha256)],
+                    searched_sources=searched)
         else:
-            b.fields["csd_admission"] = PassportField.not_found(
-                "csd_admission", searched_sources=searched,
-                explanation=("No instrument-level CSD-published "
-                             "admission file lists this ISIN. "
-                             "Absence is not ineligibility — only "
-                             "files actually searched are "
-                             "declared."))
-        b.fields["possible_paths"] = PassportField.not_found(
-            "possible_paths", searched_sources=searched,
-            explanation=("Possible settlement paths require (a) a "
-                         "reported issuer SSS and (b) "
-                         "instrument-specific admission/holding "
-                         "evidence in an investor SSS. Condition "
-                         "(b) is not met by any v0.1 source."))
+            b.fields["settlement_location_count"] = \
+                PassportField.not_found(
+                    "settlement_location_count",
+                    searched_sources=searched,
+                    explanation=("No instrument-level CSD-published "
+                                 "admission file lists this ISIN. "
+                                 "Absence is not ineligibility — only "
+                                 "files actually searched are "
+                                 "declared."))
+        # ---- route assessments — inference, clearly labelled ------------
+        assessments: list[dict[str, Any]] = []
+        loc_names = {r.csd_name for r in locs if r.csd_name}
+        target_names = loc_names | (
+            {issuer_sss_name} if issuer_sss_name else set())
+        if target_names and relevant:
+            for lnk in relevant:
+                assessments.append({
+                    "from_sss": lnk.investor_sss,
+                    "to_sss": lnk.issuer_sss,
+                    "state": "inferred",
+                    "assessment": ("topology exists — usable for "
+                                   "THIS ISIN only if the ISIN is "
+                                   "additionally admitted at the "
+                                   "investor SSS, which is not "
+                                   "evidenced"),
+                    "rule": "settlement_path.v1",
+                    "limitations": LIMITATION_TEXT,
+                    "status": "inferred",
+                    "evidence": _sss_ev(
+                        f"{lnk.investor_sss}->{lnk.issuer_sss}",
+                        "eligible_links", lnk.page_stamp,
+                        lnk.observed_at).to_dict()})
+        if not assessments:
+            assessments.append({
+                "from_sss": None, "to_sss": None,
+                "state": "not_assessable",
+                "assessment": ("no route asserted — settlement-path "
+                               "assessment requires (a) a reported "
+                               "issuer/settlement CSD and (b) "
+                               "instrument-specific admission "
+                               "evidence at an investor SSS"),
+                "rule": "settlement_path.v1",
+                "limitations": LIMITATION_TEXT,
+                "status": "inferred",
+                "evidence": None})
+        b.collections["route_assessments"] = assessments
         # assessment — derived statement of what evidence exists
         if issuer_sss_name:
             txt = (f"Issuer SSS reported as {issuer_sss_name} "
@@ -907,7 +962,7 @@ class PassportBuilder:
                    "instrument-level admission evidence.")
         assess_ev: list[EvidenceRef] = []
         if issuer_sss_name:
-            assess_ev = list(b.fields["issuer_sss"].evidence)
+            assess_ev = list(b.fields["issuer_csd"].evidence)
         elif sss:
             assess_ev = [_sss_ev("eligible_sss_page",
                                  "eligible_sss", stamp, obs)]

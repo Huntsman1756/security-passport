@@ -95,7 +95,9 @@ def build_stores(
         [{"mic": r.mic, "operating_mic": r.operating_mic,
           "oprt_sgmt": r.oprt_sgmt, "market_name": r.market_name,
           "acronym": r.acronym, "country": r.country,
-          "city": r.city, "status": r.status, "lei": r.lei}
+          "city": r.city, "status": r.status, "lei": r.lei,
+          "legal_entity": r.legal_entity,
+          "market_category": r.market_category}
          for r in mic_rows.values()],
         stores / "mic.parquet")
     (stores / "sss.json").write_text(
@@ -155,6 +157,36 @@ def _fetch_esmil_workbook(
             tried.append(url)
     raise OSError(
         f"euronext_esmil: no workbook found in last 45d "
+        f"({len(tried)} attempts recorded)")
+
+
+def _fetch_frs_workbook(
+        data_root: Path) -> tuple[bytes, Any, str]:
+    """The European-offering docs page's second instrument file —
+    "ISINs for french registered shares". Dated ddmmyy filename;
+    probe recent publication days."""
+    import datetime as dt
+    today = dt.date.today()
+    tried: list[str] = []
+    for back in range(0, 60):
+        day = today - dt.timedelta(days=back)
+        ddmmyy = day.strftime("%d%m%y")
+        name = (f"euronext_securities_-_isins_for_french_"
+                f"registered_shares_{ddmmyy}.xlsx")
+        url = (f"https://www.euronext.com/sites/default/files/"
+               f"{day.strftime('%Y-%m')}/{name}")
+        try:
+            data, art = evidence.capture_fetch(
+                data_root, url=url,
+                provider="euronext_frs",
+                source_family="isin_eligibility_file",
+                period=day.isoformat(),
+                parser_version=euronext_esmil.PARSER)
+            return data, art, name
+        except OSError:
+            tried.append(url)
+    raise OSError(
+        f"euronext_frs: no workbook found in last 60d "
         f"({len(tried)} attempts recorded)")
 
 
@@ -292,16 +324,17 @@ def run_update(
                              for k, v in
                              fetched["dictionary"].items()}}
 
-            # ---- Euronext Milan ISIN eligibility workbook --------------
+            # ---- Euronext instrument-level CSD files -------------------
             try:
                 esmil_b, esmil_art, esmil_name = \
                     _fetch_esmil_workbook(data_root)
                 esmil_rows = [
-                    euronext_esmil.normalize(
+                    loc
+                    for r in euronext_esmil.parse_workbook(esmil_b)
+                    for loc in euronext_esmil.normalize(
                         r, evidence.utcnow(), esmil_art.sha256,
                         euronext_esmil.file_date_from_name(
-                            esmil_name))
-                    for r in euronext_esmil.parse_workbook(esmil_b)]
+                            esmil_name))]
                 fetched["esmil_rows"] = esmil_rows
                 meta["euronext_esmil"] = {
                     "raw_state": "raw_available",
@@ -316,6 +349,27 @@ def run_update(
                     "raw_state": "unavailable",
                     "error": str(e)}
                 fetched["esmil_rows"] = []
+            try:
+                frs_b, frs_art, frs_name = _fetch_frs_workbook(
+                    data_root)
+                frs_rows = [
+                    loc
+                    for r in euronext_esmil.parse_fr_registered(
+                        frs_b)
+                    for loc in euronext_esmil.normalize(
+                        r, evidence.utcnow(), frs_art.sha256,
+                        euronext_esmil.file_date_from_name(
+                            frs_name), provider="euronext_frs")]
+                fetched["esmil_rows"] = (
+                    fetched.get("esmil_rows") or []) + frs_rows
+                meta["euronext_frs"] = {
+                    "raw_state": "raw_available",
+                    "raw_source_id": frs_art.source_id,
+                    "sha256": frs_art.sha256,
+                    "file": frs_name, "rows": len(frs_rows)}
+            except OSError as e:
+                meta["euronext_frs"] = {
+                    "raw_state": "unavailable", "error": str(e)}
         else:
             fetched = dict(fetch_fn())
             meta.update(fetched.pop("meta", {}) or {})

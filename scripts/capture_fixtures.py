@@ -78,7 +78,7 @@ def fetch(url: str, binary: bool = False):
 def oi(path: str) -> dict:
     try:
         return json.loads(fetch(OI + path))
-    except Exception as e:  # noqa: BLE001 — capture records the
+    except Exception as e:
         # contract failure verbatim instead of crashing; upstream
         # /v1/evidence 503s when its hardcoded snapshot lags.
         return {"_capture_error": f"{type(e).__name__}: {e}"}
@@ -171,7 +171,7 @@ def main() -> None:
     try:
         mcsv = fetch("https://www.iso20022.org/sites/default/files/"
                      "ISO10383_MIC/ISO10383_MIC.csv")
-    except Exception as e:  # noqa: BLE001
+    except Exception as e:
         print("MIC download failed:", e)
         mcsv = ""
     if mcsv:

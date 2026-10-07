@@ -147,3 +147,29 @@ actually shipped and the provenance of every port/adaptation.
 - `--as-of` — ADR-005 temporal semantics incomplete.
 - `corporate_actions`, `OpenCNMV`, `finreg-es`,
   `ownership-radar` — REJECT for runtime as audited.
+
+## v0.1.2 — POST-TRADE model hardening + venue context
+
+- `post_trade` re-modelled into four non-mergeable assertions:
+  `issuer_csd` (ECB collateral-reference scope),
+  `settlement_locations[]` (instrument-level, multi-CSD,
+  publication≠effective), `link_topology[]` (infrastructure
+  context), `route_assessments[]` (explicitly inferred).
+  `csd_admission`/`possible_paths`/`relevant_links`/`issuer_sss`
+  retired (pre-stable contract; noted in release notes).
+- ESMIL workbook now parsed full-width: designated place
+  (effective 2026-09-21) + alternative settlement systems +
+  current place — formulas evaluated via `data_only`, never
+  leaked as evidence.
+- `euronext_frs` — second instrument-level file from the same
+  European-offering docs page (FR registered shares).
+- `euronext_porto_custody` — probed; ISIN-filterable page is
+  `PUBLIC_HUMAN_LOOKUP` (CSV export endpoint 404s) — no crawler.
+- Source registry gained the access taxonomy
+  (`PUBLIC_MACHINE_READABLE` … `BLOCKED_POLICY`) with the
+  hard no-scrape rule.
+- Listings enriched with `operating_mic`/`oprt_sgmt`/`operator`/
+  `operator_lei`/`market_category` from the same official ISO
+  10383 registry OpenVenue wraps — `VenueContextProvider` remains
+  the v0.2 boundary for the rulebook/dossier layer that the ISO
+  file does not carry.

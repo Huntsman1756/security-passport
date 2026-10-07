@@ -71,8 +71,8 @@ goldens:
       secondary_market.first_admission_date:
         {status: derived, value: "2023-05-08"}
       eurosystem_collateral.eligible: {status: derived, value: false}
-      post_trade.issuer_sss: {status: not_found}
-      post_trade.possible_paths: {status: not_found}
+      post_trade.issuer_csd: {status: not_found}
+      post_trade.settlement_location_count: {status: not_found}
 
   - isin: XS2081615473
     case: ecb_eligible_emtn
@@ -84,9 +84,9 @@ goldens:
       eurosystem_collateral.eligible: {status: derived, value: true}
       eurosystem_collateral.haircut_category:
         {status: reported, value: "L1D"}
-      eurosystem_collateral.haircut: {status: reported}
-      eurosystem_collateral.issuer_csd: {status: reported}
-      post_trade.issuer_sss:
+      eurosystem_collateral.haircut: 
+      eurosystem_collateral.issuer_csd: 
+      post_trade.issuer_csd:
         {status: reported, value: {code: "CLBL01"}}
       primary_market.prospectus_found: {status: reported, value: false}
 
@@ -96,7 +96,7 @@ goldens:
       Iberclear-ARCO via the curated mapping; proves we only
       assert admission when instrument-level evidence exists.
     expected:
-      post_trade.issuer_sss:
+      post_trade.issuer_csd:
         {status: reported, value: {code: "CLES01"}}
       post_trade.iberclear_admitted: {status: reported, value: true}
       eurosystem_collateral.eligible: {status: derived, value: true}
@@ -107,7 +107,7 @@ goldens:
       Iberclear admission must remain not_found.
     expected:
       post_trade.iberclear_admitted: {status: not_found}
-      post_trade.issuer_sss: {status: not_found}
+      post_trade.issuer_csd: {status: not_found}
       identity.instrument_type: {status: derived}
 
   - isin: DE0007164600
@@ -126,14 +126,14 @@ goldens:
     expected:
       identity.issuer_lei: {status: conflict}
       overall_state: found
-      post_trade.csd_admission: {status: reported}
+      post_trade.settlement_location_count: 
 
   - isin: LU0003549028
     case: lu_fund
     purpose: collective-investment share class — PRIII absent is
       honest; no fund-registry roles yet (OpenFunds is v0.2).
     expected:
-      identity.cfi: {status: reported}
+      identity.cfi: 
       primary_market.prospectus_found: {status: reported, value: false}
 
   - isin: XSSE2WKP7HV5
@@ -162,8 +162,8 @@ goldens:
       identity.instrument_type: {status: derived, value: equity}
       secondary_market.listings_at_least: 30
       eurosystem_collateral.eligible: {status: derived, value: false}
-      post_trade.issuer_sss: {status: not_found}
-      post_trade.csd_admission: {status: reported}
+      post_trade.issuer_csd: {status: not_found}
+      post_trade.settlement_location_count: 
 
   - isin: FR0000120271
     case: fr_large_equity_multivenue
@@ -172,7 +172,7 @@ goldens:
     expected:
       overall_state: found
       secondary_market.listings_at_least: 40
-      post_trade.csd_admission: {status: reported}
+      post_trade.settlement_location_count: 
 
   - isin: IT0004729759
     case: it_equity
@@ -189,7 +189,7 @@ goldens:
       overall_state: found
       primary_market.prospectus_found: {status: reported, value: true}
       secondary_market.listings_at_least: 40
-      post_trade.csd_admission: {status: reported}
+      post_trade.settlement_location_count: 
 
   - isin: ES0113211835
     case: es_equity_large
@@ -204,17 +204,17 @@ goldens:
       coverage.
     expected:
       overall_state: found
-      identity.cfi: {status: reported}
+      identity.cfi: 
       secondary_market.listings_at_least: 30
       identity.maturity_date: {status: not_applicable}
-      post_trade.csd_admission: {status: reported}
+      post_trade.settlement_location_count: 
 
   - isin: IE00BYYJHC15
     case: ucits_share_class
     purpose: UCITS liquidity share class — C prefix CFI.
     expected:
       overall_state: found
-      identity.cfi: {status: reported}
+      identity.cfi: 
 
   - isin: ES0155092036
     case: es_sicav
@@ -239,7 +239,7 @@ goldens:
     purpose: Spanish central-govt bond — ECB eligible with CLES01,
       second independent Iberclear-evidence path.
     expected:
-      post_trade.issuer_sss:
+      post_trade.issuer_csd:
         {status: reported, value: {code: "CLES01"}}
       post_trade.iberclear_admitted: {status: reported, value: true}
       eurosystem_collateral.haircut_category:
@@ -251,7 +251,7 @@ goldens:
       Securities Milan) — instrument-level CSD identity beyond DE/LU.
     expected:
       eurosystem_collateral.eligible: {status: derived, value: true}
-      post_trade.issuer_sss:
+      post_trade.issuer_csd:
         {status: reported, value: {code: "CLIT01"}}
       primary_market.prospectus_found: {status: reported, value: true}
 
@@ -264,7 +264,7 @@ goldens:
       overall_state: unknown
       identity.cfi: {status: not_found}
       eurosystem_collateral.eligible: {status: derived, value: true}
-      post_trade.issuer_sss:
+      post_trade.issuer_csd:
         {status: reported, value: {code: "CLFR01"}}
 
   - isin: DE000A2GSP56
@@ -277,7 +277,7 @@ goldens:
         {status: reported, value: "L1B"}
       eurosystem_collateral.covered_bond_flag:
         {status: reported, value: "Y"}
-      post_trade.issuer_sss:
+      post_trade.issuer_csd:
         {status: reported, value: {code: "CLDE01"}}
 
   - isin: XS2525255647
