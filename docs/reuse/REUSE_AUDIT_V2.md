@@ -67,3 +67,83 @@ live service/API), `PORT_SMALL_CODE` (copy with provenance note),
   direct adapter over official instrument-level artifacts.
 - `FundRolesProvider` → OpenFunds (`cnmv_iic`) — optional, ES IIC.
 - `CnmvDocsProvider` → emisiones-es — optional, ES issuance docs.
+
+---
+
+## Implemented decisions (v0.1.1)
+
+The audit above became executable code. This section records what
+actually shipped and the provenance of every port/adaptation.
+
+### Adopted
+
+- `python-stdnum>=2.2` — `domain/isin.py` is now a thin wrapper
+  (`normalize`, `structural_ok`, `checksum_ok`, `valid`,
+  `lei_ok`). The retired Luhn survives only as a differential
+  test oracle in `tests/unit/test_isin_stdnum.py`. Stricter
+  semantics adopted deliberately: real ISO 3166 issuance prefix
+  required, so `XX…` ISINs reject. LGPL-2.1+ obligations recorded
+  in `docs/legal/attribution.md` — library use, no copied code.
+- `schemathesis>=4.0` (dev) — `tests/integration/
+  test_schemathesis.py` runs generated cases over ASGI;
+  `positive_data_acceptance` excluded (checksum rejection is
+  intended behaviour, inexpressible in OpenAPI).
+- `oasdiff` (CI binary) — `scripts/export_openapi.py` freezes
+  `tests/fixtures/openapi-baseline.json`; CI runs
+  `oasdiff breaking --fail-on ERR`.
+
+### Ported (provenance)
+
+- `evidence/store.py` — PORT_PATTERN of
+  `openinstrument/src/openinstrument/artifacts/store.py`
+  (`openinstrument@b6b5ace`, MIT) + `posttrade-europe/
+  src/posttrade/capture/*` (`d0f440a`, Apache-2.0).
+  Local differences: SHA-256 keyed blobs at
+  `blobs/<hh>/<sha256>` (posttrade layout), `SourceArtifact`
+  ledger keyed `(provider, source_family, period)` with
+  `supersedes` (OI semantic), `RetrievalAttempt` records HTTP
+  status/ETag/Last-Modified and failure classes — attempts are
+  data even without a blob. `raw_state` values:
+  `raw_available | normalized_only | upstream_artifact_reference`.
+- `providers/venue_context.py` — the `VenueContextProvider` port
+  + `FixtureVenueProvider` + `OpenVenueProvider` (thin HTTP) per
+  the FASE-6 design; live wiring deferred to v0.2.
+
+### New own-sources (allowed — official artifacts, no upstream
+### equivalent exists at this grain)
+
+- `providers/ecb_dictionary.py` — parses the ECB Eligible Assets
+  Dictionary page into `stores/collateral_dictionary.json`
+  (issuer CSD, asset type, issuer group, reference market
+  codebooks). Corrected a real v0.1 defect: `CLBL01` had been
+  labelled "CBL (Clearstream Banking Luxembourg)"; the official
+  dictionary defines it as the JOINT "Euroclear Bank /
+  Clearstream Banking S.A." ICSD code. The curated map in
+  `providers/iberclear.py` is now a verbatim offline fallback of
+  the dictionary, not an independent opinion.
+- `providers/euronext_esmil.py` — parses the "ISINs eligible for
+  settlement in Euronext Securities Milan" workbook (located via
+  the posttrade-europe source catalog). Produces
+  `post_trade.csd_admission` + `instrument_csd_evidence`
+  collection — instrument-level CSD admission, reported.
+
+### Upstream repair
+
+- OpenInstrument `/v1/instruments/{isin}/evidence` — hardcoded
+  `snapshot=2026-09-12` / `campaign=2026-09-26` → 503 on newer
+  generations. Fixed upstream (`50e9677`): resolves the
+  instrument's own `firds_snapshot` and the campaigns present;
+  missing openfigi partitions degrade to empty evidence.
+  Security Passport pins `MIN_OPENINSTRUMENT_COMMIT = "50e9677"`.
+
+### Deferred by design
+
+- OpenVenue live data bundle — port exists; waiting for a pinned
+  service (v0.2).
+- `emisiones-es` adapters — document graph only after its
+  current gate cycle; extraction stays off.
+- `OpenFunds` provider — ES IIC roles (v0.2); `fund_key/
+  compartment_key/share_class_key` grain preserved.
+- `--as-of` — ADR-005 temporal semantics incomplete.
+- `corporate_actions`, `OpenCNMV`, `finreg-es`,
+  `ownership-radar` — REJECT for runtime as audited.
