@@ -12,12 +12,12 @@ Every discrepancy is classified; only UNEXPLAINED is a failure:
 """
 from __future__ import annotations
 
-import enum
 from dataclasses import dataclass, field
+from enum import StrEnum
 from typing import Any
 
 
-class Verdict(str, enum.Enum):
+class Verdict(StrEnum):
     SAME = "SAME"
     EXPECTED_TRANSFORMATION = "EXPECTED_TRANSFORMATION"
     SOURCE_VERSION_SKEW = "SOURCE_VERSION_SKEW"

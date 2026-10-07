@@ -9,7 +9,6 @@ import re
 from importlib.metadata import version as pkg_version
 from pathlib import Path
 
-import security_passport
 from security_passport import __version__, user_agent
 
 ROOT = Path(__file__).resolve().parents[2]

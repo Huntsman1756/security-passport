@@ -6,10 +6,10 @@ substitute for each other (ADR-004).
 """
 from __future__ import annotations
 
-from enum import Enum
+from enum import StrEnum
 
 
-class FieldStatus(str, Enum):
+class FieldStatus(StrEnum):
     """Epistemology of a passport field.
 
     REPORTED        — published directly by a source.
@@ -30,7 +30,7 @@ class FieldStatus(str, Enum):
     CONFLICT = "conflict"
 
 
-class QualityFlag(str, Enum):
+class QualityFlag(StrEnum):
     """Source-quality diagnostics — never a status."""
 
     SOURCE_DEFAULT_VALUE = "source_default_value"
@@ -44,7 +44,7 @@ class QualityFlag(str, Enum):
     SCHEMA_MIGRATION = "schema_migration"
 
 
-class TemporalAnswerState(str, Enum):
+class TemporalAnswerState(StrEnum):
     """What the available evidence can honestly support at a
     requested date — orthogonal to ``FieldStatus``.
 
@@ -65,7 +65,7 @@ class TemporalAnswerState(str, Enum):
     UNAVAILABLE = "unavailable"
 
 
-class TemporalBasis(str, Enum):
+class TemporalBasis(StrEnum):
     """How the temporal coverage behind a field was obtained."""
 
     NATIVE_HISTORY = "native_history"
@@ -74,7 +74,7 @@ class TemporalBasis(str, Enum):
     CURRENT_ONLY = "current_only"
 
 
-class SourceTimeSemantics(str, Enum):
+class SourceTimeSemantics(StrEnum):
     """What the source's timestamps actually mean."""
 
     PROVIDER_PUBLICATION_TIME = "provider_publication_time"
