@@ -46,3 +46,12 @@ coverage/
 playwright-report/
 test-results/
 .hypothesis/
+# Pi local runtime state
+.pi/npm/*
+!.pi/npm/.gitignore
+.pi/gentle-agent-home/
+.pi/template-backups/
+.pi/stack-runtime/
+.pi/stack-launcher/
+.pi/bin/
+.atl/

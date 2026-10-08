@@ -50,6 +50,21 @@ class FixtureInstrumentProvider(OpenInstrumentApiProvider):
         self._generation = ""
         self._cache: dict[str, dict[str, Any]] = {}
 
+    def corpus(self) -> list[dict[str, Any]]:
+        """Instruments present in the replay corpus — the demo's
+        coverage boundary. An ISIN outside it is ``unknown`` here
+        because it was never captured, not because it is absent
+        upstream."""
+        out = []
+        for p in sorted(self._dir.glob("*.instrument.json")):
+            doc = json.loads(p.read_text(encoding="utf-8"))
+            if doc.get("found"):
+                out.append({"isin": doc["isin"],
+                            "name": (doc.get("full_name")
+                                     or doc.get("fisn")),
+                            "cfi": doc.get("cfi")})
+        return out
+
     def _load(self, isin: str, name: str) -> dict[str, Any]:
         key = f"{isin}.{name}"
         if key not in self._cache:

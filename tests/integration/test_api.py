@@ -79,3 +79,29 @@ def test_security_headers(client: TestClient) -> None:
     r = client.get("/api/v1/status")
     assert r.headers["X-Content-Type-Options"] == "nosniff"
     assert r.headers["X-Frame-Options"] == "DENY"
+
+
+def test_status_exposes_demo_corpus(client: TestClient) -> None:
+    demo = client.get("/api/v1/status").json()["demo"]
+    isins = {c["isin"] for c in demo["corpus"]}
+    assert "DE000A3LJCB4" in isins
+    assert demo["captured_at"]
+
+
+def test_scoped_endpoints_reject_invalid_isin(
+        client: TestClient) -> None:
+    for suffix in ("evidence", "sources"):
+        r = client.get(f"/api/v1/passports/DE000A3LJCB0/{suffix}")
+        assert r.status_code == 422
+        assert r.json()["error"]["code"] == "INVALID_ISIN"
+
+
+def test_search_rejects_oversized_query(client: TestClient) -> None:
+    r = client.get("/api/v1/search", params={"q": "x" * 65})
+    assert r.status_code == 422
+    assert r.json()["error"]["code"] == "INVALID_QUERY"
+
+
+def test_openapi_served_under_api_prefix(client: TestClient) -> None:
+    assert client.get("/api/openapi.json").status_code == 200
+    assert client.get("/api/docs").status_code == 200

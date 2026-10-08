@@ -5,7 +5,8 @@ Read-only. `schema_version` is bumped on breaking contract changes.
 ## `GET /api/v1/passports/{isin}`
 
 Returns the passport JSON. Status: `200` (found, partial, or
-unknown — all are valid passports), `422 INVALID_ISIN`,
+unknown — all are valid passports), `422 INVALID_ISIN |
+INVALID_AS_OF`,
 `503 SOURCE_UNAVAILABLE | DATASET_NOT_READY`.
 
 Headers: `ETag` (semantic — generation + upstream generation +
@@ -25,12 +26,21 @@ for this ISIN.
 ## `GET /api/v1/search?q=`
 
 `exact_isin` or `text_candidates` — candidate list only, never a
-resolved decision.
+resolved decision. `q` must be 1–64 characters (`422
+INVALID_QUERY`).
+
+`/evidence` and `/sources` share the passport endpoint's
+validation and error codes.
+
+Interactive docs: `GET /api/docs`; schema: `GET /api/openapi.json`
+(both under `/api` so the web edge proxies them).
 
 ## `GET /api/v1/status`
 
 Service version, provider mode, pinned generation, upstream
-generation, provider/store errors, attribution notice.
+generation, provider/store errors, attribution notice. In fixture
+mode, `demo` lists the replay corpus (`corpus: [{isin, name, cfi}]`,
+`captured_at`); otherwise it is `null`.
 
 ## `GET /health/live` · `GET /health/ready`
 
@@ -44,7 +54,8 @@ answers a lookup (`{"checks": {"provider", "store"}}`).
            "details": null, "request_id": "abc123"}}
 ```
 
-Codes: `INVALID_ISIN`, `NOT_FOUND` (route), `PARTIAL_DATA`,
+Codes: `INVALID_ISIN`, `INVALID_AS_OF`, `INVALID_QUERY`,
+`NOT_FOUND` (route), `PARTIAL_DATA`,
 `SOURCE_UNAVAILABLE`, `DATASET_NOT_READY`,
 `INTERNAL_DATA_INTEGRITY_ERROR`.
 

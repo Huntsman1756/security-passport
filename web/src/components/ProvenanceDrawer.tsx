@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import type { PassportField } from "../types";
 import { StatusBadge } from "./StatusBadge";
 
@@ -27,6 +28,22 @@ export function ProvenanceDrawer({
   field: PassportField;
   onClose: () => void;
 }) {
+  const closeRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    const previous = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    document.addEventListener("keydown", onKey);
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.body.style.overflow = overflow;
+      previous?.focus();
+    };
+  }, [onClose]);
   return (
     <div
       className="fixed inset-0 z-50 flex justify-end bg-black/40"
@@ -47,6 +64,7 @@ export function ProvenanceDrawer({
             <h2 className="mono mt-1 text-lg font-semibold">{name}</h2>
           </div>
           <button
+            ref={closeRef}
             onClick={onClose}
             className="rounded border border-[var(--line)] px-2 py-1 text-sm text-[var(--ink-2)] hover:bg-[var(--surface-2)]"
             aria-label="Close provenance"

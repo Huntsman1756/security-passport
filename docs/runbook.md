@@ -1,6 +1,34 @@
 # Runbooks
 
-## Deployment (single VPS)
+## Public demo — passport.h1756.es
+
+The public instance runs in **fixture mode**: the API replays
+`tests/fixtures/corpus` (28 instruments) through the production
+parsers. It has no upstream dependency, no timer and no writable
+state, so it needs no routine maintenance.
+
+Layout on the H1756 VPS (Coolify Traefik routes by label; no host
+ports published):
+
+| path | content |
+|---|---|
+| `/opt/security-passport` | git checkout at the deployed commit |
+| `/data/security-passport/corpus` | read-only copy of `tests/fixtures/corpus` |
+
+```bash
+# deploy / upgrade (on the VPS)
+cd /opt/security-passport && sudo git fetch && sudo git checkout <commit-or-tag>
+sudo rsync -a --delete tests/fixtures/corpus/ /data/security-passport/corpus/
+sudo SP_VERSION=$(git rev-parse --short HEAD)   docker compose -f infra/h1756/compose.yml up -d --build
+curl -fsS https://passport.h1756.es/health/ready
+```
+
+Rollback: `git checkout <previous>` and repeat the `up -d --build`.
+Compose file: `infra/h1756/compose.yml` (limits: API 512 MB /
+0.5 CPU, web 128 MB / 0.25 CPU). The VPS operations log lives in
+the private `h1756-vps-ops` repo (`baseline/CAMBIOS.md`).
+
+## Deployment (single VPS, full mode)
 
 ```bash
 docker compose up -d --build

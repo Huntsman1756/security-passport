@@ -6,6 +6,8 @@ import { App } from "./App";
 import { Home } from "./pages/Home";
 import { PassportPage } from "./pages/Passport";
 import { Sources } from "./pages/Sources";
+import { Corpus } from "./pages/Corpus";
+import { NotFound } from "./pages/NotFound";
 import "./index.css";
 
 const qc = new QueryClient({
@@ -22,6 +24,8 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "isin/:isin", element: <PassportPage /> },
       { path: "sources", element: <Sources /> },
+      { path: "corpus", element: <Corpus /> },
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);

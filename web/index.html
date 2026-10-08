@@ -4,8 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark light" />
-    <title>Security Passport</title>
-    <meta name="description" content="Evidence-backed operational passport for European financial instruments." />
+    <title>Security Passport · evidence-backed records for European securities</title>
+    <meta name="description" content="Turn an ISIN into an evidence-backed operational record: identity, prospectus chain, trading venues, settlement evidence and Eurosystem collateral, with field-level provenance." />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://passport.h1756.es/" />
+    <meta property="og:title" content="Security Passport" />
+    <meta property="og:description" content="Every claim about a European security, with its receipt. Field-level provenance from ESMA, ECB and GLEIF public data." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://passport.h1756.es/" />
+    <meta name="theme-color" content="#0b0f15" />
+    <script>
+      // apply the stored or system theme before first paint
+      try {
+        var t = localStorage.getItem("theme");
+        var dark = t ? t === "dark" : !matchMedia("(prefers-color-scheme: light)").matches;
+        document.documentElement.classList.toggle("dark", dark);
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

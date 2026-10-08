@@ -3,21 +3,25 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
-  --accent: #4f7cff;
+  --accent: #3d63dd;
+  --accent-soft: color-mix(in srgb, var(--accent) 7%, var(--surface));
   --surface: #ffffff;
-  --surface-2: #f4f5f7;
-  --ink: #171a1f;
-  --ink-2: #4c5562;
-  --line: #dde1e7;
+  --surface-2: #f5f6f8;
+  --ink: #14171c;
+  --ink-2: #4a5361;
+  --ink-3: #737d8c;
+  --line: #e1e4ea;
   color-scheme: light;
 }
 
 .dark {
-  --surface: #0d1117;
-  --surface-2: #141a22;
-  --ink: #e3e8ef;
-  --ink-2: #96a1b1;
-  --line: #232b38;
+  --accent: #6f8fff;
+  --surface: #0b0f15;
+  --surface-2: #131922;
+  --ink: #e6ebf2;
+  --ink-2: #9aa5b5;
+  --ink-3: #6d7888;
+  --line: #222a36;
   color-scheme: dark;
 }
 
@@ -26,12 +30,38 @@ html {
   font-feature-settings: "cv02", "cv03", "cv04", "tnum";
   background: var(--surface);
   color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
 }
 
 .mono, code, .num {
   font-family: "JetBrains Mono", "Cascadia Mono", ui-monospace,
     SFMono-Regular, Menlo, Consolas, monospace;
   font-feature-settings: "zero";
+}
+
+/* subtle ledger grid behind the hero — on a pseudo-element so the
+   fade mask never touches the hero's content */
+.hero-grid {
+  position: relative;
+  isolation: isolate;
+}
+.hero-grid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--line) 55%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: linear-gradient(to bottom, black 30%, transparent);
+  pointer-events: none;
 }
 
 ::selection {

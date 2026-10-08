@@ -8,8 +8,10 @@
 **An evidence-backed operational passport for European financial
 instruments.**
 
-Live demo: <https://passport.h1756.es> ·
-Latest release: [`v0.2.0`](https://github.com/Huntsman1756/security-passport/releases) ·
+Live demo: <https://passport.h1756.es> (replays a captured corpus
+of 28 instruments through the production parsers) ·
+API docs: <https://passport.h1756.es/api/docs> ·
+Latest release: [`v0.2.1`](https://github.com/Huntsman1756/security-passport/releases) ·
 Status: research-grade / pre-1.0
 
 > Security Passport turns an ISIN into an evidence-backed
@@ -142,8 +144,9 @@ GET /api/v1/passports/{isin}
 GET /api/v1/passports/{isin}/evidence
 GET /api/v1/passports/{isin}/sources
 GET /api/v1/search?q=
-GET /api/v1/status
+GET /api/v1/status          # includes the demo corpus in fixture mode
 GET /health/live   /health/ready
+GET /api/docs               # interactive OpenAPI
 ```
 
 Partial passports return `200` with per-block `not_found`; a

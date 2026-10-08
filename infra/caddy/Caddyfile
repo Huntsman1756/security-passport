@@ -9,13 +9,22 @@
 		X-Content-Type-Options nosniff
 		X-Frame-Options DENY
 		Referrer-Policy strict-origin-when-cross-origin
+		Permissions-Policy "camera=(), microphone=(), geolocation=()"
+		# only meaningful over TLS; browsers ignore it on plain-HTTP dev
+		Strict-Transport-Security "max-age=31536000"
 		-Server
 	}
 
 	@api path /api/* /health/*
 	handle @api {
-		reverse_proxy security-passport-api:8000
+		reverse_proxy {$API_UPSTREAM:api:8000}
 	}
+
+	# hashed build assets never change; the SPA shell must revalidate
+	@hashed path /assets/*
+	header @hashed Cache-Control "public, max-age=31536000, immutable"
+	@shell not path /assets/* /api/* /health/*
+	header @shell Cache-Control "no-cache"
 
 	handle {
 		root * /srv

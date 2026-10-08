@@ -17,7 +17,7 @@ from security_passport.api.app import create_app
 from security_passport.config import load
 
 app = create_app(load())
-schema = schemathesis.openapi.from_asgi("/openapi.json", app)
+schema = schemathesis.openapi.from_asgi("/api/openapi.json", app)
 
 
 # ISO 6166 checksum rejection (422 INVALID_ISIN) is deliberate

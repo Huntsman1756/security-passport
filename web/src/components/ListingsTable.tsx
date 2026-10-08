@@ -1,4 +1,7 @@
+import { useState } from "react";
 import type { Listing } from "../types";
+
+const PREVIEW = 8;
 
 const STATE_CLS: Record<string, string> = {
   active:
@@ -11,6 +14,7 @@ const STATE_CLS: Record<string, string> = {
 };
 
 export function ListingsTable({ listings }: { listings: Listing[] }) {
+  const [all, setAll] = useState(false);
   if (!listings.length)
     return (
       <p className="px-2 py-2 text-[13px] text-[var(--ink-2)]">
@@ -19,7 +23,7 @@ export function ListingsTable({ listings }: { listings: Listing[] }) {
     );
   return (
     <div className="overflow-x-auto">
-      <table className="w-full text-left text-[12.5px]">
+      <table className="w-full text-left text-[12.5px] [&_td]:whitespace-nowrap">
         <thead>
           <tr className="text-[10.5px] uppercase tracking-wider text-[var(--ink-2)]">
             <th className="px-2 py-1.5 font-medium">MIC</th>
@@ -32,7 +36,7 @@ export function ListingsTable({ listings }: { listings: Listing[] }) {
           </tr>
         </thead>
         <tbody>
-          {listings.map((l) => (
+          {(all ? listings : listings.slice(0, PREVIEW)).map((l) => (
             <tr
               key={l.venue_mic}
               className="border-t border-[var(--line)] hover:bg-[var(--surface-2)]"
@@ -85,6 +89,14 @@ export function ListingsTable({ listings }: { listings: Listing[] }) {
           ))}
         </tbody>
       </table>
+      {listings.length > PREVIEW ? (
+        <button
+          onClick={() => setAll(!all)}
+          className="mt-1 px-2 py-1.5 text-[12px] text-[var(--accent)] hover:underline"
+        >
+          {all ? "Show fewer venues" : `Show all ${listings.length} venues`}
+        </button>
+      ) : null}
     </div>
   );
 }
