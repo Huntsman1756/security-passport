@@ -2,7 +2,6 @@
 # PUBLIC_BASE_URL is set via environment (e.g. passport.example.org).
 
 {$PUBLIC_BASE_URL:passport.localhost} {
-
 	encode zstd gzip
 
 	header {
@@ -26,9 +25,20 @@
 	@shell not path /assets/* /api/* /health/*
 	header @shell Cache-Control "no-cache"
 
-	handle {
-		root * /srv
+	root * /srv
+
+	# The SPA owns exactly these addresses (see web/src/main.tsx). Everything else
+	# is not a page: before, `try_files {path} /index.html` answered the shell with
+	# 200 for any unknown path, so /no-existe-qa and /assets/missing.js looked like
+	# real pages (soft 404). Now only real files and known routes answer 200.
+	@spa path / /corpus /sources /isin/*
+	handle @spa {
 		try_files {path} /index.html
+		file_server
+	}
+
+	handle {
+		try_files {path} =404
 		file_server
 	}
 
