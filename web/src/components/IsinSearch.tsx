@@ -39,14 +39,14 @@ export function IsinSearch({ size = "lg" }: { size?: "sm" | "lg" }) {
           aria-label={sm ? "Search ISIN" : "ISIN"}
           aria-invalid={showError}
           aria-describedby={showError ? hintId : undefined}
-          className={`mono flex-1 rounded-md border bg-[var(--surface-2)] tracking-wider outline-none placeholder:tracking-normal placeholder:text-[var(--ink-3)] focus:border-[var(--accent)] ${
+          className={`mono min-w-0 flex-1 rounded-md border bg-[var(--surface-2)] tracking-wider outline-none placeholder:tracking-normal placeholder:text-[var(--ink-3)] focus:border-[var(--accent)] ${
             showError ? "border-rose-500/60" : "border-[var(--line)]"
           } ${sm ? "h-8 px-2.5 text-[12.5px]" : "h-12 px-4 text-[15px]"}`}
         />
         {sm ? null : (
           <button
             type="submit"
-            className="h-12 rounded-md bg-[var(--accent)] px-6 text-[14px] font-medium text-white transition hover:brightness-110"
+            className="h-12 shrink-0 whitespace-nowrap rounded-md bg-[var(--accent)] px-6 text-[14px] font-medium text-white transition hover:brightness-110"
           >
             Build passport
           </button>
