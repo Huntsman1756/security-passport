@@ -31,7 +31,7 @@
 	# is not a page: before, `try_files {path} /index.html` answered the shell with
 	# 200 for any unknown path, so /no-existe-qa and /assets/missing.js looked like
 	# real pages (soft 404). Now only real files and known routes answer 200.
-	@spa path / /corpus /sources /isin/*
+	@spa path_regexp spa ^/(corpus/?|sources/?|isin/[^/]+/?)?$
 	handle @spa {
 		try_files {path} /index.html
 		file_server
@@ -40,6 +40,16 @@
 	handle {
 		try_files {path} =404
 		file_server
+	}
+
+	# Preserve the SPA's helpful error page without turning it into HTTP 200.
+	handle_errors 404 {
+		@pageError not path /assets/* /api/* /health/*
+		handle @pageError {
+			rewrite * /index.html
+			file_server
+		}
+		respond "Not found" 404
 	}
 
 	log {
